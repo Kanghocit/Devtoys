@@ -29,12 +29,32 @@ const NumberBase = () => {
 
   // Danh sách các hệ số
   const number = [
-    { title: "Hexadecimal", value: "hex" },
-    { title: "Decimal", value: "decimal" },
-    { title: "Octal", value: "octal" },
-    { title: "Binary", value: "binary" },
+    { title: "Hexadecimal", value: "hex", base: 16 },
+    { title: "Decimal", value: "decimal", base: 10 },
+    { title: "Octal", value: "octal", base: 8 },
+    { title: "Binary", value: "binary", base: 2 },
   ];
 
+  const handleChange = (value: string, base: number, key: string) => {
+    if (value === "") {
+      setValues({ hex: "", decimal: "", octal: "", binary: "" });
+      return;
+    }
+    try {
+      const decimalValue = parseInt(value, base); // Chuyển về hệ 10
+
+      if (isNaN(decimalValue)) return; // Nếu không hợp lệ thì không làm gì
+
+      setValues({
+        hex: decimalValue.toString(16).toUpperCase(), // Hệ 16
+        decimal: decimalValue.toString(10), // Hệ 10
+        octal: decimalValue.toString(8), // Hệ 8
+        binary: decimalValue.toString(2), // Hệ 2
+      });
+    } catch (error) {
+      console.error("Conversion error:", error);
+    }
+  };
   return (
     <div className="m-2 flex flex-col rounded-tl-2xl h-full p-2">
       <div className="flex justify-between">
