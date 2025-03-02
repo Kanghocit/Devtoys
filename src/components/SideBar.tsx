@@ -4,6 +4,7 @@ import Menu from "./menu";
 import { useMenu } from "@/context/MenuContext";
 import Button from "./button";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
+import clsx from "clsx";
 
 const SideBar = () => {
   const { menus, subMenus, footerMenus } = useMenu();
@@ -16,7 +17,10 @@ const SideBar = () => {
     <div className="bg-red-50/50 rounded-tr-lg">
       <div className="fixed top-0 left-0 border-b-2  bg-red-50">
         <div
-          className=" w-8 h-8 rounded-2xl flex items-center bg-red-50/50  z-10 justify-center hover:bg-red-100/50 cursor-pointer"
+          className={clsx(
+            " w-8 h-8 rounded-2xl flex items-center bg-red-50/50  z-10 justify-center hover:bg-red-100/50 cursor-pointer",
+            !collapsed && "mx-auto"
+          )}
           onClick={() => toggleCollapsed()}
         >
           {collapsed ? <IoChevronBack /> : <IoChevronForward />}

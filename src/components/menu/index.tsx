@@ -33,7 +33,7 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
           <div key={item.name}>
             <div
               className={clsx(
-                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-red-100 cursor-pointer",
+                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-red-100 cursor-pointer ",
                 className
               )}
               onClick={
@@ -58,7 +58,7 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
     <div
       className={clsx(
         "bg-transparent rounded-sm gap-2",
-        collapsed ? "w-[250px]" : "w-fit flex flex-col text-center px-2 me-3"
+        collapsed ? "w-[250px]" : "w-fit flex flex-col text-center px-2"
       )}
     >
       {renderMenuItems(items)}
