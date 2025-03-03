@@ -20,7 +20,7 @@ const Card: React.FC<CardProps> = ({
   ...rest
 }) => {
   const cardClass = clsx(
-    "grid grid-cols-3  gap-4 mx-2 my-4 p-4 drop-shadow-md rounded-lg shadow-md w-80 h-30 my-2 hover:bg-gray-100/50",
+    "grid grid-cols-3  gap-4 mx-2 my-4 p-4 drop-shadow-md rounded-lg shadow-md w-80 h-30 my-2 hover:bg-gray-100/50 cursor-pointer",
     className
   );
   const router = useRouter();

@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/button";
+import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { FaBusinessTime, FaPaste } from "react-icons/fa";
@@ -63,25 +64,11 @@ const JsonToTable = () => {
               <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>
-          <div className="relative flex border border-gray-300 w-full rounded-md ">
-            {/* Số dòng */}
-            <div className="bg-gray-100 text-gray-500 text-xs text-right p-1">
-              {lines.map((line) => (
-                <div key={line} className="h-5 leading-5">
-                  {line}
-                </div>
-              ))}
-            </div>
-
-            {/* Textarea */}
-            <textarea
-              ref={textareaRef}
-              className="w-full min-h-[90%] resize-none p-2 font-mono text-sm  outline-none"
-              onInput={updateLines}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-          </div>
+          <Textarea
+            onInput={updateLines}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
         </div>
 
         {/* Output */}
