@@ -17,27 +17,39 @@ const CronParser = () => {
   const [valueCron, setValueCron] = useState("* * * * * *");
   const [desCron, setDesCron] = useState("");
   const [scheduledDates, setScheduledDates] = useState("");
-
+  const [scheduleCount, setScheduleCount] = useState<number>(5); // Lưu số lượng lịch trình cần tạo
   const data = new Date();
-  const checkCron = (cron: string) => {
+  console.log("data", data);
+
+  // Hàm để tính toán các thời điểm tiếp theo dựa trên cron expression
+  const generateScheduledDates = (cron: string, count: number) => {
+    const now = new Date();
+    let dates = [];
+    for (let i = 0; i < count; i++) {
+      now.setSeconds(now.getSeconds() + 1);
+
+      const formattedDate = now.toISOString().split("T")[0]; // yyyy-MM-dd
+      const dayOfWeek = now.toLocaleString("en-US", { weekday: "short" }); // ddd 
+      const time = now.toTimeString().split(" ")[0]; // HH:mm:ss
+
+      dates.push(`${formattedDate} ${dayOfWeek} ${time}`);
+    }
+    return dates.join("\n");
+  };
+
+  useEffect(() => {
     if (valueCron === "* * * * * *") {
       setDesCron("Every second");
-      setScheduledDates(
-        "2025-03-03 Mon 10:00:00\n2025-03-03 Mon 10:00:01\n2025-03-03 Mon 10:00:02\n2025-03-03 Mon 10:00:01\n2025-03-03 Mon 10:00:02"
-      );
+      setScheduledDates(generateScheduledDates(valueCron, scheduleCount));
     }
-  };
+  }, [valueCron, scheduleCount]);
 
   const handleClear = () => {
     setValueCron("");
     setDesCron("");
     setScheduledDates("");
   };
-  useEffect(() => {
-    checkCron(valueCron);
-  }, [valueCron]);
 
-  console.log("data", data);
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       {/* Header  */}
@@ -56,7 +68,11 @@ const CronParser = () => {
         <Switch />
       </CustomCard>
       <CustomCard title="Next scheduled dates" icon={<MdOutlineSpaceBar />}>
-        <select className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none">
+        <select
+          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
+          value={scheduleCount}
+          onChange={(e) => setScheduleCount(Number(e.target.value))}
+        >
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="25">25</option>
