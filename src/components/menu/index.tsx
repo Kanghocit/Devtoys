@@ -26,6 +26,7 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
   };
 
   const renderMenuItems = (menuItems: MenuItem[]) => {
+    console.log("menuItems", menuItems);
     const router = useRouter();
     return (
       <>
@@ -33,7 +34,7 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
           <div key={item.name}>
             <div
               className={clsx(
-                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-red-100 cursor-pointer ",
+                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-gray-300 hover:text-white cursor-pointer ",
                 className
               )}
               onClick={

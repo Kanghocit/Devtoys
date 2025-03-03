@@ -8,7 +8,7 @@ const MainContent = () => {
   console.log("link", footerMenus);
   return (
     <>
-      <div className="w-full ">
+      <div className="w-full">
         <div className="flex items-center gap-2 pb-4">
           <p className="text-[40px] font-bold ">Welcome to DevToys</p>
           <span className="text-gray-400 text-sm">v2.0-preview.8</span>

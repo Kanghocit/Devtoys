@@ -49,9 +49,11 @@ const NumberBase = () => {
     <div className="m-2 flex flex-col rounded-tl-2xl h-full p-2">
       <div className="flex justify-between">
         <p className="font-bold text-2xl m-2">Number Base Converter</p>
-        <Button icon={<LuStar />} className="flex items-center text-xs">
-          Add to favorites
-        </Button>
+        <div className="flex justify-center items-center gap-2">
+          <Button icon={<LuStar />} className="flex items-center text-xs">
+            Add to favorites
+          </Button>
+        </div>
       </div>
 
       <p className="m-2">Configuration</p>
@@ -97,13 +99,13 @@ const NumberBase = () => {
         </div>
       ))}
 
-      <div className="mt-4 p-2 bg-gray-100 rounded-md">
+      {/* <div className="mt-4 p-2 bg-gray-100 rounded-md">
         {numberBases.map(({ title, value }) => (
           <p key={value}>
             {title}: {values[value as keyof typeof values]}
           </p>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

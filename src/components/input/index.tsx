@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   const containerClass = clsx(
-    "flex items-center w-80 gap-2 rounded-md px-2 py-1 mx-2 my-1 drop-shadow-md border border-gray-300 focus-within:ring-2 focus-within:ring-blue-500",
+    "flex items-center w-80 gap-2 rounded-md px-2 py-1 mx-2 my-1 drop-shadow-md border border-gray-300 border-b-gray-500 focus:outline-b-blue-700 ",
     type === "file"
       ? "bg-gray-100 cursor-pointer hover:bg-gray-200"
       : "hover:bg-gray-200",

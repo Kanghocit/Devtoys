@@ -26,7 +26,12 @@ const subMenus = [
     icon: <LuBinary />,
     children: [
       { name: "Cron parser", icon: <IoIosAlarm />, detail: "Parse cron data" },
-      { name: "Date", icon: <CiCalendarDate />, detail: "Convert date data" },
+      {
+        name: "Date",
+        icon: <CiCalendarDate />,
+        detail: "Convert date data",
+        href: "/dateconvert",
+      },
       {
         name: "JSON > Table",
         icon: <CiDatabase />,

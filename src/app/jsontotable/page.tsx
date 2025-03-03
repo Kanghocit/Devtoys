@@ -1,0 +1,141 @@
+"use client";
+import Button from "@/components/button";
+import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
+import { FaBusinessTime, FaPaste } from "react-icons/fa";
+import { LuCopy, LuCopySlash, LuStar } from "react-icons/lu";
+import { MdClear, MdFilePresent, MdOpenInFull } from "react-icons/md";
+
+const JsonToTable = () => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const [widthFull, setWidthFull] = useState(false);
+  const [input, setInput] = useState("");
+  const [lines, setLines] = useState<number[]>([1]);
+
+  // Xử lý số dòng
+  const updateLines = () => {
+    const lineCount = textareaRef.current?.value.split("\n").length || 1;
+    setLines(Array.from({ length: lineCount }, (_, i) => i + 1));
+  };
+
+  useEffect(() => {
+    updateLines();
+  }, []);
+
+  // ✅ Parse JSON input
+  const parsedInput = (() => {
+    try {
+      return JSON.parse(input);
+    } catch {
+      return [];
+    }
+  })();
+
+  return (
+    <div className="flex flex-col rounded-2xl h-full p-2">
+      {/* Header */}
+      <div className="flex justify-between">
+        <p className="font-bold text-2xl m-2">JSON Array to Table</p>
+        <div>
+          <Button icon={<LuStar />} className="flex items-center text-xs">
+            Add to favorites
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2">
+        {/* Input */}
+        <div className={clsx("mx-1", widthFull && "hidden")}>
+          <div
+            className={clsx(
+              "flex m-2 justify-between",
+              widthFull ? "hidden" : ""
+            )}
+          >
+            <p className="text-xs flex justify-center items-center">Input</p>
+            <div className="flex gap-2">
+              <Button icon={<FaBusinessTime />} />
+              <Button icon={<LuCopy />}>Paste</Button>
+              <input type="file" ref={fileInputRef} className="hidden" />
+              <Button icon={<MdFilePresent />} />
+              <Button icon={<MdClear />} onClick={() => setInput("")} />
+            </div>
+          </div>
+          <div className="relative flex border border-gray-300 w-full rounded-md ">
+            {/* Số dòng */}
+            <div className="bg-gray-100 text-gray-500 text-xs text-right p-1">
+              {lines.map((line) => (
+                <div key={line} className="h-5 leading-5">
+                  {line}
+                </div>
+              ))}
+            </div>
+
+            {/* Textarea */}
+            <textarea
+              ref={textareaRef}
+              className="w-full min-h-[90%] resize-none p-2 font-mono text-sm  outline-none"
+              onInput={updateLines}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Output */}
+        <div className={clsx("mx-1", widthFull && "w-full col-span-2  ")}>
+          <div className="flex m-2 justify-between">
+            <p className="text-xs flex justify-center items-center">Output</p>
+            <div className="flex gap-2">
+              <Button icon={<LuCopySlash />}>Copy as</Button>
+              <Button icon={<FaPaste />}>Paste as</Button>
+              <Button
+                icon={<MdOpenInFull />}
+                onClick={() => setWidthFull(!widthFull)}
+              />
+            </div>
+          </div>
+
+          <div className="relative flex border border-gray-300 w-full rounded-md overflow-auto">
+            {parsedInput.length > 0 ? (
+              <table className="w-full border-collapse border border-gray-400 text-xs">
+                <thead className="bg-gray-200">
+                  <tr>
+                    {Object.keys(parsedInput[0]).map((key) => (
+                      <th key={key} className="border border-gray-400 p-2">
+                        {key.toUpperCase()}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {parsedInput.map((item: any, index: number) => (
+                    <tr key={index} className="border-b">
+                      {Object.values(item).map((value, i) => (
+                        <td key={i} className="border border-gray-400 p-2">
+                          {typeof value === "boolean"
+                            ? value
+                              ? "✔️"
+                              : "❌"
+                            : String(value)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="text-gray-400 text-xs p-2">
+                Enter valid JSON array...
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default JsonToTable;
