@@ -109,7 +109,7 @@ const DateConvert = () => {
       {/* Header */}
       <div className="flex justify-between">
         <p className="font-bold text-2xl m-2">Date Converter</p>
-        <div>
+        <div className="flex items-center gap-2">
           <Button icon={<LuStar />} className="flex items-center text-xs">
             Add to favorites
           </Button>

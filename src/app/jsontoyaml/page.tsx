@@ -1,34 +1,24 @@
 "use client";
-import { LuCopySlash } from "react-icons/lu";
-import { MdOpenInFull } from "react-icons/md";
 import Button from "@/components/button";
+import CustomCard from "@/components/Card/CusCard";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import { LuCopy, LuStar } from "react-icons/lu";
-import { MdClear, MdFilePresent } from "react-icons/md";
-import { FaPaste, FaRegClock } from "react-icons/fa";
-import CustomCard from "@/components/Card/CusCard";
-import { FaExchangeAlt } from "react-icons/fa";
-import { MdOutlineSpaceBar } from "react-icons/md";
+import { FaExchangeAlt, FaPaste } from "react-icons/fa";
+import { LuCopy, LuCopySlash, LuStar } from "react-icons/lu";
+import {
+  MdClear,
+  MdFilePresent,
+  MdOpenInFull,
+  MdOutlineSpaceBar,
+} from "react-icons/md";
+import { LiaExchangeAltSolid } from "react-icons/lia";
 
 const JsonToYaml = () => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const [widthFull, setWidthFull] = useState(false);
   const [input, setInput] = useState("");
-  //   const [lines, setLines] = useState<number[]>([1]);
   const [output, setOutput] = useState("");
-  //   const updateLines = () => {
-  //     const lineCount = textareaRef.current?.value.split("\n").length || 1;
-  //     setLines(Array.from({ length: lineCount }, (_, i) => i + 1));
-  //   };
 
-  //   useEffect(() => {
-  //     updateLines();
-  //   }, []);
-
-  //   xử lý chuyển đổi từ json sang yaml
   const convertJsonToYaml = (jsonArray: any[]): string =>
     jsonArray
       .map((obj) =>
@@ -48,6 +38,7 @@ const JsonToYaml = () => {
       return [];
     }
   })();
+
   const yamlOutput = input ? convertJsonToYaml(parsedInput) : "";
   useEffect(() => {
     setOutput(yamlOutput);
@@ -58,14 +49,15 @@ const JsonToYaml = () => {
       {/* Header  */}
       <div className="flex justify-between">
         <p className="font-bold text-2xl m-2">JSON Array to YAML</p>
-        <div>
+        <div className="flex items-center gap-2">
           <Button icon={<LuStar />} className="flex items-center text-xs">
             Add to favorites
           </Button>
         </div>
       </div>
+      <p className="text-xs ms-2">Configuration</p>
 
-      <CustomCard title="Conversion" icon={<FaExchangeAlt />}>
+      <CustomCard title="Conversion" icon={<LiaExchangeAltSolid />}>
         <select className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none">
           <option value="JSON to YAML">JSON to YAML</option>
           <option value="YAML to JSON">YAML to JSON</option>
@@ -78,8 +70,8 @@ const JsonToYaml = () => {
         </select>
       </CustomCard>
 
-      {/* Input */}
       <div className="grid grid-cols-2">
+        {/* Input */}
         <div className={clsx("mx-1", widthFull && "hidden")}>
           <div
             className={clsx(
@@ -95,13 +87,11 @@ const JsonToYaml = () => {
             </div>
           </div>
 
-          <Textarea
-            // onInput={updateLines}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
+          <Textarea value={input} onChange={(e) => setInput(e.target.value)} />
         </div>
+
         {/* Output */}
+
         <div className={clsx("mx-1", widthFull && "w-full col-span-2")}>
           <div className="flex m-2 justify-between">
             <p className="text-xs flex justify-center items-center">Output</p>

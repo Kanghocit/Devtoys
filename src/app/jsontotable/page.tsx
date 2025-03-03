@@ -39,7 +39,7 @@ const JsonToTable = () => {
       {/* Header */}
       <div className="flex justify-between">
         <p className="font-bold text-2xl m-2">JSON Array to Table</p>
-        <div>
+        <div className="flex items-center gap-2">
           <Button icon={<LuStar />} className="flex items-center text-xs">
             Add to favorites
           </Button>

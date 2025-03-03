@@ -1,4 +1,5 @@
-import { useRef } from "react";
+"use client";
+import { useRef, useState } from "react";
 import { CiFileOn } from "react-icons/ci";
 import clsx from "clsx";
 
@@ -29,10 +30,10 @@ const Input: React.FC<InputProps> = ({
   );
 
   const inputClass = clsx(
-    "bg-transparent outline-none flex-1",
+    "bg-transparent outline-none flex-1 text-sm",
     type === "file" && "hidden"
   );
-
+  const [value, setValue] = useState("");
   return (
     <div className={containerClass}>
       {strfix && <span className="text-gray-500">{strfix}</span>}
@@ -57,7 +58,14 @@ const Input: React.FC<InputProps> = ({
         <input type={type} {...rest} className={inputClass} />
       )}
 
-      {suffix && <span className="text-gray-500">{suffix}</span>}
+      {suffix && (
+        <span
+          className="text-gray-500 cursor-pointer"
+          onClick={() => setValue("")}
+        >
+          {suffix}
+        </span>
+      )}
     </div>
   );
 };

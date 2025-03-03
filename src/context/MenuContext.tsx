@@ -25,7 +25,12 @@ const subMenus = [
     name: "Converters",
     icon: <LuBinary />,
     children: [
-      { name: "Cron parser", icon: <IoIosAlarm />, detail: "Parse cron data" },
+      {
+        name: "Cron parser",
+        icon: <IoIosAlarm />,
+        detail: "Parse cron data",
+        href: "/cronpaser",
+      },
       {
         name: "Date",
         icon: <CiCalendarDate />,
