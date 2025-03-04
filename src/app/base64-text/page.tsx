@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
@@ -60,7 +60,7 @@ const Base64Text = () => {
       <div className="flex flex-col flex-grow mt-4 overflow-hidden">
         <div className="flex flex-col flex-grow rounded-lg p-4 ">
           {/* Input */}
-          <div className="flex flex-col flex-grow my0-1">
+          <div className="flex flex-col  my-1">
             <div className="flex justify-between items-center">
               <p className="text-xs">Input</p>
               <div className="flex gap-2">

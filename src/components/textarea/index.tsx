@@ -41,7 +41,7 @@ const Textarea: React.FC<TextareaProps> = ({ className, ...rest }) => {
         {...rest}
         ref={textareaRef}
         className={clsx(
-          "w-full min-h-135 resize-none px-1 font-mono text-sm outline-none",
+          "w-full h-fit resize-none  font-mono text-sm outline-none",
           className
         )}
         onInput={updateLines} // Cập nhật số dòng mỗi khi nhập
