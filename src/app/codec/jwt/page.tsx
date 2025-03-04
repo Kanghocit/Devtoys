@@ -8,19 +8,19 @@ import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LuStar } from "react-icons/lu";
 import { BsPatchCheck } from "react-icons/bs";
 import { TbSettingsCog } from "react-icons/tb";
-import { RiErrorWarningFill } from "react-icons/ri";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import Textarea from "@/components/textarea";
+import Input from "@/components/input";
 import { MdClear } from "react-icons/md";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 
 const validateValues = [
-  { name: "Validate issuer signing key", detail: "Plain text" },
-  { name: "Validate issuer" },
-  { name: "Validate audience" },
-  { name: "Validate timelife" },
-  { name: "Validate actors" },
+  { name: "Validate issuer signing key", hasInput: true },
+  { name: "Validate issuer", hasInput: true },
+  { name: "Validate audience", hasInput: true },
+  { name: "Validate timelife", hasInput: false },
+  { name: "Validate actors", hasInput: false },
 ];
 
 const JWT = () => {
@@ -30,6 +30,18 @@ const JWT = () => {
   const [header, setHeader] = useState("");
   const [payload, setPayload] = useState("");
   const [signature, setSignature] = useState("");
+  const [secretKey, setSecretKey] = useState(""); // Thêm secret key
+
+  // quản lí nhiều sự kiện trong 1 map
+  // open và input
+  //open
+  const [validationSettings, setValidationSettings] = useState(
+    Object.fromEntries(validateValues.map((item) => [item.name, false]))
+  );
+  //input
+  const [inputValues, setInputValues] = useState(
+    Object.fromEntries(validateValues.map((item) => [item.name, ""]))
+  );
 
   const base64UrlToBase64 = (base64Url: string) => {
     return (
@@ -37,6 +49,19 @@ const JWT = () => {
       "==".slice(0, (4 - (base64Url.length % 4)) % 4)
     );
   };
+  const handleToggle = (name: string) => {
+    setValidationSettings((prev) => ({
+      ...prev,
+      [name]: !prev[name],
+    }));
+  };
+  const handleInput = (name: string, value: string) => {
+    setInputValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleGenToken = () => {
     if (!token) {
       setHeader("");
@@ -67,11 +92,9 @@ const JWT = () => {
   useEffect(() => {
     handleGenToken();
   }, [token]);
+
   return (
-    <div
-      className="flex flex-col rounded-2xl h-full p-4 bg-white shadow-md"
-      suppressHydrationWarning
-    >
+    <div className="flex flex-col rounded-2xl h-full p-4 bg-white shadow-md">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <p className="font-bold text-2xl">JWT Encoder / Decoder</p>
@@ -112,25 +135,51 @@ const JWT = () => {
       {isSetting && (
         <div className="space-y-2">
           {validateValues.map((item, index) => (
-            <CustomCard
-              key={index}
-              title={item.name}
-              icon={<BsPatchCheck />}
-              subTitle={item.detail}
-              className="border border-gray-200 my-0 pb-0 rounded-none"
-            >
-              <Switch valueTrue="On" valueFalse="Off" />
-            </CustomCard>
+            <div key={index}>
+              <CustomCard
+                title={item.name}
+                icon={<BsPatchCheck />}
+                className="border border-gray-200 my-0 rounded-none"
+              >
+                <Switch
+                  valueTrue="On"
+                  valueFalse="Off"
+                  onToggle={() => handleToggle(item.name)}
+                />
+              </CustomCard>
+
+              {/* Hiển thị input nếu cần */}
+              {item.hasInput && validationSettings[item.name] && (
+                <div className=" flex flex-col mx-2 mt-2">
+                  <div className="flex justify-between items-center">
+                    <p className="text-xs">
+                      {item.name === "Validate issuer signing key"
+                        ? "Key"
+                        : "Token " + item.name.split(" ")[1]}
+                    </p>
+                    <div className="flex gap-2">
+                      <Button icon={<FaRegPaste />}>Paste</Button>
+                      <Button icon={<FiSave />} />
+                      <Button
+                        icon={<MdClear />}
+                        // onClick={() => setInputText("")}
+                      />
+                    </div>
+                  </div>
+                  <Input
+                    className="w-full ms-0"
+                    value={inputValues[item.name]}
+                    onChange={(e) => handleInput(item.name, e.target.value)}
+                  />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       )}
 
       {/* Kết quả kiểm tra token */}
-      <div
-        className={
-          "flex items-center gap-2 my-3 mx-2 p-2 rounded-md bg-green-100"
-        }
-      >
+      <div className="flex items-center gap-2 my-3 mx-2 p-2 rounded-md bg-green-100">
         <IoIosCheckmarkCircle className="text-green-800" />
         <p className="text-sm text-green-800">Token validated</p>
       </div>
@@ -139,14 +188,7 @@ const JWT = () => {
       <div className="flex flex-col flex-grow space-y-4 mx-2">
         {/* Token Input */}
         <div>
-          <div className="flex justify-between items-center">
-            <p className="text-xs text-gray-500">Token</p>
-            <div className="flex gap-2">
-              <Button icon={<FaRegPaste />} />
-              <Button icon={<FiSave />} />
-              <Button icon={<MdClear />} />
-            </div>
-          </div>
+          <p className="text-xs text-gray-500">Token</p>
           <Textarea
             className="w-full min-h-[100px] mt-1"
             value={token}
@@ -156,16 +198,9 @@ const JWT = () => {
 
         {/* Input / Output */}
         <div className="grid grid-cols-2 gap-4">
-          {/* Input */}
+          {/* Header */}
           <div>
-            <div className="flex justify-between items-center">
-              <p className="text-xs text-gray-500">Header</p>
-              <div className="flex gap-2">
-                <Button icon={<FaRegPaste />} />
-                <Button icon={<FiSave />} />
-                <Button icon={<MdClear />} />
-              </div>
-            </div>
+            <p className="text-xs text-gray-500">Header</p>
             <Textarea
               className="w-full min-h-[100px] mt-1"
               value={header}
@@ -173,16 +208,9 @@ const JWT = () => {
             />
           </div>
 
-          {/* Output */}
+          {/* Payload */}
           <div>
-            <div className="flex justify-between items-center">
-              <p className="text-xs text-gray-500">Payload</p>
-              <div className="flex gap-2">
-                <Button icon={<FaRegPaste />} />
-                <Button icon={<FiSave />} />
-                <Button icon={<MdClear />} />
-              </div>
-            </div>
+            <p className="text-xs text-gray-500">Payload</p>
             <Textarea
               className="w-full min-h-[100px] mt-1"
               value={payload}
@@ -190,18 +218,12 @@ const JWT = () => {
             />
           </div>
         </div>
-        {/* Signature  */}
+
+        {/* Signature */}
         <div
           className={clsx("flex flex-col flex-grow", !isSetting && "hidden")}
         >
-          <div className="flex justify-between items-center">
-            <p className="text-xs text-gray-500">Signature</p>
-            <div className="flex gap-2">
-              <Button icon={<FaRegPaste />} />
-              <Button icon={<FiSave />} />
-              <Button icon={<MdClear />} />
-            </div>
-          </div>
+          <p className="text-xs text-gray-500">Signature</p>
           <Textarea
             className="w-full min-h-[100px] mt-1"
             value={signature}
