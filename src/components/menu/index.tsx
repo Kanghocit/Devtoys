@@ -26,8 +26,8 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
   };
 
   const renderMenuItems = (menuItems: MenuItem[]) => {
-    console.log("menuItems", menuItems);
     const router = useRouter();
+
     return (
       <>
         {menuItems.map((item) => (

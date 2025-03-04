@@ -5,7 +5,7 @@ import Card from "./Card";
 
 const MainContent = () => {
   const { subMenus, footerMenus } = useMenu();
-  console.log("link", footerMenus);
+
   return (
     <>
       <div className="w-full">

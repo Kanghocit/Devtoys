@@ -18,8 +18,6 @@ const CronParser = () => {
   const [desCron, setDesCron] = useState("");
   const [scheduledDates, setScheduledDates] = useState("");
   const [scheduleCount, setScheduleCount] = useState<number>(5); // Lưu số lượng lịch trình cần tạo
-  const data = new Date();
-  console.log("data", data);
 
   // Hàm để tính toán các thời điểm tiếp theo dựa trên cron expression
   const generateScheduledDates = (cron: string, count: number) => {
@@ -29,7 +27,7 @@ const CronParser = () => {
       now.setSeconds(now.getSeconds() + 1);
 
       const formattedDate = now.toISOString().split("T")[0]; // yyyy-MM-dd
-      const dayOfWeek = now.toLocaleString("en-US", { weekday: "short" }); // ddd 
+      const dayOfWeek = now.toLocaleString("en-US", { weekday: "short" }); // ddd
       const time = now.toTimeString().split(" ")[0]; // HH:mm:ss
 
       dates.push(`${formattedDate} ${dayOfWeek} ${time}`);

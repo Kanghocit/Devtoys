@@ -9,7 +9,10 @@ type SwitchProps = {
   disabled?: boolean;
   onChange?: (checked: boolean) => void;
   label?: string;
+  valueTrue?: string;
+  valueFalse?: string;
   className?: string;
+  onToggle?: () => void;
 };
 
 const Switch: React.FC<SwitchProps> = ({
@@ -19,6 +22,9 @@ const Switch: React.FC<SwitchProps> = ({
   onChange,
   label,
   className,
+  valueTrue,
+  valueFalse,
+  onToggle,
 }) => {
   const [isChecked, setIsChecked] = useState(defaultChecked || false);
 
@@ -31,7 +37,9 @@ const Switch: React.FC<SwitchProps> = ({
   return (
     <label
       className={clsx("flex items-center gap-2 cursor-pointer", className)}
+      onClick={onToggle}
     >
+      <p>{isChecked ? valueTrue : valueFalse}</p>
       <div
         className={clsx(
           "relative w-10 h-5 rounded-full transition-all flex justify-between",
@@ -48,7 +56,6 @@ const Switch: React.FC<SwitchProps> = ({
         />
       </div>
       {label && <span>{label}</span>}
-      <p>{isChecked ? "On" : "Off"}</p>
     </label>
   );
 };
