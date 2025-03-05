@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 
 type MenuItem = {
@@ -27,6 +27,14 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
   };
 
   const router = useRouter();
+  const pathname = usePathname(); //
+  const handleNavigation = (href?: string) => {
+    if (!href || pathname === href) return;
+
+    const absolutePath = href.startsWith("/") ? href : `/${href}`;
+    router.push(absolutePath);
+  };
+
   const renderMenuItems = (menuItems: MenuItem[]) => {
     return (
       <>
@@ -34,14 +42,17 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
           <div key={item.name}>
             <div
               className={clsx(
-                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-gray-300 hover:text-white cursor-pointer ",
+                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-gray-300 hover:text-white cursor-pointer",
+                pathname === item.href && "bg-gray-500 text-white",
                 className
               )}
               onClick={() => {
                 if (item.href) {
-                  router.push(item.href); // ✅ Chuyển trang nếu có href
+                  if (pathname !== item.href) {
+                    handleNavigation(item.href);
+                  }
                 } else {
-                  toggleOpen(item.name); // ✅ Nếu không có href, toggle submenu
+                  toggleOpen(item.name); 
                 }
               }}
             >
