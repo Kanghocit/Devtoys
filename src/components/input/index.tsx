@@ -1,6 +1,6 @@
 "use client";
 import clsx from "clsx";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { CiFileOn } from "react-icons/ci";
 
 type InputProps = React.ComponentPropsWithoutRef<"input"> & {

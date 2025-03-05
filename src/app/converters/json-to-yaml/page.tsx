@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaPaste } from "react-icons/fa";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LuCopy, LuCopySlash, LuStar } from "react-icons/lu";
@@ -19,27 +19,27 @@ const JsonToYaml = () => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
 
-  const convertJsonToYaml = (jsonArray: Record<string, any>[]): string =>
-    jsonArray
-      .map((obj) =>
-        Object.entries(obj)
-          .map(([key, value]) => `${key}: ${String(value)}`)
-          .join("\n")
-      )
-      .join("\n");
+  const convertJsonToYaml = useCallback(
+    (jsonArray: Record<string, string>[]): string => {
+      return jsonArray
+        .map((obj) =>
+          Object.entries(obj)
+            .map(([key, value]) => `${key}: ${String(value)}`)
+            .join("\n")
+        )
+        .join("\n");
+    },
+    []
+  );
 
-  const parsedInput = (() => {
-    try {
-      return JSON.parse(input);
-    } catch {
-      return [];
-    }
-  })();
-
-  const yamlOutput = input ? convertJsonToYaml(parsedInput) : "";
   useEffect(() => {
-    setOutput(yamlOutput);
-  }, [input, setOutput]);
+    try {
+      const parsedInput = JSON.parse(input);
+      setOutput(convertJsonToYaml(parsedInput));
+    } catch {
+      setOutput("");
+    }
+  }, [input, convertJsonToYaml]);
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">

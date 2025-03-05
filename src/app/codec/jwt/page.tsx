@@ -6,7 +6,7 @@ import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import jwt from "jsonwebtoken";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BsPatchCheck } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegPaste } from "react-icons/fa6";
@@ -62,7 +62,7 @@ const JWT = () => {
     }));
   };
 
-  const handleGenToken = () => {
+  const handleGenToken = useCallback(() => {
     if (!token) {
       setHeader("");
       setPayload("");
@@ -87,7 +87,7 @@ const JWT = () => {
       setPayload("");
       setSignature("");
     }
-  };
+  }, [token]);
   const [isVerified, setIsVerified] = useState(true);
   const verifyToken = () => {
     const tokenInput = token;
@@ -104,7 +104,7 @@ const JWT = () => {
 
   useEffect(() => {
     handleGenToken();
-  }, [token, handleGenToken]);
+  }, [handleGenToken]);
 
   return (
     <div

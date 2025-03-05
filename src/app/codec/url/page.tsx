@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
@@ -44,21 +44,17 @@ const URL = () => {
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">");
   };
-  const handleConversion = () => {
-    try {
-      if (isEncode) {
-        setOutputText(urlEncode(inputText));
-      } else {
-        setOutputText(urlDecode(inputText));
-      }
-    } catch {
-      setOutputText("⚠ Invalid URL input!");
+  const handleConversion = useCallback(() => {
+    if (isEncode) {
+      setOutputText(urlEncode(inputText));
+    } else {
+      setOutputText(urlDecode(inputText));
     }
-  };
+  }, [inputText, isEncode]);
 
   useEffect(() => {
     handleConversion();
-  }, [inputText, isEncode]);
+  }, [handleConversion]);
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">

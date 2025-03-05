@@ -2,7 +2,7 @@
 import Button from "@/components/button";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FaBusinessTime, FaPaste } from "react-icons/fa";
 import { LuCopy, LuCopySlash, LuStar } from "react-icons/lu";
 import { MdClear, MdFilePresent, MdOpenInFull } from "react-icons/md";

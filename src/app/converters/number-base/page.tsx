@@ -1,14 +1,14 @@
 "use client";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
+import Input from "@/components/input";
 import Switch from "@/components/switch";
-import { useRef, useState, useCallback, useMemo } from "react";
-import { LuBrain, LuStar, LuCopy, LuTrash } from "react-icons/lu";
-import { RiCharacterRecognitionLine } from "react-icons/ri";
-import { MdFilePresent } from "react-icons/md";
+import { useRef, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
-import Input from "@/components/input";
+import { LuBrain, LuCopy, LuStar, LuTrash } from "react-icons/lu";
+import { MdFilePresent } from "react-icons/md";
+import { RiCharacterRecognitionLine } from "react-icons/ri";
 
 const NumberBase = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);

@@ -1,10 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import Menu from "./menu";
 import { useMenu } from "@/context/MenuContext";
-import Button from "./button";
-import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import clsx from "clsx";
+import { useState } from "react";
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import Menu from "./menu";
 
 const SideBar = () => {
   const { menus, subMenus, footerMenus } = useMenu();
