@@ -26,7 +26,7 @@ const SideBar = () => {
         </div>
         <Menu items={menus} collapsed={collapsed} />
       </div>
-      <div className="flex flex-col items-center mt-25 ">
+      <div className="flex flex-col items-center mt-25">
         <Menu items={subMenus} collapsed={collapsed} />
       </div>
       <div className="fixed bottom-0 left-0 border-t-1 bg-gray-50 pt-2">

@@ -84,12 +84,16 @@ const JsonToYaml = () => {
             </div>
           </div>
 
-          <Textarea value={input} onChange={(e) => setInput(e.target.value)} />
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your Input Array..."
+          />
         </div>
 
         {/* Output */}
 
-        <div className={clsx("mx-1", widthFull && "w-full col-span-2")}>
+        <div className={clsx("mx-1 h-full", widthFull && "w-full col-span-2")}>
           <div className="flex m-2 justify-between">
             <p className="text-xs flex justify-center items-center">Output</p>
             <div className="flex gap-2">
@@ -104,9 +108,8 @@ const JsonToYaml = () => {
           <Textarea
             // onInput={updateLines}
             value={output}
-            onChange={(e) => setInput(e.target.value)}
             readOnly
-            className="cursor-not-allowed"
+            className="min-h-100 cursor-not-allowed"
           />
         </div>
       </div>

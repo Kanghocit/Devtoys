@@ -6,6 +6,7 @@ import { useState } from "react";
 
 type MenuItem = {
   icon?: React.ReactNode;
+  href?: string;
   name: string;
   children?: MenuItem[];
 };
@@ -36,11 +37,13 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
                 "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-gray-300 hover:text-white cursor-pointer ",
                 className
               )}
-              onClick={
-                item.name === "All Tools"
-                  ? () => router.push("/")
-                  : () => toggleOpen(item.name)
-              }
+              onClick={() => {
+                if (item.href) {
+                  router.push(item.href); // ✅ Chuyển trang nếu có href
+                } else {
+                  toggleOpen(item.name); // ✅ Nếu không có href, toggle submenu
+                }
+              }}
             >
               {item.icon && <span className="text-lg">{item.icon}</span>}
               {collapsed ? <span>{item.name}</span> : null}

@@ -32,6 +32,7 @@ const MainContent = () => {
         <div className="flex flex-wrap gap-4">
           {subMenus
             .flatMap((item) => item.children || []) // Gộp tất cả children thành 1 mảng duy nhất
+            .filter((child) => child.isDone) // Lọc ra những item có isDone === true
             .map((child, childIndex) => (
               <Card
                 key={childIndex}

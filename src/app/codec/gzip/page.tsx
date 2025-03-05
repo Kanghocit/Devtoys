@@ -117,6 +117,11 @@ const Gzip = () => {
               className="w-full h-0 flex-grow mt-1"
               value={fileName ? fileContent || "" : inputText}
               onChange={(e) => setInputText(e.target.value)}
+              placeholder={
+                isCompress
+                  ? "Type your Input Array..."
+                  : "Paste your Input Array..."
+              }
             />
           </div>
 
