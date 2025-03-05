@@ -241,14 +241,14 @@ const subMenus = [
         icon: <BsFiletypeJson />,
         detail: "Escape / Unescape text data",
         href: "/escape-unescape",
-        isDone: false,
+        isDone: true,
       },
       {
-        name: "List Compare",
+        name: "List Comparer",
         icon: <BsFiletypeJson />,
         detail: "Compare list data",
-        href: "/listcompare",
-        isDone: false,
+        href: "/list-comparer",
+        isDone: true,
       },
       {
         name: "Markdown Preview",
