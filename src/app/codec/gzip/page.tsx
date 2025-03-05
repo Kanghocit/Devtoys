@@ -85,7 +85,6 @@ const Gzip = () => {
         <Switch
           valueTrue="Compress"
           valueFalse="Decompress"
-          isChecked={isCompress}
           onToggle={() => setIsCompress(!isCompress)}
         />
       </CustomCard>
