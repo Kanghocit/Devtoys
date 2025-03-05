@@ -254,8 +254,8 @@ const subMenus = [
         name: "Markdown Preview",
         icon: <BsFiletypeJson />,
         detail: "Preview Markdown data",
-        href: "/markdownpreview",
-        isDone: false,
+        href: "/markdown-preview",
+        isDone: true,
       },
       {
         name: "Analyze & Utilities",
