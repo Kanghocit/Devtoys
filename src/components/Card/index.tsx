@@ -33,7 +33,13 @@ const Card: React.FC<CardProps> = ({
       <div className="col-span-2 flex flex-col justify-between">
         <div className="flex justify-between">
           <p className="font-semibold text-md">{name || "Menu"}</p>
-          <button className="bg-gray-100 rounded-md p-2 drop-shadow-md max-h-[30px] text-sm cursor-pointer">
+          <button
+            className="bg-gray-100 rounded-md p-1 drop-shadow-md max-h-[30px] text-sm cursor-pointer hover:p-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (href) window.open(href, "_blank"); // Mở tab mới
+            }}
+          >
             <MdOutlineZoomOutMap />
           </button>
         </div>

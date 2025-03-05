@@ -18,9 +18,17 @@ const MarkdownPreview = () => {
   // Chuyển Markdown thành HTML
   const markdownToStyledHtml = (markdown: string): string => {
     return markdown
-      .replace(/^# (.+)/gm, (_, title) => `<h1>${title.toUpperCase()}</h1>`)
-      .replace(/^## (.+)/gm, (_, title) => `<h2>${title.toUpperCase()}</h2>`)
-      .replace(/```(\w+)?/g, "<pre>")
+      .replace(
+        /^# (.+)/gm,
+        (_, title) =>
+          `<h1 class="text-4xl my-1 border-b-1 border-gray-300">${title.toUpperCase()}</h1>`
+      )
+      .replace(
+        /^## (.+)/gm,
+        (_, title) =>
+          `<h2 class="text-2xl my-1 border-b-1 border-gray-300">${title.toUpperCase()}</h2>`
+      )
+      .replace(/```(\w+)?/g, "<pre class='bg-gray-100 my-1 p-2 rounded-md'>")
       .trim();
   };
 
@@ -83,7 +91,7 @@ const MarkdownPreview = () => {
           </div>
           <div
             className={clsx(
-              "min-h-280 p-3 border rounded-md",
+              "min-h-280 p-3 border-1 border-gray-300 rounded-md",
               theme === "Dark"
                 ? "bg-gray-800 text-white"
                 : "bg-white text-black"
