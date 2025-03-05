@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
@@ -15,22 +15,17 @@ const Base64Text = () => {
   const [outputText, setOutputText] = useState("");
   const [isEncode, setIsEncode] = useState(true);
 
-  const handleConversion = () => {
-    try {
-      if (isEncode) {
-        setOutputText(btoa(encodeURIComponent(inputText)));
-      } else {
-        setOutputText(decodeURIComponent(atob(inputText)));
-      }
-    } catch (error) {
-      setOutputText("⚠ Invalid Base64 input!");
-      console.log("error", error);
+  const handleConversion = useCallback(() => {
+    if (isEncode) {
+      setOutputText(btoa(encodeURIComponent(inputText)));
+    } else {
+      setOutputText(decodeURIComponent(atob(inputText)));
     }
-  };
+  }, [inputText, isEncode]);
 
   useEffect(() => {
     handleConversion();
-  }, [inputText, isEncode, handleConversion]);
+  }, [handleConversion]);
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">

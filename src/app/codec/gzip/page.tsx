@@ -4,7 +4,7 @@ import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import pako from "pako";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FaRegFile } from "react-icons/fa";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
@@ -44,21 +44,17 @@ const Gzip = () => {
     return decompressed;
   };
 
-  const handleConversion = () => {
-    try {
-      if (isCompress) {
-        setOutputText(compress(inputText));
-      } else {
-        setOutputText(decompress(inputText));
-      }
-    } catch {
-      setOutputText("⚠ Invalid Gzip input!");
+  const handleConversion = useCallback(() => {
+    if (isCompress) {
+      setOutputText(compress(inputText));
+    } else {
+      setOutputText(decompress(inputText));
     }
-  };
+  }, [inputText, isCompress]);
 
   useEffect(() => {
     handleConversion();
-  }, [inputText, isCompress]);
+  }, [handleConversion]);
 
   return (
     <div

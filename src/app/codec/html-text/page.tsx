@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
@@ -29,21 +29,17 @@ const HtmlText = () => {
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">");
   };
-  const handleConversion = () => {
-    try {
-      if (isEncode) {
-        setOutputText(htmlEncode(inputText));
-      } else {
-        setOutputText(htmlDecode(inputText));
-      }
-    } catch {
-      setOutputText("⚠ Invalid HTML input!");
+  const handleConversion = useCallback(() => {
+    if (isEncode) {
+      setOutputText(htmlEncode(inputText));
+    } else {
+      setOutputText(htmlDecode(inputText));
     }
-  };
+  }, [inputText, isEncode]);
 
   useEffect(() => {
     handleConversion();
-  }, [inputText, isEncode]);
+  }, [handleConversion]);
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
