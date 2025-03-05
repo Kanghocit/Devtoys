@@ -8,12 +8,13 @@ import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LuStar } from "react-icons/lu";
 import { BsPatchCheck } from "react-icons/bs";
 import { TbSettingsCog } from "react-icons/tb";
-import { IoIosCheckmarkCircle } from "react-icons/io";
+import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import Textarea from "@/components/textarea";
 import Input from "@/components/input";
 import { MdClear } from "react-icons/md";
 import { FaRegPaste } from "react-icons/fa6";
-import { FiSave } from "react-icons/fi";
+import { FaRegCheckCircle } from "react-icons/fa";
+import jwt from "jsonwebtoken";
 
 const validateValues = [
   { name: "Validate issuer signing key", hasInput: true },
@@ -30,7 +31,6 @@ const JWT = () => {
   const [header, setHeader] = useState("");
   const [payload, setPayload] = useState("");
   const [signature, setSignature] = useState("");
-  const [secretKey, setSecretKey] = useState(""); // Thêm secret key
 
   // quản lí nhiều sự kiện trong 1 map
   // open và input
@@ -42,7 +42,7 @@ const JWT = () => {
   const [inputValues, setInputValues] = useState(
     Object.fromEntries(validateValues.map((item) => [item.name, ""]))
   );
-
+  console.log("inputValues", inputValues);
   const base64UrlToBase64 = (base64Url: string) => {
     return (
       base64Url.replace(/-/g, "+").replace(/_/g, "/") +
@@ -88,13 +88,31 @@ const JWT = () => {
       setSignature("");
     }
   };
+  const [isVerified, setIsVerified] = useState(true);
+  const verifyToken = () => {
+    const tokenInput = token;
+    console.log("tokenInput", tokenInput);
+    const secretKey = inputValues["Validate issuer signing key"];
+    try {
+      if (!tokenInput) throw new Error("Invalid JWT format");
+      const decoded = jwt.verify(tokenInput, secretKey);
+      console.log("decoded", decoded);
+      setIsVerified(true);
+    } catch (error) {
+      console.error("Error verifying token:", error);
+      setIsVerified(false);
+    }
+  };
 
   useEffect(() => {
     handleGenToken();
   }, [token]);
 
   return (
-    <div className="flex flex-col rounded-2xl h-full p-4 bg-white shadow-md">
+    <div
+      className="flex flex-col rounded-2xl h-full p-4 bg-white shadow-md"
+      suppressHydrationWarning
+    >
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <p className="font-bold text-2xl">JWT Encoder / Decoder</p>
@@ -158,11 +176,20 @@ const JWT = () => {
                         : "Token " + item.name.split(" ")[1]}
                     </p>
                     <div className="flex gap-2">
+                      <Button
+                        icon={<FaRegCheckCircle />}
+                        onClick={() => verifyToken()}
+                      >
+                        Check
+                      </Button>
                       <Button icon={<FaRegPaste />}>Paste</Button>
-                      <Button icon={<FiSave />} />
                       <Button
                         icon={<MdClear />}
-                        // onClick={() => setInputText("")}
+                        onClick={() =>
+                          Object.keys(inputValues).forEach((key) => {
+                            handleInput(key, "");
+                          })
+                        }
                       />
                     </div>
                   </div>
@@ -179,9 +206,23 @@ const JWT = () => {
       )}
 
       {/* Kết quả kiểm tra token */}
-      <div className="flex items-center gap-2 my-3 mx-2 p-2 rounded-md bg-green-100">
-        <IoIosCheckmarkCircle className="text-green-800" />
-        <p className="text-sm text-green-800">Token validated</p>
+      <div
+        className={clsx(
+          "flex items-center gap-2 my-3 mx-2 p-2 rounded-md ",
+          isVerified ? "bg-green-100" : "bg-red-100"
+        )}
+      >
+        {isVerified ? (
+          <>
+            <IoIosCheckmarkCircle className="text-green-800" />
+            <p className="text-sm text-green-800">Token validated</p>
+          </>
+        ) : (
+          <>
+            <IoIosCloseCircle className="text-red-800" />
+            <p className="text-sm text-red-800">Key is invalid</p>
+          </>
+        )}
       </div>
 
       {/* Input / Output Section */}

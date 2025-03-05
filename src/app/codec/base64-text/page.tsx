@@ -24,6 +24,7 @@ const Base64Text = () => {
       }
     } catch (error) {
       setOutputText("⚠ Invalid Base64 input!");
+      console.log("error", error);
     }
   };
 

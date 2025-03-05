@@ -9,21 +9,9 @@ import { MdClear, MdFilePresent, MdOpenInFull } from "react-icons/md";
 
 const JsonToTable = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [widthFull, setWidthFull] = useState(false);
   const [input, setInput] = useState("");
-  const [lines, setLines] = useState<number[]>([1]);
-
-  // Xử lý số dòng
-  const updateLines = () => {
-    const lineCount = textareaRef.current?.value.split("\n").length || 1;
-    setLines(Array.from({ length: lineCount }, (_, i) => i + 1));
-  };
-
-  useEffect(() => {
-    updateLines();
-  }, []);
 
   // ✅ Parse JSON input
   const parsedInput = (() => {
@@ -64,11 +52,7 @@ const JsonToTable = () => {
               <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>
-          <Textarea
-            onInput={updateLines}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
+          <Textarea value={input} onChange={(e) => setInput(e.target.value)} />
         </div>
 
         {/* Output */}
@@ -98,7 +82,7 @@ const JsonToTable = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {parsedInput.map((item: any, index: number) => (
+                  {parsedInput.map((item: string[], index: number) => (
                     <tr key={index} className="border-b">
                       {Object.values(item).map((value, i) => (
                         <td key={i} className="border border-gray-400 p-2">

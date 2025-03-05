@@ -22,7 +22,7 @@ const CronParser = () => {
   // Hàm để tính toán các thời điểm tiếp theo dựa trên cron expression
   const generateScheduledDates = (cron: string, count: number) => {
     const now = new Date();
-    let dates = [];
+    const dates = [];
     for (let i = 0; i < count; i++) {
       now.setSeconds(now.getSeconds() + 1);
 
