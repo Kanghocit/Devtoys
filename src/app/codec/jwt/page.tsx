@@ -1,20 +1,20 @@
 "use client";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
+import Input from "@/components/input";
 import Switch from "@/components/switch";
+import Textarea from "@/components/textarea";
 import clsx from "clsx";
+import jwt from "jsonwebtoken";
 import { useEffect, useState } from "react";
+import { BsPatchCheck } from "react-icons/bs";
+import { FaRegCheckCircle } from "react-icons/fa";
+import { FaRegPaste } from "react-icons/fa6";
+import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LuStar } from "react-icons/lu";
-import { BsPatchCheck } from "react-icons/bs";
-import { TbSettingsCog } from "react-icons/tb";
-import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
-import Textarea from "@/components/textarea";
-import Input from "@/components/input";
 import { MdClear } from "react-icons/md";
-import { FaRegPaste } from "react-icons/fa6";
-import { FaRegCheckCircle } from "react-icons/fa";
-import jwt from "jsonwebtoken";
+import { TbSettingsCog } from "react-icons/tb";
 
 const validateValues = [
   { name: "Validate issuer signing key", hasInput: true },
@@ -94,19 +94,17 @@ const JWT = () => {
     console.log("tokenInput", tokenInput);
     const secretKey = inputValues["Validate issuer signing key"];
     try {
-      if (!tokenInput) throw new Error("Invalid JWT format");
       const decoded = jwt.verify(tokenInput, secretKey);
       console.log("decoded", decoded);
       setIsVerified(true);
-    } catch (error) {
-      console.error("Error verifying token:", error);
+    } catch {
       setIsVerified(false);
     }
   };
 
   useEffect(() => {
     handleGenToken();
-  }, [token]);
+  }, [token, handleGenToken]);
 
   return (
     <div

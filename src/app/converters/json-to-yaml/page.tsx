@@ -39,7 +39,7 @@ const JsonToYaml = () => {
   const yamlOutput = input ? convertJsonToYaml(parsedInput) : "";
   useEffect(() => {
     setOutput(yamlOutput);
-  }, [input, yamlOutput]);
+  }, [input, setOutput]);
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">

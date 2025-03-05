@@ -36,7 +36,7 @@ const HtmlText = () => {
       } else {
         setOutputText(htmlDecode(inputText));
       }
-    } catch (error) {
+    } catch {
       setOutputText("⚠ Invalid HTML input!");
     }
   };

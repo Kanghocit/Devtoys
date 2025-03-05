@@ -51,7 +51,7 @@ const URL = () => {
       } else {
         setOutputText(urlDecode(inputText));
       }
-    } catch (error) {
+    } catch {
       setOutputText("⚠ Invalid URL input!");
     }
   };

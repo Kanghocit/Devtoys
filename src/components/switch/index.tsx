@@ -16,7 +16,6 @@ type SwitchProps = {
 };
 
 const Switch: React.FC<SwitchProps> = ({
-  checked,
   defaultChecked,
   disabled,
   onChange,

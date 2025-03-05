@@ -30,7 +30,7 @@ const Base64Text = () => {
 
   useEffect(() => {
     handleConversion();
-  }, [inputText, isEncode]);
+  }, [inputText, isEncode, handleConversion]);
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">

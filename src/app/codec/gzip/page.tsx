@@ -51,7 +51,7 @@ const Gzip = () => {
       } else {
         setOutputText(decompress(inputText));
       }
-    } catch (error) {
+    } catch {
       setOutputText("⚠ Invalid Gzip input!");
     }
   };
@@ -85,6 +85,7 @@ const Gzip = () => {
         <Switch
           valueTrue="Compress"
           valueFalse="Decompress"
+          isChecked={isCompress}
           onToggle={() => setIsCompress(!isCompress)}
         />
       </CustomCard>
