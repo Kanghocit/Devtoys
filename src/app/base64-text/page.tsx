@@ -66,7 +66,7 @@ const Base64Text = () => {
               </div>
             </div>
             <Textarea
-              className="w-full h-140 mt-1"
+              className="w-full h-130 mt-1"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
             />
@@ -82,7 +82,7 @@ const Base64Text = () => {
               </div>
             </div>
             <Textarea
-              className="w-full h-140 mt-1"
+              className="w-full h-130 mt-1"
               value={outputText}
               readOnly
             />

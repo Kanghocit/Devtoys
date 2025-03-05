@@ -51,7 +51,7 @@ const JsonToTable = () => {
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="min-h-200"
+            className="min-h-320"
           />
         </div>
 

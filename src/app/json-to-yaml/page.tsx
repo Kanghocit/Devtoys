@@ -86,6 +86,7 @@ const JsonToYaml = () => {
 
           <Textarea
             value={input}
+            className="min-h-265"
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your Input Array..."
           />
@@ -109,7 +110,7 @@ const JsonToYaml = () => {
             // onInput={updateLines}
             value={output}
             readOnly
-            className="min-h-100 cursor-not-allowed"
+            className="min-h-265 cursor-not-allowed"
           />
         </div>
       </div>
