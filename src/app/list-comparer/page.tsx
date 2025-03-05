@@ -51,7 +51,7 @@ const ListComparer = () => {
       }
 
       setOutputText(result.join("\n"));
-    } catch (error) {
+    } catch  {
       setOutputText("Invalid input");
     }
   }, [inputTextA, inputTextB, selectedOption, isEscape]);

@@ -22,7 +22,7 @@ const EscapeUnescape = () => {
       } else {
         setOutputText(JSON.parse(inputText));
       }
-    } catch (error) {
+    } catch {
       setOutputText("Invalid input");
     }
   }, [inputText, isEscape]);
