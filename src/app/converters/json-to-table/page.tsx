@@ -9,14 +9,15 @@ import { MdClear, MdFilePresent, MdOpenInFull } from "react-icons/md";
 
 const JsonToTable = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const [widthFull, setWidthFull] = useState(false);
   const [input, setInput] = useState("");
+  console.log(input);
 
   // ✅ Parse JSON input
   const parsedInput = (() => {
     try {
-      return JSON.parse(input);
+      const data = JSON.parse(input);
+      return Array.isArray(data) ? data : []; // Chỉ chấp nhận JSON array
     } catch {
       return [];
     }
@@ -37,12 +38,7 @@ const JsonToTable = () => {
       <div className="grid grid-cols-2">
         {/* Input */}
         <div className={clsx("mx-1", widthFull && "hidden")}>
-          <div
-            className={clsx(
-              "flex m-2 justify-between",
-              widthFull ? "hidden" : ""
-            )}
-          >
+          <div className="flex m-2 justify-between">
             <p className="text-xs flex justify-center items-center">Input</p>
             <div className="flex gap-2">
               <Button icon={<FaBusinessTime />} />
@@ -52,11 +48,15 @@ const JsonToTable = () => {
               <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>
-          <Textarea value={input} onChange={(e) => setInput(e.target.value)} />
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="min-h-200"
+          />
         </div>
 
         {/* Output */}
-        <div className={clsx("mx-1", widthFull && "w-full col-span-2  ")}>
+        <div className={clsx("mx-1", widthFull && "w-full col-span-2")}>
           <div className="flex m-2 justify-between">
             <p className="text-xs flex justify-center items-center">Output</p>
             <div className="flex gap-2">
@@ -82,15 +82,15 @@ const JsonToTable = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {parsedInput.map((item: string[], index: number) => (
+                  {parsedInput.map((item, index) => (
                     <tr key={index} className="border-b">
-                      {Object.values(item).map((value, i) => (
-                        <td key={i} className="border border-gray-400 p-2">
-                          {typeof value === "boolean"
-                            ? value
+                      {Object.keys(parsedInput[0]).map((key) => (
+                        <td key={key} className="border border-gray-400 p-2">
+                          {typeof item[key] === "boolean"
+                            ? item[key]
                               ? "✔️"
                               : "❌"
-                            : String(value)}
+                            : String(item[key] ?? "")}
                         </td>
                       ))}
                     </tr>
@@ -99,7 +99,7 @@ const JsonToTable = () => {
               </table>
             ) : (
               <p className="text-gray-400 text-xs p-2">
-                Enter valid JSON array...
+                Enter a valid JSON array...
               </p>
             )}
           </div>

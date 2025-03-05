@@ -66,7 +66,7 @@ const Base64Text = () => {
               </div>
             </div>
             <Textarea
-              className="w-full h-0 flex-grow mt-1"
+              className="w-full flex-grow mt-1"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
             />
