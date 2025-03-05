@@ -53,8 +53,8 @@ const Base64Text = () => {
         />
       </CustomCard>
 
-      <div className="flex flex-col flex-grow mt-4 overflow-hidden">
-        <div className="flex flex-col flex-grow rounded-lg p-4 ">
+      <div className="flex flex-col mt-4 overflow-hidden">
+        <div className="flex flex-col rounded-lg p-4 ">
           {/* Input */}
           <div className="flex flex-col  my-1">
             <div className="flex justify-between items-center">
@@ -66,14 +66,14 @@ const Base64Text = () => {
               </div>
             </div>
             <Textarea
-              className="w-full flex-grow mt-1"
+              className="w-full h-140 mt-1"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
             />
           </div>
 
           {/* Output */}
-          <div className="flex flex-col flex-grow mt-4">
+          <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
               <p className="text-xs">Output</p>
               <div className="flex gap-2">
@@ -82,7 +82,7 @@ const Base64Text = () => {
               </div>
             </div>
             <Textarea
-              className="w-full h-0 flex-grow mt-1"
+              className="w-full h-140 mt-1"
               value={outputText}
               readOnly
             />

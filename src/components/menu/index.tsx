@@ -43,7 +43,7 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
             <div
               className={clsx(
                 "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-gray-300 hover:text-white cursor-pointer",
-                pathname === item.href && "bg-gray-500 text-white",
+                pathname === item.href && "bg-gray-400 text-white",
                 className
               )}
               onClick={() => {
@@ -52,7 +52,7 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
                     handleNavigation(item.href);
                   }
                 } else {
-                  toggleOpen(item.name); 
+                  toggleOpen(item.name);
                 }
               }}
             >
