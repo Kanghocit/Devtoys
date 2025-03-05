@@ -42,8 +42,8 @@ const Menu: React.FC<MenuProps> = ({ items, className, collapsed }) => {
           <div key={item.name}>
             <div
               className={clsx(
-                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-gray-300 hover:text-white cursor-pointer",
-                pathname === item.href && "bg-gray-400 text-white",
+                "flex items-center gap-2 p-2 w-full rounded-md text-left hover:bg-gray-300 cursor-pointer",
+                pathname === item.href && "bg-gray-300 ",
                 className
               )}
               onClick={() => {
