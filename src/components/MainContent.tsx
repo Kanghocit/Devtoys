@@ -1,10 +1,9 @@
 "use client";
 
-
 import { footerMenus, subMenus } from "@/constants/menuData";
 import Card from "./Card";
+import Link from "next/link";
 const MainContent = () => {
-  
   return (
     <>
       <div className="w-full">
@@ -33,13 +32,14 @@ const MainContent = () => {
             .flatMap((item) => item.children || []) // Gộp tất cả children thành 1 mảng duy nhất
             .filter((child) => child.isDone) // Lọc ra những item có isDone === true
             .map((child, childIndex) => (
-              <Card
-                key={childIndex}
-                name={child.name}
-                icon={child.icon}
-                detail={child?.detail || "Detail"}
-                href={child?.href}
-              />
+              <Link href={child.href}>
+                <Card
+                  key={childIndex}
+                  name={child.name}
+                  icon={child.icon}
+                  detail={child?.detail || "Detail"}
+                />
+              </Link>
             ))}
         </div>
       </div>
