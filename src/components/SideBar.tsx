@@ -1,5 +1,5 @@
 "use client";
-import { useMenu } from "@/context/MenuContext";
+
 import clsx from "clsx";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,8 +7,9 @@ import { GoSearch } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Menu from "./menu";
 import Input from "@/components/input";
+import { menus, subMenus, footerMenus } from "@/constants/menuData";
+
 const SideBar = () => {
-  const { menus, subMenus, footerMenus } = useMenu();
   const [collapsed, setCollapsed] = useState(true);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);

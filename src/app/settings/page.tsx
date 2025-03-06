@@ -1,14 +1,13 @@
 "use client";
 import Button from "@/components/button";
-import { useMenu } from "@/context/MenuContext";
+import { footerMenus } from "@/constants/menuData";
 import Link from "next/link";
-import React from "react";
-import { LuEarth } from "react-icons/lu";
 import { AiOutlineNodeIndex } from "react-icons/ai";
 import { GoTrash } from "react-icons/go";
+import { LuEarth } from "react-icons/lu";
 
 const Settings = () => {
-  const { footerMenus } = useMenu();
+  
   return (
     <div className="m-2 ">
       <div className="font-bold text-2xl p-2 m-2">Manage extensions</div>

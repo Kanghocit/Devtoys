@@ -1,34 +1,44 @@
-"use client";
-import { createContext, useContext } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 import { BsFiletypeJson } from "react-icons/bs";
 import { CiCalendarDate, CiDatabase, CiSettings } from "react-icons/ci";
+import { FaQrcode, FaHtml5, FaListUl } from "react-icons/fa";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { IoIosAlarm } from "react-icons/io";
 import { IoText } from "react-icons/io5";
 import { LuBinary } from "react-icons/lu";
-import { FaQrcode } from "react-icons/fa";
-import { FaHtml5 } from "react-icons/fa";
-import { VscJson } from "react-icons/vsc";
-import { VscTextSize } from "react-icons/vsc";
-import { FaListUl } from "react-icons/fa";
-import { SiJsonwebtokens } from "react-icons/si";
+import { VscJson, VscTextSize } from "react-icons/vsc";
+import { SiJsonwebtokens, SiConvertio, SiYaml } from "react-icons/si";
 import { TbHexagonNumber5Filled } from "react-icons/tb";
-
 import {
   MdFormatIndentIncrease,
   MdManageAccounts,
   MdOutlineNumbers,
 } from "react-icons/md";
 import { RiAiGenerateText, RiHome2Line } from "react-icons/ri";
-import { SiConvertio, SiYaml } from "react-icons/si";
 
-const menus = [{ name: "All Tools", icon: <RiHome2Line />, href: "/" }];
+// Định nghĩa kiểu dữ liệu cho menu items
+export interface MenuItem {
+  name: string;
+  icon?: React.ReactNode;
+  href?: string;
+  detail?: string;
+  isDone?: boolean;
+  children?: {
+    name: string;
+    icon: React.ReactNode;
+    detail: string;
+    href: string;
+    isDone: boolean;
+  }[];
+}
 
-const subMenus = [
-  // { name: "", icon: <RxHamburgerMenu /> },
-  // { name: "Click to search", icon: <IoIosSearch /> },
-  // { name: "All Tools", icon: <RiHome2Line /> },
+// Menu chính
+export const menus: MenuItem[] = [
+  { name: "All Tools", icon: <RiHome2Line />, href: "/" },
+];
+
+// Submenus
+export const subMenus: MenuItem[] = [
   {
     name: "Converters",
     icon: <LuBinary />,
@@ -283,37 +293,20 @@ const subMenus = [
   },
 ];
 
-const footerMenus = [
+// Footer menus
+export const footerMenus: MenuItem[] = [
   {
     name: "Manage extensions",
     icon: <MdManageAccounts />,
-    detail: "Add and manage third-party extensions in DevToys",
+    detail: "Manage third-party extensions",
     href: "/extensions",
     isDone: true,
   },
   {
     name: "Settings",
     icon: <CiSettings />,
-    detail: "Customize DevToys look & feel",
+    detail: "Customize settings",
     href: "/settings",
     isDone: true,
   },
 ];
-
-const MenuContext = createContext({
-  menus,
-  subMenus,
-  footerMenus,
-});
-
-export const MenuProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <MenuContext.Provider value={{ menus, subMenus, footerMenus }}>
-      {children}
-    </MenuContext.Provider>
-  );
-};
-
-export const useMenu = () => {
-  return useContext(MenuContext);
-};

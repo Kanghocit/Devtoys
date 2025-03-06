@@ -1,11 +1,10 @@
 "use client";
 
-import { useMenu } from "@/context/MenuContext";
+
+import { footerMenus, subMenus } from "@/constants/menuData";
 import Card from "./Card";
-
 const MainContent = () => {
-  const { subMenus, footerMenus } = useMenu();
-
+  
   return (
     <>
       <div className="w-full">

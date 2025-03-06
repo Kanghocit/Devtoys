@@ -1,5 +1,5 @@
 import SideBar from "@/components/SideBar";
-import { MenuProvider } from "@/context/MenuContext";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -28,16 +28,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 overflow-auto scrollbar `}
       >
-        <MenuProvider>
-          <div className="grid grid-cols-[auto_1fr]  h-screen">
-            <aside className="h-screen overflow-y-auto bg-white shadow-md scrollbar-custom w-fit ">
-              <SideBar />
-            </aside>
-            <main className="overflow-auto scrollbar-custom w-full">
-              {children}
-            </main>
-          </div>
-        </MenuProvider>
+        <div className="grid grid-cols-[auto_1fr]  h-screen">
+          <aside className="h-screen overflow-y-auto bg-white shadow-md scrollbar-custom w-fit ">
+            <SideBar />
+          </aside>
+          <main className="overflow-auto scrollbar-custom w-full">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
