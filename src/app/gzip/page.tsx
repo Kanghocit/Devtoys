@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
@@ -9,7 +10,6 @@ import { FaRegFile } from "react-icons/fa";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { LuStar } from "react-icons/lu";
 import { MdClear } from "react-icons/md";
 
 const Gzip = () => {
@@ -62,14 +62,7 @@ const Gzip = () => {
       suppressHydrationWarning
     >
       {/* Header  */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">Gzip Encoder / Decoder</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
-      </div>
+      <Header title="Gzip Encoder / Decoder" />
 
       <p className="text-xs ms-2">Configuration</p>
 

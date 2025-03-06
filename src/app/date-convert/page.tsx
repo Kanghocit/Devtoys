@@ -1,13 +1,14 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
-import Switch from "@/components/switch";
 import Input from "@/components/input";
+import Switch from "@/components/switch";
 import { useEffect, useRef, useState } from "react";
 import { BsCalendarDate } from "react-icons/bs";
 import { FaBusinessTime } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
-import { LuCopy, LuStar } from "react-icons/lu";
+import { LuCopy } from "react-icons/lu";
 import { MdClear, MdFilePresent } from "react-icons/md";
 
 const DateConvert = () => {
@@ -107,14 +108,7 @@ const DateConvert = () => {
   return (
     <div className="flex flex-col rounded-tl-2xl h-full p-2">
       {/* Header */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">Date Converter</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
-      </div>
+      <Header title="Date Converter" />
 
       {/* Timezone & Format */}
       <CustomCard title="Default Epoch" icon={<BsCalendarDate />}>

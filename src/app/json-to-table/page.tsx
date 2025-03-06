@@ -1,11 +1,12 @@
 "use client";
 
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import { useRef, useState } from "react";
-import { FaBusinessTime, FaPaste } from "react-icons/fa";
-import { LuCopy, LuCopySlash, LuStar } from "react-icons/lu";
+import { FaPaste } from "react-icons/fa";
+import { LuCopy, LuCopySlash } from "react-icons/lu";
 import { MdClear, MdFilePresent, MdOpenInFull } from "react-icons/md";
 
 const JsonToTable = () => {
@@ -76,13 +77,7 @@ const JsonToTable = () => {
       suppressHydrationWarning
     >
       {/* Header */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">JSON Array to Table</p>
-        <Button icon={<LuStar />} className="flex items-center text-xs">
-          Add to favorites
-        </Button>
-      </div>
-
+      <Header title="JSON Array to Table" />
       <div className="grid grid-cols-2">
         {/* Input */}
         <div className={clsx("mx-1", widthFull && "hidden")}>

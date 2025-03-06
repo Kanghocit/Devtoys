@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Textarea from "@/components/textarea";
@@ -6,7 +7,7 @@ import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
 import { FaPaste } from "react-icons/fa";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { LuCopy, LuCopySlash, LuStar } from "react-icons/lu";
+import { LuCopy, LuCopySlash } from "react-icons/lu";
 import {
   MdClear,
   MdFilePresent,
@@ -44,14 +45,7 @@ const JsonToYaml = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       {/* Header  */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">JSON Array to YAML</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
-      </div>
+      <Header title="JSON Array to YAML" />
       <p className="text-xs ms-2">Configuration</p>
 
       <CustomCard title="Conversion" icon={<LiaExchangeAltSolid />}>

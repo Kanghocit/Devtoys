@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Textarea from "@/components/textarea";
@@ -6,7 +7,7 @@ import clsx from "clsx";
 import { useRef, useState } from "react";
 import { FaBusinessTime } from "react-icons/fa";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { LuCopy, LuStar } from "react-icons/lu";
+import { LuCopy } from "react-icons/lu";
 import { MdClear, MdFilePresent } from "react-icons/md";
 
 const MarkdownPreview = () => {
@@ -42,14 +43,7 @@ const MarkdownPreview = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       {/* Header */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">Markdown Preview</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
-      </div>
+      <Header title="Markdown Preview" />
 
       <CustomCard title="Conversion" icon={<LiaExchangeAltSolid />}>
         <select

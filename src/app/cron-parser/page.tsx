@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Input from "@/components/input";
@@ -8,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { LuCopy, LuStar, LuTrash } from "react-icons/lu";
+import { LuCopy, LuTrash } from "react-icons/lu";
 import { MdFilePresent, MdOutlineSpaceBar } from "react-icons/md";
 
 const CronParser = () => {
@@ -51,14 +52,7 @@ const CronParser = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       {/* Header  */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">Cron expression parser</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
-      </div>
+      <Header title="Cron expression parser" />
 
       <p className="text-xs ms-2">Configuration</p>
 

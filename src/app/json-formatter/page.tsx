@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
@@ -7,7 +8,7 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { BsSortAlphaDown } from "react-icons/bs";
 import { FaPaste } from "react-icons/fa";
-import { LuCopy, LuCopySlash, LuStar } from "react-icons/lu";
+import { LuCopy, LuCopySlash } from "react-icons/lu";
 import {
   MdClear,
   MdFilePresent,
@@ -78,7 +79,6 @@ const JsonFormatter = () => {
         parsed = sortJsonKeys(parsed);
       }
 
-      
       switch (type) {
         case "2 spaces":
           setOutput(JSON.stringify(parsed, null, 2));
@@ -106,8 +106,7 @@ const JsonFormatter = () => {
       input,
       formatOptions as "2 spaces" | "4 spaces" | "1 tab" | "Minified"
     );
-  }, [input, formatOptions, sortOptions]); 
-
+  }, [input, formatOptions, sortOptions]);
 
   return (
     <div
@@ -115,14 +114,7 @@ const JsonFormatter = () => {
       suppressHydrationWarning
     >
       {/* Header  */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">JSON Formatter</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
-      </div>
+      <Header title="JSON Formatter" />
       <p className="text-xs ms-2">Configuration</p>
 
       <CustomCard title="Indentation" icon={<MdOutlineSpaceBar />}>

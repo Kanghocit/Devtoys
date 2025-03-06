@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Input from "@/components/input";
@@ -12,7 +13,6 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { FaRegPaste } from "react-icons/fa6";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { LuStar } from "react-icons/lu";
 import { MdClear } from "react-icons/md";
 import { TbSettingsCog } from "react-icons/tb";
 
@@ -112,12 +112,7 @@ const JWT = () => {
       suppressHydrationWarning
     >
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <p className="font-bold text-2xl">JWT Encoder / Decoder</p>
-        <Button icon={<LuStar />} className="text-xs">
-          Add to favorites
-        </Button>
-      </div>
+      <Header title="JWT Encoder / Decoder" />
 
       <p className="text-xs text-gray-500">Configuration</p>
 

@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
@@ -7,7 +8,6 @@ import { useCallback, useEffect, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { LuStar } from "react-icons/lu";
 import { MdClear } from "react-icons/md";
 
 const ListComparer = () => {
@@ -62,14 +62,7 @@ const ListComparer = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       {/* Header  */}
-      <div className="flex justify-between">
-        <p className="font-bold text-2xl m-2">List Compare</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
-      </div>
+      <Header title="List Compare" />
 
       <p className="text-xs ms-2">Configuration</p>
 
