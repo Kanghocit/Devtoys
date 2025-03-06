@@ -71,10 +71,11 @@ const CronParser = () => {
           value={scheduleCount}
           onChange={(e) => setScheduleCount(Number(e.target.value))}
         >
-          <option value="1">A ∩ B </option>
-          <option value="2">A ∪ B </option>
-          <option value="3">Only A</option>
-          <option value="4">Only B</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
         </select>
       </CustomCard>
       <CustomCard title="Output format" icon={<MdOutlineSpaceBar />}>

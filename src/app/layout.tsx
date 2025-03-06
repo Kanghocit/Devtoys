@@ -1,8 +1,8 @@
+import SideBar from "@/components/SideBar";
+import { MenuProvider } from "@/context/MenuContext";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { MenuProvider } from "@/context/MenuContext";
-import SideBar from "@/components/SideBar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,12 +26,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 overflow-auto scrollbar`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 overflow-auto scrollbar `}
       >
         <MenuProvider>
-          <div className="flex">
-            <SideBar />
-            <main className="flex-1">{children}</main>
+          <div className="grid grid-cols-[auto_1fr]  h-screen">
+            <aside className="h-screen overflow-y-auto bg-white shadow-md scrollbar-custom w-fit ">
+              <SideBar />
+            </aside>
+            <main className="overflow-auto scrollbar-custom w-full">
+              {children}
+            </main>
           </div>
         </MenuProvider>
       </body>

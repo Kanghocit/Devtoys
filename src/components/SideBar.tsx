@@ -1,9 +1,12 @@
 "use client";
 import { useMenu } from "@/context/MenuContext";
 import clsx from "clsx";
+import Link from "next/link";
 import { useState } from "react";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { GoSearch } from "react-icons/go";
+import { RxHamburgerMenu } from "react-icons/rx";
 import Menu from "./menu";
+import SearchInput from "./SearchInput";
 
 const SideBar = () => {
   const { menus, subMenus, footerMenus } = useMenu();
@@ -13,24 +16,38 @@ const SideBar = () => {
   };
 
   return (
-    <div className="bg-gray-200/50 rounded-tr-lg min-h-screen">
-      <div className="fixed top-0 left-0 border-b-1 bg-gray-200">
-        <div
-          className={clsx(
-            " w-8 h-8 rounded-2xl flex items-center bg-gray-200/50  z-10 justify-center hover:bg-gray-300/50 cursor-pointer",
-            !collapsed && "mx-auto"
+    <div
+      className={clsx(
+        "shadow-md rounded-tr-lg min-h-screen border-r-1 border-gray-300",
+        collapsed && "min-w-[300px]"
+      )}
+    >
+      <div className="flex flex-col justify-between h-screen gap-2 ">
+        <div>
+          <div
+            className="px-3 py-2 text-2xl ms-1 cursor-pointer"
+            onClick={toggleCollapsed}
+          >
+            <RxHamburgerMenu />
+          </div>
+
+          {collapsed ? (
+            <SearchInput />
+          ) : (
+            <div className="px-3 pt-4 pb-3 text-2xl ms-1 cursor-pointer">
+              <GoSearch />
+            </div>
           )}
-          onClick={() => toggleCollapsed()}
-        >
-          {collapsed ? <IoChevronBack /> : <IoChevronForward />}
+          <div className="border-b-1 border-gray-300">
+            <Link href="/">
+              <Menu items={menus} collapsed={collapsed} />
+            </Link>
+          </div>
+          <Menu items={subMenus} collapsed={collapsed} />
         </div>
-        <Menu items={menus} collapsed={collapsed} />
-      </div>
-      <div className="flex flex-col items-center mt-25">
-        <Menu items={subMenus} collapsed={collapsed} />
-      </div>
-      <div className="fixed bottom-0 left-0 border-t-1 bg-gray-50 pt-2">
-        <Menu items={footerMenus} collapsed={collapsed} />
+        <div className="border-t-1 border-gray-300">
+          <Menu items={footerMenus} collapsed={collapsed} />
+        </div>
       </div>
     </div>
   );
