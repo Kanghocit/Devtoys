@@ -71,7 +71,7 @@ const subMenus = [
         icon: <IoIosAlarm />,
         detail: "Encode and decode Base64 image data",
         href: "base64-image",
-        isDone: false,
+        isDone: true,
       },
       {
         name: "Base64 Text",
