@@ -7,6 +7,14 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { IoIosAlarm } from "react-icons/io";
 import { IoText } from "react-icons/io5";
 import { LuBinary } from "react-icons/lu";
+import { FaQrcode } from "react-icons/fa";
+import { FaHtml5 } from "react-icons/fa";
+import { VscJson } from "react-icons/vsc";
+import { VscTextSize } from "react-icons/vsc";
+import { FaListUl } from "react-icons/fa";
+import { SiJsonwebtokens } from "react-icons/si";
+import { TbHexagonNumber5Filled } from "react-icons/tb";
+
 import {
   MdFormatIndentIncrease,
   MdManageAccounts,
@@ -55,7 +63,7 @@ const subMenus = [
       },
       {
         name: "Number Base",
-        icon: <MdOutlineNumbers />,
+        icon: <TbHexagonNumber5Filled />,
         detail: "Convert number from one base to another",
         href: "number-base",
         isDone: true,
@@ -96,24 +104,24 @@ const subMenus = [
       },
       {
         name: "HTML",
-        icon: <MdOutlineNumbers />,
+        icon: <FaHtml5 />,
         detail: "Encode and decode HTML data",
         href: "html-text",
         isDone: true,
       },
       {
         name: "JWT",
-        icon: <MdOutlineNumbers />,
+        icon: <SiJsonwebtokens />,
         detail: "Encode and decode JWT data",
         href: "jwt",
         isDone: true,
       },
       {
         name: "QR Code",
-        icon: <MdOutlineNumbers />,
+        icon: <FaQrcode />,
         detail: "Encode and decode QR Code data",
-        href: "qrcode",
-        isDone: false,
+        href: "qr-code",
+        isDone: true,
       },
       {
         name: "URL",
@@ -130,7 +138,7 @@ const subMenus = [
     children: [
       {
         name: "JSON",
-        icon: <BsFiletypeJson />,
+        icon: <VscJson />,
         detail: "Format JSON data",
         href: "/json-formatter",
         isDone: true,
@@ -238,14 +246,14 @@ const subMenus = [
     children: [
       {
         name: "Escape / Unescape",
-        icon: <BsFiletypeJson />,
+        icon: <VscTextSize />,
         detail: "Escape / Unescape text data",
         href: "/escape-unescape",
         isDone: true,
       },
       {
         name: "List Comparer",
-        icon: <BsFiletypeJson />,
+        icon: <FaListUl />,
         detail: "Compare list data",
         href: "/list-comparer",
         isDone: true,
