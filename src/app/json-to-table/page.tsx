@@ -1,4 +1,5 @@
 "use client";
+
 import Button from "@/components/button";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
@@ -10,29 +11,76 @@ import { MdClear, MdFilePresent, MdOpenInFull } from "react-icons/md";
 const JsonToTable = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [widthFull, setWidthFull] = useState(false);
-  const [input, setInput] = useState("");
-  console.log(input);
+  const [input, setInput] = useState("[]");
 
-  // ✅ Parse JSON input
+  // ✅ Tự động format JSON khi nhập liệu
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const rawInput = e.target.value;
+    try {
+      const parsed = JSON.parse(rawInput);
+      setInput(JSON.stringify(parsed, null, 2)); // Format đẹp
+    } catch {
+      setInput(rawInput); // Giữ nguyên nếu JSON lỗi
+    }
+  };
+
+  // ✅ Dán từ clipboard
+  const handlePaste = async () => {
+    const text = await navigator.clipboard.readText();
+    try {
+      const parsed = JSON.parse(text);
+      setInput(JSON.stringify(parsed, null, 2));
+    } catch {
+      setInput(text);
+    }
+  };
+
+  // ✅ Mở file JSON
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          const text = e.target.result.toString();
+          try {
+            const parsed = JSON.parse(text);
+            setInput(JSON.stringify(parsed, null, 2));
+          } catch {
+            setInput(text);
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  // ✅ Xử lý JSON đầu vào
   const parsedInput = (() => {
     try {
       const data = JSON.parse(input);
-      return Array.isArray(data) ? data : []; // Chỉ chấp nhận JSON array
+      return Array.isArray(data) ? data : [];
     } catch {
       return [];
     }
   })();
 
+  // ✅ Lấy tất cả key trong JSON array
+  const allKeys = Array.from(
+    new Set(parsedInput.flatMap((item) => Object.keys(item)))
+  );
+
   return (
-    <div className="flex flex-col rounded-2xl h-full p-2">
+    <div
+      className="flex flex-col rounded-2xl h-full p-2"
+      suppressHydrationWarning
+    >
       {/* Header */}
       <div className="flex justify-between">
         <p className="font-bold text-2xl m-2">JSON Array to Table</p>
-        <div className="flex items-center gap-2">
-          <Button icon={<LuStar />} className="flex items-center text-xs">
-            Add to favorites
-          </Button>
-        </div>
+        <Button icon={<LuStar />} className="flex items-center text-xs">
+          Add to favorites
+        </Button>
       </div>
 
       <div className="grid grid-cols-2">
@@ -41,16 +89,26 @@ const JsonToTable = () => {
           <div className="flex m-2 justify-between">
             <p className="text-xs flex justify-center items-center">Input</p>
             <div className="flex gap-2">
-              <Button icon={<FaBusinessTime />} />
-              <Button icon={<LuCopy />}>Paste</Button>
-              <input type="file" ref={fileInputRef} className="hidden" />
-              <Button icon={<MdFilePresent />} />
-              <Button icon={<MdClear />} onClick={() => setInput("")} />
+              <Button icon={<LuCopy />} onClick={handlePaste}>
+                Paste
+              </Button>
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleFileUpload}
+                accept="application/json"
+              />
+              <Button
+                icon={<MdFilePresent />}
+                onClick={() => fileInputRef.current?.click()}
+              />
+              <Button icon={<MdClear />} onClick={() => setInput("{}")} />
             </div>
           </div>
           <Textarea
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={handleInputChange}
             className="min-h-300"
           />
         </div>
@@ -74,7 +132,7 @@ const JsonToTable = () => {
               <table className="w-full border-collapse border border-gray-400 text-xs">
                 <thead className="bg-gray-200">
                   <tr>
-                    {Object.keys(parsedInput[0]).map((key) => (
+                    {allKeys.map((key) => (
                       <th key={key} className="border border-gray-400 p-2">
                         {key.toUpperCase()}
                       </th>
@@ -84,7 +142,7 @@ const JsonToTable = () => {
                 <tbody>
                   {parsedInput.map((item, index) => (
                     <tr key={index} className="border-b">
-                      {Object.keys(parsedInput[0]).map((key) => (
+                      {allKeys.map((key) => (
                         <td key={key} className="border border-gray-400 p-2">
                           {typeof item[key] === "boolean"
                             ? item[key]
@@ -99,7 +157,7 @@ const JsonToTable = () => {
               </table>
             ) : (
               <p className="text-gray-400 text-xs p-2">
-                Enter a valid JSON array...
+                Please provide a valid JSON array of objects
               </p>
             )}
           </div>
