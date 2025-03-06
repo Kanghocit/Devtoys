@@ -25,7 +25,7 @@ interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
   const pathname = usePathname();
 
   console.log(pathname.split("/")[1]);
@@ -36,9 +36,14 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
         <li key={item.name}>
           <div
             className="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-gray-100/90 rounded-r-md transition-colors duration-300 ease-in-out rounded-md text-xl"
-            onClick={() =>
-              setOpenDropdown((prev) => (prev === item.name ? null : item.name))
-            }
+            onClick={() => {
+              setOpenDropdowns(
+                (prev) =>
+                  prev.includes(item.name)
+                    ? prev.filter((name) => name !== item.name) // Đóng nếu đang mở
+                    : [...prev, item.name] // Thêm vào nếu chưa mở
+              );
+            }}
           >
             <div className="flex items-center">
               {!collapsed ? (
@@ -54,19 +59,19 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
               <IoChevronDown
                 className={clsx(
                   "w-4 h-4 transition-transform duration-300 ease-in-out",
-                  openDropdown === item.name ? "rotate-180" : "rotate-0"
+                  openDropdowns.includes(item.name) ? "rotate-180" : "rotate-0"
                 )}
               />
             )}
           </div>
-          {item.children && openDropdown === item.name && collapsed && (
-            <ul className="ml-4 border-l border-gray-300 overflow-hidden transition-all duration-300 ease-in-out text-xl">
+          {item.children && openDropdowns.includes(item.name) && collapsed && (
+            <ul className="pl-4 overflow-hidden bg-gray-100/50 rounded-md transition-all duration-300 ease-in-out text-xl">
               {item.children.map((child) => (
                 <li key={child.name}>
                   <Link href={child.href}>
                     <div
                       className={clsx(
-                        "flex items-center px-4 py-2 hover:bg-gray-100/90 rounded-r-md mt-1",
+                        "flex items-center px-4 py-2 hover:bg-gray-100/90 rounded-md mt-1",
                         pathname.split("/")[1] === child.href
                           ? "bg-blue-100/90 text-blue-500"
                           : ""

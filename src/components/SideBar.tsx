@@ -18,7 +18,7 @@ const SideBar = () => {
   return (
     <div
       className={clsx(
-        "shadow-md rounded-tr-lg min-h-screen border-r-1 border-gray-300",
+        "rounded-tr-lg border-r-1 border-gray-300",
         collapsed && "min-w-[300px]"
       )}
     >
