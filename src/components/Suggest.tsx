@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const Suggest = () => {
   return (
-    <div className="flex justify-between gap-2 border-1 border-gray-300 rounded-md p-1 max-w-[2085px] ms-2">
-      <div className="flex items-center gap-2 text-sm">
+    <div className="flex justify-between gap-2 border-1 border-gray-300 rounded-md p-1  w-[96%] ">
+      <div className="flex items-center gap-2 text-sm cursor-default">
         <IoMdAlert className="text-blue-400" />
         <p className="font-bold ">Not finding what you&apos;re looking for?</p>
         <span>Open a feature request on Github</span>

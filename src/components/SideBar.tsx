@@ -6,8 +6,7 @@ import { useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Menu from "./menu";
-import SearchInput from "./SearchInput";
-
+import Input from "@/components/input";
 const SideBar = () => {
   const { menus, subMenus, footerMenus } = useMenu();
   const [collapsed, setCollapsed] = useState(false);
@@ -32,7 +31,7 @@ const SideBar = () => {
           </div>
 
           {collapsed ? (
-            <SearchInput />
+            <Input type="text" placeholder="Search..." suffix={<GoSearch />} />
           ) : (
             <div className="px-3 pt-4 pb-3 text-2xl ms-1 cursor-pointer">
               <GoSearch />

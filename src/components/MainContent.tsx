@@ -9,11 +9,11 @@ const MainContent = () => {
   return (
     <>
       <div className="w-full">
-        <div className="flex items-center gap-2 pb-4">
+        <div className="flex items-center gap-2 pb-4 cursor-default">
           <p className="text-[40px] font-bold ">Welcome to DevToys</p>
           <span className="text-gray-400 text-sm">v2.0-preview.8</span>
         </div>
-        <div className="text-sm font-bold">Recents</div>
+        <div className="text-sm font-bold cursor-default">Recents</div>
         <div className="w-full border-b-2 border-gray-300"></div>
         <div className="flex flex-wrap gap-4">
           {footerMenus.map((item, index) => (
@@ -26,7 +26,7 @@ const MainContent = () => {
             />
           ))}
         </div>
-        <div className="text-sm font-bold border-b-2 border-gray-300">
+        <div className="text-sm font-bold border-b-2 border-gray-300 cursor-default">
           All Tools
         </div>
         <div className="flex flex-wrap gap-4">
