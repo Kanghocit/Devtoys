@@ -3,10 +3,9 @@ import Header from "@/common/Header";
 import Button from "@/components/button";
 import { LuCopy } from "react-icons/lu";
 import { MdClear, MdFilePresent } from "react-icons/md";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 const Base64Image = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [base64Text, setBase64Text] = useState("");
   const [imgsrc, setImgsrc] = useState<string | null>(null);
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -18,6 +17,14 @@ const Base64Image = () => {
       reader.readAsDataURL(file);
     }
   };
+  const handlePaste = useCallback(async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      setImgsrc(text);
+    } catch (err) {
+      console.error("Lỗi khi dán từ clipboard:", err);
+    }
+  }, []);
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="Base64 Image Encoder / Decoder" />
@@ -26,9 +33,11 @@ const Base64Image = () => {
           <div className="flex justify-between items-center p-2">
             <p className="text-xs">Base64 text</p>
             <div className="flex gap-2">
-              <Button icon={<LuCopy />}>Paste</Button>
+              <Button icon={<LuCopy />} onClick={handlePaste}>
+                Paste
+              </Button>
               <Button icon={<MdFilePresent />} />
-              <Button icon={<MdClear />} />
+              <Button icon={<MdClear />} onClick={() => setImgsrc("")} />
               <Button icon={<LuCopy />}>Copy</Button>
             </div>
           </div>
