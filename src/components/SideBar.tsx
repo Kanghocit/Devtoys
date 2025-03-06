@@ -9,7 +9,7 @@ import Menu from "./menu";
 import Input from "@/components/input";
 const SideBar = () => {
   const { menus, subMenus, footerMenus } = useMenu();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
