@@ -4,13 +4,12 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
+import { handleCopy, handleFileUpload, handlePaste } from "@/utils/numberUtils";
 import { useRef, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
-import { FiSave } from "react-icons/fi";
 import { LuBrain, LuCopy, LuTrash } from "react-icons/lu";
 import { MdFilePresent } from "react-icons/md";
 import { RiCharacterRecognitionLine } from "react-icons/ri";
-import { handlePaste, handleCopy, handleFileUpload } from "@/utils/numberUtils";
 
 const NumberBase = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);

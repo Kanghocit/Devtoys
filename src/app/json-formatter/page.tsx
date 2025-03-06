@@ -1,11 +1,10 @@
 "use client";
-import Header from "@/common/Header";
 import Button from "@/components/button";
+import Header from "@/common/Header";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
-import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BsSortAlphaDown } from "react-icons/bs";
 import { FaPaste } from "react-icons/fa";
 import { LuCopy, LuCopySlash } from "react-icons/lu";
@@ -15,112 +14,63 @@ import {
   MdOpenInFull,
   MdOutlineSpaceBar,
 } from "react-icons/md";
+import { formatJson } from "@/utils/jsonUtils";
 
 const JsonFormatter = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [widthFull, setWidthFull] = useState(false);
-  const [formatOptions, setFormatOptions] = useState("2 spaces");
+  const [formatOptions, setFormatOptions] = useState<
+    "2 spaces" | "4 spaces" | "1 tab" | "Minified"
+  >("2 spaces");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [sortOptions, setSortOptions] = useState(false);
 
-  // Dán từ clipboard
-  const handlePaste = async () => {
-    const text = await navigator.clipboard.readText();
+  // Hàm dán từ clipboard
+  const handlePaste = useCallback(async () => {
     try {
-      const parsed = JSON.parse(text);
-      setInput(JSON.stringify(parsed));
-    } catch {
+      const text = await navigator.clipboard.readText();
       setInput(text);
+    } catch (err) {
+      console.error("Lỗi khi dán từ clipboard:", err);
     }
-  };
+  }, []);
 
-  // Mở file JSON đầu vào
-  const handleOpenFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
+  // Hàm mở file JSON
+  const handleOpenFile = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
       const reader = new FileReader();
       reader.onload = (e) => {
-        if (e.target?.result) {
-          const text = e.target.result.toString();
-          try {
-            const parsed = JSON.parse(text);
-            setInput(JSON.stringify(parsed));
-          } catch {
-            setInput(text);
-          }
-        }
+        if (!e.target?.result) return;
+        setInput(e.target.result.toString());
       };
       reader.readAsText(file);
-    }
-  };
-  const sortJsonKeys = (obj: any): any => {
-    if (Array.isArray(obj)) {
-      return obj.map(sortJsonKeys); // Nếu là mảng, sắp xếp từng object bên trong
-    } else if (typeof obj === "object" && obj !== null) {
-      return Object.keys(obj)
-        .sort()
-        .reduce((acc, key) => {
-          acc[key] = sortJsonKeys(obj[key]); // Đệ quy vào object con
-          return acc;
-        }, {} as any);
-    }
-    return obj; // Nếu không phải object hoặc array thì giữ nguyên
-  };
+    },
+    []
+  );
 
-  const formatJson = (
-    input: string,
-    type: "2 spaces" | "4 spaces" | "1 tab" | "Minified"
-  ) => {
-    try {
-      let parsed = JSON.parse(input);
-
-      if (sortOptions) {
-        parsed = sortJsonKeys(parsed);
-      }
-
-      switch (type) {
-        case "2 spaces":
-          setOutput(JSON.stringify(parsed, null, 2));
-          break;
-        case "4 spaces":
-          setOutput(JSON.stringify(parsed, null, 4));
-          break;
-        case "1 tab":
-          setOutput(JSON.stringify(parsed, null, "\t"));
-          break;
-        case "Minified":
-          setOutput(JSON.stringify(parsed));
-          break;
-        default:
-          setOutput(JSON.stringify(parsed, null, 2));
-      }
-    } catch {
-      setOutput(input);
-    }
-  };
-
-  // Cập nhật useEffect để theo dõi thay đổi của sortOptions
+  // Cập nhật JSON mỗi khi input, formatOptions hoặc sortOptions thay đổi
   useEffect(() => {
-    formatJson(
-      input,
-      formatOptions as "2 spaces" | "4 spaces" | "1 tab" | "Minified"
-    );
+    setOutput(formatJson(input, formatOptions, sortOptions));
   }, [input, formatOptions, sortOptions]);
 
   return (
-    <div
-      className="flex flex-col rounded-2xl h-full p-2"
-      suppressHydrationWarning
-    >
-      {/* Header  */}
+    <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="JSON Formatter" />
       <p className="text-xs ms-2">Configuration</p>
 
+      {/* Cấu hình format */}
       <CustomCard title="Indentation" icon={<MdOutlineSpaceBar />}>
         <select
           className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
-          onChange={(e) => setFormatOptions(e.target.value)}
+          onChange={(e) =>
+            setFormatOptions(
+              e.target.value as "2 spaces" | "4 spaces" | "1 tab" | "Minified"
+            )
+          }
         >
           <option value="2 spaces">2 spaces</option>
           <option value="4 spaces">4 spaces</option>
@@ -128,8 +78,10 @@ const JsonFormatter = () => {
           <option value="Minified">Minified</option>
         </select>
       </CustomCard>
+
+      {/* Sắp xếp JSON theo bảng chữ cái */}
       <CustomCard
-        title="Sort JSON Properties alplabetically"
+        title="Sort JSON Properties Alphabetically"
         icon={<BsSortAlphaDown />}
       >
         <Switch
@@ -141,14 +93,9 @@ const JsonFormatter = () => {
 
       <div className="grid grid-cols-2">
         {/* Input */}
-        <div className={clsx("mx-1", widthFull && "hidden")}>
-          <div
-            className={clsx(
-              "flex m-2 justify-between",
-              widthFull ? "hidden" : ""
-            )}
-          >
-            <p className="text-xs flex justify-center items-center">Input</p>
+        <div className={`${widthFull ? "hidden" : "mx-1"}`}>
+          <div className="flex m-2 justify-between">
+            <p className="text-xs">Input</p>
             <div className="flex gap-2">
               <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
@@ -158,17 +105,15 @@ const JsonFormatter = () => {
                 ref={fileInputRef}
                 className="hidden"
                 onChange={handleOpenFile}
-                accept="application"
+                accept="application/json"
               />
               <Button
                 icon={<MdFilePresent />}
                 onClick={() => fileInputRef.current?.click()}
               />
-
               <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>
-
           <Textarea
             value={input}
             className="min-h-265"
@@ -178,10 +123,9 @@ const JsonFormatter = () => {
         </div>
 
         {/* Output */}
-
-        <div className={clsx("mx-1 h-full", widthFull && "w-full col-span-2")}>
+        <div className={`${widthFull ? "w-full col-span-2" : "mx-1 h-full"}`}>
           <div className="flex m-2 justify-between">
-            <p className="text-xs flex justify-center items-center">Output</p>
+            <p className="text-xs">Output</p>
             <div className="flex gap-2">
               <Button icon={<LuCopySlash />}>Copy as</Button>
               <Button icon={<FaPaste />}>Paste as</Button>

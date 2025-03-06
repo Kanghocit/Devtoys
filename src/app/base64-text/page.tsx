@@ -4,13 +4,12 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
+import { handleCopy, handlePaste } from "@/utils/numberUtils";
 import { useCallback, useEffect, useState } from "react";
 import { FaRegPaste } from "react-icons/fa6";
-import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { MdClear } from "react-icons/md";
-import { handlePaste, handleCopy, handleFileUpload } from "@/utils/numberUtils";
 import { LuCopy } from "react-icons/lu";
+import { MdClear } from "react-icons/md";
 const Base64Text = () => {
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
