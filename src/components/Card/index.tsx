@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 
 type CardProps = React.ComponentPropsWithoutRef<"div"> & {
@@ -16,14 +15,12 @@ const Card: React.FC<CardProps> = ({
   name,
   icon,
   detail,
-
   ...rest
 }) => {
   const cardClass = clsx(
     "grid grid-cols-3  gap-4 mx-2 my-4 p-4 drop-shadow-md rounded-lg shadow-md w-80 h-30 my-2 hover:bg-gray-100/50 cursor-pointer",
     className
   );
-  const router = useRouter();
 
   return (
     <div className={cardClass} {...rest}>
