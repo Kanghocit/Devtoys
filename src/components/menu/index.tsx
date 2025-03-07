@@ -28,8 +28,6 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
   const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
   const pathname = usePathname();
 
-  console.log(pathname.split("/")[1]);
-
   return (
     <ul suppressHydrationWarning>
       {items.map((item) => (
@@ -37,11 +35,10 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
           <div
             className="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-gray-100/90 rounded-r-md transition-colors duration-300 ease-in-out rounded-md text-xl"
             onClick={() => {
-              setOpenDropdowns(
-                (prev) =>
-                  prev.includes(item.name)
-                    ? prev.filter((name) => name !== item.name) // Đóng nếu đang mở
-                    : [...prev, item.name] // Thêm vào nếu chưa mở
+              setOpenDropdowns((prev) =>
+                prev.includes(item.name)
+                  ? prev.filter((name) => name !== item.name)
+                  : [...prev, item.name]
               );
             }}
           >

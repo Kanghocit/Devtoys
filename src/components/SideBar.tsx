@@ -8,12 +8,13 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Menu from "./menu";
 import Input from "@/components/input";
 import { menus, subMenus, footerMenus } from "@/constants/menuData";
-
+import { useSearch } from "@/context/SearchContext";
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(true);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+  const { searchQuery, setSearchQuery } = useSearch();
 
   return (
     <div
@@ -32,7 +33,13 @@ const SideBar = () => {
           </div>
 
           {collapsed ? (
-            <Input type="text" placeholder="Search..." suffix={<GoSearch />} />
+            <Input
+              type="text"
+              placeholder="Search..."
+              suffix={<GoSearch />}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           ) : (
             <div className="px-3 pt-4 pb-3 text-2xl ms-1 cursor-pointer">
               <GoSearch />

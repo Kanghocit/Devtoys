@@ -16,7 +16,7 @@ const ListComparer = () => {
   const [outputText, setOutputText] = useState("");
   const [isEscape, setIsEscape] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-  console.log("selectedOption", selectedOption);
+
   const handleConversion = useCallback(() => {
     const listA = inputTextA.split("\n").map((item) => item.trim());
     const listB = inputTextB.split("\n").map((item) => item.trim());
@@ -51,7 +51,7 @@ const ListComparer = () => {
       }
 
       setOutputText(result.join("\n"));
-    } catch  {
+    } catch {
       setOutputText("Invalid input");
     }
   }, [inputTextA, inputTextB, selectedOption, isEscape]);
