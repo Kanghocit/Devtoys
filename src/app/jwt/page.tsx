@@ -4,269 +4,460 @@ import Button from "@/components/button";
 import CustomCard from "@/components/Card/CusCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
-import Textarea from "@/components/textarea";
-import clsx from "clsx";
-import jwt from "jsonwebtoken";
-import { useCallback, useEffect, useState } from "react";
-import { BsPatchCheck } from "react-icons/bs";
-import { FaRegCheckCircle } from "react-icons/fa";
+import { jwtVerify, decodeJwt } from "jose";
+import { useState, useCallback } from "react";
+import { FaCheckCircle } from "react-icons/fa";
 import { FaRegPaste } from "react-icons/fa6";
-import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
+import { FiSave } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { MdClear } from "react-icons/md";
-import { TbSettingsCog } from "react-icons/tb";
+import TextareaAutoSize from "react-textarea-autosize";
+import clsx from "clsx";
 
-const validateValues = [
-  { name: "Validate issuer signing key", hasInput: true },
-  { name: "Validate issuer", hasInput: true },
-  { name: "Validate audience", hasInput: true },
-  { name: "Validate timelife", hasInput: false },
-  { name: "Validate actors", hasInput: false },
+interface SettingValue {
+  name: string;
+  hasInput: boolean;
+  handler: string;
+  placeholder?: string;
+}
+
+const settingValuesList: SettingValue[] = [
+  {
+    name: "Validate issuer signing key",
+    hasInput: true,
+    handler: "CheckKey",
+    placeholder: "Nhập secret key để verify token...",
+  },
+  {
+    name: "Validation issuer",
+    hasInput: true,
+    handler: "CheckIssuer",
+    placeholder: "Nhập issuer để kiểm tra (https://...)...",
+  },
+  {
+    name: "Validate audience",
+    hasInput: true,
+    handler: "CheckAudience",
+    placeholder: "Nhập audience để kiểm tra...",
+  },
+  {
+    name: "Validate lifetime",
+    hasInput: false,
+    handler: "CheckLifetime",
+  },
+  {
+    name: "Validate actors",
+    hasInput: false,
+    handler: "CheckActors",
+  },
 ];
 
-const JWT = () => {
-  const [isEncode, setIsEncode] = useState(true);
-  const [isSetting, setIsSetting] = useState(false);
-  const [token, setToken] = useState("");
-  const [header, setHeader] = useState("");
-  const [payload, setPayload] = useState("");
-  const [signature, setSignature] = useState("");
-
-  // quản lí nhiều sự kiện trong 1 map
-  // open và input
-  //open
-  const [validationSettings, setValidationSettings] = useState(
-    Object.fromEntries(validateValues.map((item) => [item.name, false]))
+const JsonWebToken = () => {
+  const [isEncode, setIsEncode] = useState(false);
+  const [inputToken, setInputToken] = useState("");
+  const [inputHeader, setInputHeader] = useState("");
+  const [inputPayload, setInputPayload] = useState("");
+  const [settings, setSettings] = useState(false);
+  const [settingValues, setSettingValues] = useState<Record<string, string>>(
+    {}
   );
-  //input
-  const [inputValues, setInputValues] = useState(
-    Object.fromEntries(validateValues.map((item) => [item.name, ""]))
+  const [enableValidation, setEnableValidation] = useState<
+    Record<string, boolean>
+  >({});
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [alertType, setAlertType] = useState<"success" | "error">("success");
+
+  const updateAlert = useCallback(
+    (message: string, type: "success" | "error") => {
+      setAlertMessage(message);
+      setAlertType(type);
+    },
+    []
   );
-  console.log("inputValues", inputValues);
-  const base64UrlToBase64 = (base64Url: string) => {
-    return (
-      base64Url.replace(/-/g, "+").replace(/_/g, "/") +
-      "==".slice(0, (4 - (base64Url.length % 4)) % 4)
-    );
-  };
-  const handleToggle = (name: string) => {
-    setValidationSettings((prev) => ({
-      ...prev,
-      [name]: !prev[name],
-    }));
-  };
-  const handleInput = (name: string, value: string) => {
-    setInputValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
-  const handleGenToken = useCallback(() => {
-    if (!token) {
-      setHeader("");
-      setPayload("");
-      setSignature("");
-      return;
-    }
+  const clearToken = useCallback(() => {
+    setInputToken("");
+    setInputHeader("");
+    setInputPayload("");
+    setAlertMessage("");
+  }, []);
 
+  const parseJwt = useCallback(
+    async (token: string) => {
+      if (!token) {
+        clearToken();
+        return;
+      }
+
+      try {
+        const [headerB64, payloadB64] = token.split(".").slice(0, 2);
+        if (!headerB64 || !payloadB64) {
+          throw new Error("Token không hợp lệ");
+        }
+
+        const decodedToken = decodeJwt(token);
+        const header = JSON.parse(atob(headerB64));
+
+        setInputHeader(JSON.stringify(header, null, 2));
+        setInputPayload(JSON.stringify(decodedToken, null, 2));
+        updateAlert("Token hợp lệ!", "success");
+      } catch {
+        clearToken();
+        updateAlert("Token không hợp lệ!", "error");
+      }
+    },
+    [clearToken, updateAlert]
+  );
+
+  const checkKey = useCallback(
+    async (key: string) => {
+      if (!inputToken) {
+        updateAlert("Vui lòng nhập token trước!", "error");
+        return;
+      }
+
+      try {
+        const secret = new TextEncoder().encode(key);
+        const { payload } = await jwtVerify(inputToken, secret);
+        updateAlert("Chữ ký token hợp lệ!", "success");
+        console.log("Decoded Payload:", payload);
+      } catch {
+        updateAlert("Chữ ký token không hợp lệ!", "error");
+      }
+    },
+    [inputToken, updateAlert]
+  );
+
+  const checkIssuer = useCallback(
+    (issuer: string) => {
+      try {
+        const payload = JSON.parse(inputPayload);
+        if (!payload.iss) {
+          updateAlert("Token không có trường issuer!", "error");
+          return;
+        }
+        const isValid = payload.iss === issuer;
+        updateAlert(
+          isValid ? "Issuer hợp lệ!" : `Issuer không khớp! (${payload.iss})`,
+          isValid ? "success" : "error"
+        );
+      } catch {
+        updateAlert("Không thể kiểm tra issuer!", "error");
+      }
+    },
+    [inputPayload, updateAlert]
+  );
+
+  const checkAudience = useCallback(
+    (audience: string) => {
+      try {
+        const payload = JSON.parse(inputPayload);
+        if (!payload.aud) {
+          updateAlert("Token không có trường audience!", "error");
+          return;
+        }
+        const isValid = Array.isArray(payload.aud)
+          ? payload.aud.includes(audience)
+          : payload.aud === audience;
+        updateAlert(
+          isValid
+            ? "Audience hợp lệ!"
+            : `Audience không khớp! (${payload.aud})`,
+          isValid ? "success" : "error"
+        );
+      } catch {
+        updateAlert("Không thể kiểm tra audience!", "error");
+      }
+    },
+    [inputPayload, updateAlert]
+  );
+
+  const checkLifetime = useCallback(() => {
     try {
-      const parts = token.split(".");
-      if (parts.length !== 3) throw new Error("Invalid JWT format");
+      const payload = JSON.parse(inputPayload);
+      const now = Math.floor(Date.now() / 1000);
 
-      const [header, payload, signature] = parts;
-      const decodedHeader = JSON.parse(atob(base64UrlToBase64(header)));
-      const decodedPayload = JSON.parse(atob(base64UrlToBase64(payload)));
+      // Kiểm tra exp
+      if (payload.exp) {
+        if (now >= payload.exp) {
+          updateAlert(
+            `Token đã hết hạn vào ${new Date(
+              payload.exp * 1000
+            ).toLocaleString()}!`,
+            "error"
+          );
+          return;
+        }
+      }
 
-      setHeader(JSON.stringify(decodedHeader, null, 2));
-      setPayload(JSON.stringify(decodedPayload, null, 2));
-      setSignature(signature);
-    } catch (error) {
-      console.error("Error decoding token:", error);
-      setHeader("");
-      setPayload("");
-      setSignature("");
-    }
-  }, [token]);
-  const [isVerified, setIsVerified] = useState(true);
-  const verifyToken = () => {
-    const tokenInput = token;
-    console.log("tokenInput", tokenInput);
-    const secretKey = inputValues["Validate issuer signing key"];
-    try {
-      const decoded = jwt.verify(tokenInput, secretKey);
-      console.log("decoded", decoded);
-      setIsVerified(true);
+      // Kiểm tra nbf (not before)
+      if (payload.nbf && now < payload.nbf) {
+        updateAlert(
+          `Token chưa có hiệu lực! Có hiệu lực từ ${new Date(
+            payload.nbf * 1000
+          ).toLocaleString()}`,
+          "error"
+        );
+        return;
+      }
+
+      // Kiểm tra iat (issued at)
+      const timeLeft = payload.exp
+        ? Math.floor((payload.exp - now) / 60)
+        : null;
+      const message = timeLeft
+        ? `Token còn hiệu lực! Hết hạn sau ${timeLeft} phút`
+        : "Token không có thời hạn!";
+
+      updateAlert(message, "success");
     } catch {
-      setIsVerified(false);
+      updateAlert("Không thể kiểm tra thời hạn!", "error");
+    }
+  }, [inputPayload, updateAlert]);
+
+  const checkActors = useCallback(() => {
+    try {
+      const payload = JSON.parse(inputPayload);
+      if (!payload.act) {
+        updateAlert("Token không có thông tin actor!", "error");
+        return;
+      }
+      updateAlert(`Actor: ${JSON.stringify(payload.act)}`, "success");
+    } catch {
+      updateAlert("Không thể kiểm tra actor!", "error");
+    }
+  }, [inputPayload, updateAlert]);
+
+  const handlers: Record<string, (value: string) => void> = {
+    CheckKey: checkKey,
+    CheckIssuer: checkIssuer,
+    CheckAudience: checkAudience,
+    CheckLifetime: checkLifetime,
+    CheckActors: checkActors,
+  };
+
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      setInputToken(text);
+      parseJwt(text);
+    } catch {
+      updateAlert("Không thể paste từ clipboard!", "error");
     }
   };
 
-  useEffect(() => {
-    handleGenToken();
-  }, [handleGenToken]);
+  const handleClear = (field: "token" | "header" | "payload") => {
+    switch (field) {
+      case "token":
+        clearToken();
+        break;
+      case "header":
+        setInputHeader("");
+        break;
+      case "payload":
+        setInputPayload("");
+        break;
+    }
+  };
+
+  const handleSave = async (content: string, filename: string) => {
+    try {
+      const blob = new Blob([content], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      updateAlert("Đã lưu file thành công!", "success");
+    } catch {
+      updateAlert("Không thể lưu file!", "error");
+    }
+  };
 
   return (
     <div
-      className="flex flex-col rounded-2xl h-full p-4 bg-white shadow-md"
+      className="flex flex-col rounded-2xl h-full p-2"
       suppressHydrationWarning
     >
-      {/* Header */}
-      <Header title="JWT Encoder / Decoder" />
-
-      <p className="text-xs text-gray-500">Configuration</p>
-
-      {/* Tool Mode */}
-      <CustomCard
-        title="Tool Mode"
-        icon={<LiaExchangeAltSolid />}
-        subTitle="Select which mode you want to use"
-      >
+      <Header title="Json Web Token" />
+      <p className="text-xs ms-2">Configuration</p>
+      <CustomCard title="Tool Mode" icon={<LiaExchangeAltSolid />}>
         <Switch
-          valueTrue="Encode"
-          valueFalse="Decode"
+          valueTrue="Decode"
+          valueFalse="Encode"
           onToggle={() => setIsEncode(!isEncode)}
         />
       </CustomCard>
-
-      {/* Token Validation Settings */}
       <CustomCard
-        title="Token Validation Settings"
-        icon={<TbSettingsCog />}
-        subTitle="Select which token parameters to validate"
+        title="Token validation settings"
+        icon={<IoSettingsOutline />}
       >
         <Switch
           valueTrue="On"
           valueFalse="Off"
-          onToggle={() => setIsSetting(!isSetting)}
+          onToggle={() => setSettings(!settings)}
         />
       </CustomCard>
 
-      {/* Các tùy chọn validation */}
-      {isSetting && (
-        <div className="space-y-2">
-          {validateValues.map((item, index) => (
+      {settings && (
+        <div className="flex flex-col">
+          {settingValuesList.map((item: SettingValue, index: number) => (
             <div key={index}>
-              <CustomCard
-                title={item.name}
-                icon={<BsPatchCheck />}
-                className="border border-gray-200 my-0 rounded-none"
-              >
+              <CustomCard title={item.name} icon={<IoSettingsOutline />}>
                 <Switch
                   valueTrue="On"
                   valueFalse="Off"
-                  onToggle={() => handleToggle(item.name)}
+                  onToggle={() => {
+                    setEnableValidation((prev) => ({
+                      ...prev,
+                      [item.handler]: !prev[item.handler],
+                    }));
+
+                    if (
+                      !item.hasInput &&
+                      handlers[item.handler] &&
+                      !enableValidation[item.handler]
+                    ) {
+                      handlers[item.handler]("");
+                    }
+                  }}
                 />
               </CustomCard>
-
-              {/* Hiển thị input nếu cần */}
-              {item.hasInput && validationSettings[item.name] && (
-                <div className=" flex flex-col mx-2 mt-2">
-                  <div className="flex justify-between items-center">
-                    <p className="text-xs">
-                      {item.name === "Validate issuer signing key"
-                        ? "Key"
-                        : "Token " + item.name.split(" ")[1]}
-                    </p>
-                    <div className="flex gap-2">
-                      <Button
-                        icon={<FaRegCheckCircle />}
-                        onClick={() => verifyToken()}
-                      >
-                        Check
-                      </Button>
-                      <Button icon={<FaRegPaste />}>Paste</Button>
-                      <Button
-                        icon={<MdClear />}
-                        onClick={() =>
-                          Object.keys(inputValues).forEach((key) => {
-                            handleInput(key, "");
-                          })
-                        }
-                      />
-                    </div>
-                  </div>
-                  <Input
-                    className="w-full ms-0"
-                    value={inputValues[item.name]}
-                    onChange={(e) => handleInput(item.name, e.target.value)}
-                  />
-                </div>
+              {item.hasInput && enableValidation[item.handler] && (
+                <Input
+                  className="w-[99%]"
+                  value={settingValues[item.handler] || ""}
+                  placeholder={item.placeholder}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setSettingValues((prev) => ({
+                      ...prev,
+                      [item.handler]: newValue,
+                    }));
+                    if (handlers[item.handler]) {
+                      handlers[item.handler](newValue);
+                    }
+                  }}
+                />
               )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Kết quả kiểm tra token */}
-      <div
-        className={clsx(
-          "flex items-center gap-2 my-3 mx-2 p-2 rounded-md ",
-          isVerified ? "bg-green-100" : "bg-red-100"
-        )}
-      >
-        {isVerified ? (
-          <>
-            <IoIosCheckmarkCircle className="text-green-800" />
-            <p className="text-sm text-green-800">Token validated</p>
-          </>
-        ) : (
-          <>
-            <IoIosCloseCircle className="text-red-800" />
-            <p className="text-sm text-red-800">Key is invalid</p>
-          </>
-        )}
-      </div>
-
-      {/* Input / Output Section */}
-      <div className="flex flex-col flex-grow space-y-4 mx-2">
-        {/* Token Input */}
-        <div>
-          <p className="text-xs text-gray-500">Token</p>
-          <Textarea
-            className="w-full min-h-[100px] mt-1"
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-          />
-        </div>
-
-        {/* Input / Output */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Header */}
-          <div>
-            <p className="text-xs text-gray-500">Header</p>
-            <Textarea
-              className="w-full min-h-[100px] mt-1"
-              value={header}
-              readOnly
-            />
-          </div>
-
-          {/* Payload */}
-          <div>
-            <p className="text-xs text-gray-500">Payload</p>
-            <Textarea
-              className="w-full min-h-[100px] mt-1"
-              value={payload}
-              readOnly
-            />
-          </div>
-        </div>
-
-        {/* Signature */}
+      {alertMessage && (
         <div
-          className={clsx("flex flex-col flex-grow", !isSetting && "hidden")}
+          className={clsx(
+            "flex items-center gap-2 mt-2 mx-2 rounded-md p-2 cursor-default",
+            alertType === "success"
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+          )}
         >
-          <p className="text-xs text-gray-500">Signature</p>
-          <Textarea
-            className="w-full min-h-[100px] mt-1"
-            value={signature}
-            readOnly
+          <FaCheckCircle
+            className={
+              alertType === "success" ? "text-green-800" : "text-red-800"
+            }
           />
+          <p className="text-xs">{alertMessage}</p>
+        </div>
+      )}
+
+      <div className="flex flex-col overflow-hidden">
+        <div className="flex flex-col rounded-lg p-4">
+          <div className="flex justify-between items-center">
+            <p className="text-xs">Token</p>
+            <div className="flex gap-2">
+              <Button icon={<FaRegPaste />} onClick={handlePaste}>
+                Paste
+              </Button>
+              <Button
+                icon={<FiSave />}
+                onClick={() => handleSave(inputToken, "token.txt")}
+              />
+              <Button icon={<MdClear />} onClick={() => handleClear("token")} />
+            </div>
+          </div>
+          <TextareaAutoSize
+            value={inputToken}
+            placeholder="Nhập JWT token của bạn..."
+            className="rounded-lg p-2 mt-1 focus:outline-none border-1 border-gray-300"
+            onChange={(e) => {
+              setInputToken(e.target.value);
+              parseJwt(e.target.value);
+            }}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-2">
+          <div className="flex flex-col rounded-lg p-4">
+            <div className="flex justify-between items-center">
+              <p className="text-xs">Header</p>
+              <div className="flex gap-2">
+                <Button
+                  icon={<FaRegPaste />}
+                  onClick={async () => {
+                    const text = await navigator.clipboard.readText();
+                    setInputHeader(text);
+                  }}
+                >
+                  Paste
+                </Button>
+                <Button
+                  icon={<FiSave />}
+                  onClick={() => handleSave(inputHeader, "header.json")}
+                />
+                <Button
+                  icon={<MdClear />}
+                  onClick={() => handleClear("header")}
+                />
+              </div>
+            </div>
+            <TextareaAutoSize
+              value={inputHeader}
+              placeholder="JWT Header sẽ hiển thị ở đây..."
+              className="rounded-lg p-2 mt-1 focus:outline-none border-1 border-gray-300"
+              readOnly
+            />
+          </div>
+          <div className="flex flex-col rounded-lg p-4">
+            <div className="flex justify-between items-center">
+              <p className="text-xs">Payload</p>
+              <div className="flex gap-2">
+                <Button
+                  icon={<FaRegPaste />}
+                  onClick={async () => {
+                    const text = await navigator.clipboard.readText();
+                    setInputPayload(text);
+                  }}
+                >
+                  Paste
+                </Button>
+                <Button
+                  icon={<FiSave />}
+                  onClick={() => handleSave(inputPayload, "payload.json")}
+                />
+                <Button
+                  icon={<MdClear />}
+                  onClick={() => handleClear("payload")}
+                />
+              </div>
+            </div>
+            <TextareaAutoSize
+              value={inputPayload}
+              placeholder="JWT Payload sẽ hiển thị ở đây..."
+              className="rounded-lg p-2 mt-1 focus:outline-none border-1 border-gray-300"
+              readOnly
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default JWT;
+export default JsonWebToken;

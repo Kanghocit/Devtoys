@@ -2,9 +2,15 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 
-type TextareaProps = React.ComponentPropsWithoutRef<"textarea">;
+type TextareaProps = React.ComponentPropsWithoutRef<"textarea"> & {
+  useLine?: boolean;
+};
 
-const Textarea: React.FC<TextareaProps> = ({ className, ...rest }) => {
+const Textarea: React.FC<TextareaProps> = ({
+  className,
+  useLine = "true",
+  ...rest
+}) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [lines, setLines] = useState<number[]>([1]);
 
@@ -28,20 +34,22 @@ const Textarea: React.FC<TextareaProps> = ({ className, ...rest }) => {
       )}
     >
       {/* Số dòng bên trái */}
-      <div className="bg-gray-100 text-gray-500 text-xs text-right p-1">
-        {lines.map((line) => (
-          <div key={line} className="h-5 leading-5">
-            {line}
-          </div>
-        ))}
-      </div>
+      {useLine && (
+        <div className="bg-gray-100 text-gray-500 text-xs text-right ">
+          {lines.map((line) => (
+            <div key={line} className="h-5 leading-5">
+              {line}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Textarea */}
       <textarea
         {...rest}
         ref={textareaRef}
         className={clsx(
-          "w-full min-h-100 resize-none  font-mono text-sm outline-none",
+          "w-full min-h-100 resize-none font-mono text-sm outline-none",
           className
         )}
         onInput={updateLines} // Cập nhật số dòng mỗi khi nhập
