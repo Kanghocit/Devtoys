@@ -15,6 +15,7 @@ import {
   MdOutlineNumbers,
 } from "react-icons/md";
 import { RiAiGenerateText, RiHome2Line } from "react-icons/ri";
+import { TbBrandMysql } from "react-icons/tb";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -155,10 +156,10 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "SQL",
-        icon: <BsFiletypeJson />,
+        icon: <TbBrandMysql />,
         detail: "Format SQL data",
         href: "sql-formatter",
-        isDone: false,
+        isDone: true,
       },
       {
         name: "XML",

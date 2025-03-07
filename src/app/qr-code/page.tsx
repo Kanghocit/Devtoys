@@ -210,7 +210,7 @@ const QRCodeGenerator = () => {
               <img
                 src={qrcode}
                 alt="QR Code preview"
-                className="w-full h-full object-contain rounded-md"
+                className="w-100 h-100 rounded-md"
               />
             ) : (
               <p>
