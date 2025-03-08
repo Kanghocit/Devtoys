@@ -25,22 +25,32 @@ interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
-  const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
   const pathname = usePathname();
 
+  // Tính toán trực tiếp các dropdowns cần mở dựa trên pathname
+  const [openDropdowns, setOpenDropdowns] = useState<string[]>(() => {
+    return items
+      .filter((item) =>
+        item.children?.some((child) => pathname.split("/")[1] === child.href)
+      )
+      .map((item) => item.name);
+  });
+
+  const toggleDropdown = (itemName: string) => {
+    setOpenDropdowns((prev) =>
+      prev.includes(itemName)
+        ? prev.filter((name) => name !== itemName)
+        : [...prev, itemName]
+    );
+  };
+
   return (
-    <ul suppressHydrationWarning>
+    <ul>
       {items.map((item) => (
         <li key={item.name}>
           <div
             className="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-gray-100/90 rounded-r-md transition-colors duration-300 ease-in-out rounded-md text-xl"
-            onClick={() => {
-              setOpenDropdowns((prev) =>
-                prev.includes(item.name)
-                  ? prev.filter((name) => name !== item.name)
-                  : [...prev, item.name]
-              );
-            }}
+            onClick={() => toggleDropdown(item.name)}
           >
             <div className="flex items-center">
               {!collapsed ? (

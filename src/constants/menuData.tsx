@@ -166,7 +166,7 @@ export const subMenus: MenuItem[] = [
         icon: <BsFiletypeJson />,
         detail: "Format XML data",
         href: "xml-formatter",
-        isDone: false,
+        isDone: true,
       },
     ],
   },

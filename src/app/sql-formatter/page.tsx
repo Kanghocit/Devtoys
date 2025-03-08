@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "@/common/Header";
 import CustomCard from "@/components/Card/CusCard";
 import { LuCopy, LuCopySlash, LuLanguages } from "react-icons/lu";
@@ -46,7 +46,7 @@ const SQLFormatter = () => {
     "2 spaces" | "4 spaces" | "1 tab"
   >("2 spaces");
 
-  const handleFormat = () => {
+  const handleFormat = useCallback(() => {
     try {
       const options = {
         language: format,
@@ -64,7 +64,7 @@ const SQLFormatter = () => {
       console.error("Error formatting SQL:", error);
       setOutput("Error formatting SQL. Please check your input.");
     }
-  };
+  }, [input, format, indentation]);
 
   const handlePaste = async () => {
     try {
@@ -96,7 +96,7 @@ const SQLFormatter = () => {
 
   useEffect(() => {
     handleFormat();
-  }, [input, format, indentation]);
+  }, [handleFormat]);
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">

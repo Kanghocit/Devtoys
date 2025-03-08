@@ -9,6 +9,7 @@ import Menu from "./menu";
 import Input from "@/components/input";
 import { menus, subMenus, footerMenus } from "@/constants/menuData";
 import { useSearch } from "@/context/SearchContext";
+
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(true);
   const toggleCollapsed = () => {
