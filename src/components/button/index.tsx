@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
-  variant?: "default" | "text";
+  variant?: "default" | "text" | "primary";
   icon?: React.ReactNode;
   block?: boolean;
 };
@@ -18,10 +18,11 @@ const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   const buttonClass = clsx(
-    "flex gap-2 rounded-md w-fit px-2 py-1  text-xs bg-white hover:bg-gray-100 cursor-pointer",
+    "flex gap-2 rounded-md w-fit text-xs cursor-pointer",
     variant === "default" &&
-      "bg-gray-100 border-1 border-gray-300 border-solid",
-    variant === "text" && "bg-transparent",
+      "bg-white border-1 border-gray-300 border-solid hover:bg-gray-200/50 px-2 py-1",
+    variant === "text" && "bg-transparent px-2 py-1",
+    variant === "primary" && "bg-blue-700 text-white",
     block && "w-full",
     className
   );

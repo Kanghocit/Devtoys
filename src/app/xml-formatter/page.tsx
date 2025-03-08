@@ -24,6 +24,15 @@ const XMLFormatter = () => {
   const [widthFull, setWidthFull] = useState(false);
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    // Đợi một chút để component mount xong
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 50); // Giảm delay xuống để animation mượt hơn
+    return () => clearTimeout(timer);
+  }, []);
 
   const formatWithNewlineAttributes = (
     xml: string,
@@ -116,31 +125,57 @@ const XMLFormatter = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="XML Formatter" />
-      <p className="text-xs ms-2">Configuration</p>
-      <CustomCard title="Indentation" icon={<MdOutlineSpaceBar />}>
-        <select
-          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
-          value={indentation}
-          onChange={(e) => setIndentation(e.target.value as typeof indentation)}
-        >
-          <option value="2 spaces">2 spaces</option>
-          <option value="4 spaces">4 spaces</option>
-          <option value="1 tab">1 tab</option>
-          <option value="Minified">Minified</option>
-        </select>
-      </CustomCard>
-      <CustomCard
-        title="Put attributes on new line"
-        subTitle="Where to put attribute on a new line "
-        icon={<LuLanguages />}
+      <p className="text-xs ms-2 mb-2">Configuration</p>
+
+      <div
+        className={clsx(
+          "transform transition-all duration-500 ease-out",
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"
+        )}
       >
-        <Switch
-          valueTrue="On"
-          valueFalse="Off"
-          onToggle={() => setNewLine(!newLine)}
-        />
-      </CustomCard>
-      <div className="grid grid-cols-2">
+        <CustomCard title="Indentation" icon={<MdOutlineSpaceBar />}>
+          <select
+            className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
+            value={indentation}
+            onChange={(e) =>
+              setIndentation(e.target.value as typeof indentation)
+            }
+          >
+            <option value="2 spaces">2 spaces</option>
+            <option value="4 spaces">4 spaces</option>
+            <option value="1 tab">1 tab</option>
+            <option value="Minified">Minified</option>
+          </select>
+        </CustomCard>
+      </div>
+
+      <div
+        className={clsx(
+          "transform transition-all duration-500 ease-out delay-150",
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0",
+          "mt-2" // Thêm margin-top
+        )}
+      >
+        <CustomCard
+          title="Put attributes on new line"
+          subTitle="Where to put attribute on a new line"
+          icon={<LuLanguages />}
+        >
+          <Switch
+            valueTrue="On"
+            valueFalse="Off"
+            onToggle={() => setNewLine(!newLine)}
+          />
+        </CustomCard>
+      </div>
+
+      <div
+        className={clsx(
+          "grid grid-cols-2 transform transition-all duration-500 ease-out delay-300",
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0",
+          "mt-2" // Thêm margin-top
+        )}
+      >
         {/* Input */}
         <div className={clsx("mx-1", widthFull && "hidden")}>
           <div

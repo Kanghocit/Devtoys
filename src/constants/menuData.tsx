@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import { RiAiGenerateText, RiHome2Line } from "react-icons/ri";
 import { TbBrandMysql } from "react-icons/tb";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -190,10 +191,10 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "Password",
-        icon: <BsFiletypeJson />,
+        icon: <RiLockPasswordFill />,
         detail: "Generate Password data",
         href: "password",
-        isDone: false,
+        isDone: true,
       },
       {
         name: "UUID",
