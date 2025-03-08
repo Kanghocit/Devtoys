@@ -5,7 +5,7 @@ import CustomCard from "@/components/Card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { FaPaste } from "react-icons/fa";
 import { LuCopy, LuCopySlash, LuLanguages } from "react-icons/lu";
 import {
@@ -14,6 +14,7 @@ import {
   MdOpenInFull,
   MdOutlineSpaceBar,
 } from "react-icons/md";
+import vkbeautify from "vkbeautify";
 
 const XMLFormatter = () => {
   const [indentation, setIndentation] = useState<
@@ -21,9 +22,96 @@ const XMLFormatter = () => {
   >("2 spaces");
   const [newLine, setNewLine] = useState(false);
   const [widthFull, setWidthFull] = useState(false);
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
 
-  console.log("KhangIndentation", indentation);
-  console.log("KhangNewLine", newLine);
+  const formatWithNewlineAttributes = (
+    xml: string,
+    indent: number | string
+  ) => {
+    // Đầu tiên format XML bình thường
+    let formatted = vkbeautify.xml(xml, indent);
+
+    if (newLine) {
+      // Regex để tìm các attributes
+      const attrRegex = /(<\w+)([^>]*?)(\/?>)/g;
+
+      formatted = formatted.replace(attrRegex, (match, start, attrs, end) => {
+        // Nếu không có attributes, trả về nguyên bản
+        if (!attrs.trim()) return match;
+
+        // Tách các attributes
+        const attributes = attrs.trim().split(/\s+/);
+
+        // Tạo indent dựa vào loại indent đã chọn
+        const indentStr =
+          typeof indent === "number" ? " ".repeat(indent) : indent;
+
+        // Join các attributes với newline và indent
+        const formattedAttrs = attributes
+          .join("\n" + indentStr)
+          .replace(/^\s+/, ""); // Xóa khoảng trắng đầu tiên
+
+        return `${start}\n${indentStr}${formattedAttrs}${end}`;
+      });
+    }
+
+    return formatted;
+  };
+
+  const handleFormat = useCallback(() => {
+    try {
+      switch (indentation) {
+        case "2 spaces":
+          setOutput(formatWithNewlineAttributes(input, 2));
+          break;
+        case "4 spaces":
+          setOutput(formatWithNewlineAttributes(input, 4));
+          break;
+        case "1 tab":
+          setOutput(formatWithNewlineAttributes(input, "\t"));
+          break;
+        case "Minified":
+          setOutput(input.replace(/\s+/g, ""));
+          break;
+      }
+    } catch (error) {
+      console.error("Error formatting XML:", error);
+      setOutput("Error: Invalid XML format");
+    }
+  }, [input, indentation, newLine, formatWithNewlineAttributes]);
+
+  useEffect(() => {
+    handleFormat();
+  }, [handleFormat]);
+
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      setInput(text);
+    } catch (err) {
+      console.error("Error pasting from clipboard:", err);
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+    } catch (err) {
+      console.error("Error copying to clipboard:", err);
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setInput(e.target?.result as string);
+    };
+    reader.readAsText(file);
+  };
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
@@ -63,35 +151,29 @@ const XMLFormatter = () => {
           >
             <p className="text-xs flex justify-center items-center">Input</p>
             <div className="flex gap-2">
-              <Button
-                icon={<LuCopy />}
-                // onClick={handlePaste}
-              >
+              <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
               </Button>
               <Button
                 icon={<MdFilePresent />}
-                onClick={() => document.getElementById("sql-input")?.click()}
+                onClick={() => document.getElementById("xml-input")?.click()}
               />
               <input
-                id="sql-input"
+                id="xml-input"
                 type="file"
                 className="hidden"
-                accept=".sql,.txt"
-                // onChange={handleFileUpload}
+                accept=".xml,.txt"
+                onChange={handleFileUpload}
               />
-              <Button
-                icon={<MdClear />}
-                // onClick={() => setInput("")}
-              />
+              <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>
 
           <Textarea
-            // value={input}
-            className="min-h-265"
-            // onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter your SQL query..."
+            value={input}
+            className="min-h-500"
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Enter your XML here..."
           />
         </div>
 
@@ -100,16 +182,10 @@ const XMLFormatter = () => {
           <div className="flex m-2 justify-between">
             <p className="text-xs flex justify-center items-center">Output</p>
             <div className="flex gap-2">
-              <Button
-                icon={<LuCopySlash />}
-                // onClick={handleCopy}
-              >
+              <Button icon={<LuCopySlash />} onClick={handleCopy}>
                 Copy
               </Button>
-              <Button
-                icon={<FaPaste />}
-                // onClick={handlePaste}
-              >
+              <Button icon={<FaPaste />} onClick={handlePaste}>
                 Paste as
               </Button>
               <Button
@@ -119,7 +195,7 @@ const XMLFormatter = () => {
             </div>
           </div>
           <Textarea
-            // value={output}
+            value={output}
             readOnly
             className="min-h-265 cursor-not-allowed"
           />

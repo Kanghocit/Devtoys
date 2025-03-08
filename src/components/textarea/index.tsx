@@ -11,7 +11,7 @@ type TextareaProps = React.ComponentPropsWithoutRef<"textarea"> & {
 const Textarea: React.FC<TextareaProps> = ({
   className,
   useLine = true,
-  minLines = 3,
+  minLines = 1,
   maxLines = 999,
   value,
   onChange,
@@ -32,13 +32,20 @@ const Textarea: React.FC<TextareaProps> = ({
       setLines(newLines);
 
       // Auto resize
-      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = "0"; // Reset height first
+      const scrollHeight = textareaRef.current.scrollHeight;
       const newHeight = Math.min(
-        Math.max(lineCount, minLines) * lineHeight,
+        Math.max(scrollHeight, minLines * lineHeight),
         maxLines * lineHeight
       );
       textareaRef.current.style.height = `${newHeight}px`;
     }
+  };
+
+  // Xử lý sự kiện paste
+  const handlePaste = () => {
+    // Đợi một tick để nội dung được paste vào textarea
+    setTimeout(updateLines, 0);
   };
 
   useEffect(() => {
@@ -49,7 +56,6 @@ const Textarea: React.FC<TextareaProps> = ({
         setLineHeight(computed);
       }
     }
-    // Initial update
     updateLines();
   }, []);
 
@@ -78,14 +84,15 @@ const Textarea: React.FC<TextareaProps> = ({
         ref={textareaRef}
         value={value}
         onChange={(e) => {
-          updateLines();
           onChange?.(e);
+          updateLines();
         }}
+        onPaste={handlePaste}
         className={clsx(
           "w-full resize-none font-mono text-sm outline-none p-2",
           "leading-[20px]",
           "scrollbar-custom",
-          "placeholder:text-gray-400 ",
+          "placeholder:text-gray-400",
           className
         )}
         style={{
