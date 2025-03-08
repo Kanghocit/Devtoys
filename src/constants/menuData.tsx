@@ -17,6 +17,7 @@ import {
 import { RiAiGenerateText, RiHome2Line } from "react-icons/ri";
 import { TbBrandMysql } from "react-icons/tb";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { TbJson } from "react-icons/tb";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -231,23 +232,23 @@ export const subMenus: MenuItem[] = [
     children: [
       {
         name: "JSONPath",
-        icon: <BsFiletypeJson />,
+        icon: <TbJson />,
         detail: "Test JSONPath data",
-        href: "jsonpath",
-        isDone: false,
+        href: "jsonpath-tester",
+        isDone: true,
       },
       {
-        name: "RegEx",
+        name: "Regex",
         icon: <BsFiletypeJson />,
-        detail: "Test RegEx data",
-        href: "regex",
+        detail: "Test Regex data",
+        href: "regex-tester",
         isDone: false,
       },
       {
         name: "XML",
         icon: <BsFiletypeJson />,
         detail: "Test XML data",
-        href: "xml",
+        href: "xml-tester",
         isDone: false,
       },
     ],

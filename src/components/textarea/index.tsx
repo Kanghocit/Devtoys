@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 
 type TextareaProps = React.ComponentPropsWithoutRef<"textarea"> & {
+  kind?: "default" | "hide";
   useLine?: boolean;
   minLines?: number;
   maxLines?: number;
@@ -10,6 +11,7 @@ type TextareaProps = React.ComponentPropsWithoutRef<"textarea"> & {
 
 const Textarea: React.FC<TextareaProps> = ({
   className,
+  kind = "default",
   useLine = true,
   minLines = 1,
   maxLines = 999,
@@ -63,14 +65,14 @@ const Textarea: React.FC<TextareaProps> = ({
     updateLines();
   }, [value, minLines]);
 
+  const textareaClass = clsx(
+    "relative flex border border-gray-300 w-full rounded-md overflow-hidden bg-white",
+    kind === "hide" && "border-none bg-gray-300"
+  );
   return (
-    <div
-      className={clsx(
-        "relative flex border border-gray-300 w-full rounded-md overflow-hidden bg-white"
-      )}
-    >
+    <div className={textareaClass}>
       {useLine && (
-        <div className="bg-gray-50 text-gray-400 px-2 py-2 text-xs text-right select-none border-r border-gray-200">
+        <div className=" text-gray-400 px-2 py-2 text-xs text-right select-none ">
           {lines.map((line) => (
             <div key={line} className="leading-[20px]">
               {line}
