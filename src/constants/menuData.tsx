@@ -18,6 +18,8 @@ import { RiAiGenerateText, RiHome2Line } from "react-icons/ri";
 import { TbBrandMysql } from "react-icons/tb";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { TbJson } from "react-icons/tb";
+import { TbFileTypeXml } from "react-icons/tb";
+import { LuCodeXml } from "react-icons/lu";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -165,7 +167,7 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "XML",
-        icon: <BsFiletypeJson />,
+        icon: <LuCodeXml />,
         detail: "Format XML data",
         href: "xml-formatter",
         isDone: true,
@@ -246,10 +248,10 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "XML",
-        icon: <BsFiletypeJson />,
+        icon: <TbFileTypeXml />,
         detail: "Test XML data",
         href: "xml-tester",
-        isDone: false,
+        isDone: true,
       },
     ],
   },
