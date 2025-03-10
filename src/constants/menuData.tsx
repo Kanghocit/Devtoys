@@ -21,6 +21,7 @@ import { TbJson } from "react-icons/tb";
 import { TbFileTypeXml } from "react-icons/tb";
 import { LuCodeXml } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa";
+import { RiImage2Line } from "react-icons/ri";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -207,10 +208,10 @@ export const subMenus: MenuItem[] = [
     icon: <AiOutlinePicture />,
     children: [
       {
-        name: "Image Resizer",
-        icon: <BsFiletypeJson />,
-        detail: "Resize image data",
-        href: "image-resizer",
+        name: "Image Converter",
+        icon: <RiImage2Line />,
+        detail: "Convert image data",
+        href: "image-converter",
         isDone: false,
       },
       {

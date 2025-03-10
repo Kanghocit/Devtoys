@@ -161,7 +161,10 @@ const XmlTester = () => {
   }, [xml, xsd]);
 
   return (
-    <div className="flex flex-col rounded-2xl h-full p-2">
+    <div
+      className="flex flex-col rounded-2xl h-full p-2"
+      suppressHydrationWarning
+    >
       <Header title="XML / XSD Tester" />
       <div className="grid grid-cols-2 mx-2">
         {/* Left */}
