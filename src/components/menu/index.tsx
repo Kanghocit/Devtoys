@@ -48,34 +48,39 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
     <ul className="space-y-1">
       {items.map((item) => (
         <li key={item.name}>
-          <div
-            className={clsx(
-              "flex items-center justify-between px-4 py-2 cursor-pointer",
-              "hover:bg-gray-100/90 rounded-md transition-all duration-300 ease-in-out",
-              "text-xl relative",
-              openDropdowns.includes(item.name) && "bg-gray-50"
-            )}
-            onClick={() => toggleDropdown(item.name)}
-          >
-            <div className="flex items-center">
-              {!collapsed ? (
-                <div className="text-2xl">{item.icon}</div>
-              ) : (
-                <>
-                  {item.icon}
-                  <span className="ml-2">{item.name}</span>
-                </>
+          <Link href={item.href || "#"}>
+            <div
+              className={clsx(
+                "flex items-center justify-between px-4 py-2 cursor-pointer",
+                "hover:bg-gray-100/90 rounded-md transition-all duration-300 ease-in-out",
+                "text-xl relative",
+                openDropdowns.includes(item.name) && "bg-gray-50"
+              )}
+              onClick={() => toggleDropdown(item.name)}
+            >
+              <div className="flex items-center">
+                {!collapsed ? (
+                  <div className="text-2xl">{item.icon}</div>
+                ) : (
+                  <>
+                    {item.icon}
+                    <span className="ml-2">{item.name}</span>
+                  </>
+                )}
+              </div>
+              {item.children && collapsed && (
+                <IoChevronDown
+                  className={clsx(
+                    "w-4 h-4 transition-transform duration-300 ease-in-out",
+                    openDropdowns.includes(item.name)
+                      ? "rotate-180"
+                      : "rotate-0"
+                  )}
+                />
               )}
             </div>
-            {item.children && collapsed && (
-              <IoChevronDown
-                className={clsx(
-                  "w-4 h-4 transition-transform duration-300 ease-in-out",
-                  openDropdowns.includes(item.name) ? "rotate-180" : "rotate-0"
-                )}
-              />
-            )}
-          </div>
+          </Link>
+
           {item.children && collapsed && (
             <div
               className={clsx(

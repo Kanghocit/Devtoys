@@ -9,14 +9,14 @@ const Header = ({ title }: { title: string }) => {
     setIsFavorite(!isFavorite);
   };
   return (
-    <div className="flex justify-between">
-      <p className="font-bold text-2xl m-2">{title}</p>
+    <header className="flex justify-between">
+      <h1 className="font-bold text-2xl m-2">{title}</h1>
       <div className="flex items-center gap-2">
         <Button icon={<LuStar />} onClick={handleFavorite}>
           {isFavorite ? "Remove from favorites" : "Add to favorites"}
         </Button>
       </div>
-    </div>
+    </header>
   );
 };
 

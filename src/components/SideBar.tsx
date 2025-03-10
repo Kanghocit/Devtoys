@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import Link from "next/link";
 import { useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -47,9 +46,7 @@ const SideBar = () => {
             </div>
           )}
           <div className="border-b-1 border-gray-300">
-            <Link href="/">
-              <Menu items={menus} collapsed={collapsed} />
-            </Link>
+            <Menu items={menus} collapsed={collapsed} />
           </div>
           <Menu items={subMenus} collapsed={collapsed} />
         </div>
