@@ -56,7 +56,7 @@ const Base64Text = () => {
           <div className="flex flex-col  my-1">
             <div className="flex justify-between items-center">
               <p className="text-xs">Input</p>
-              <div className="flex gap-2">
+              <div className="flex gap-2 my-1">
                 <Button
                   icon={<FaRegPaste />}
                   onClick={() => handlePaste((val) => setInputText(val))}
@@ -80,7 +80,7 @@ const Base64Text = () => {
           <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
               <p className="text-xs">Output</p>
-              <div className="flex gap-2">
+              <div className="flex gap-2 my-1">
                 <Button
                   icon={<LuCopy />}
                   onClick={() => handleCopy(outputText)}

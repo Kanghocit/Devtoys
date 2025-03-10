@@ -45,16 +45,21 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
   };
 
   return (
-    <ul>
+    <ul className="space-y-1">
       {items.map((item) => (
         <li key={item.name}>
           <div
-            className="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-gray-100/90 rounded-r-md transition-colors duration-300 ease-in-out rounded-md text-xl"
+            className={clsx(
+              "flex items-center justify-between px-4 py-2 cursor-pointer",
+              "hover:bg-gray-100/90 rounded-md transition-all duration-300 ease-in-out",
+              "text-xl relative",
+              openDropdowns.includes(item.name) && "bg-gray-50"
+            )}
             onClick={() => toggleDropdown(item.name)}
           >
             <div className="flex items-center">
               {!collapsed ? (
-                <div className="text-2xl ">{item.icon}</div>
+                <div className="text-2xl">{item.icon}</div>
               ) : (
                 <>
                   {item.icon}
@@ -71,26 +76,48 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
               />
             )}
           </div>
-          {item.children && openDropdowns.includes(item.name) && collapsed && (
-            <ul className="pl-4 overflow-hidden bg-gray-100/50 rounded-md transition-all duration-300 ease-in-out text-xl">
-              {item.children.map((child) => (
-                <li key={child.name}>
-                  <Link href={child.href}>
-                    <div
-                      className={clsx(
-                        "flex items-center px-4 py-2 hover:bg-gray-100/90 rounded-md mt-1",
-                        pathname.split("/")[1] === child.href
-                          ? "bg-blue-100/90 text-blue-500"
-                          : ""
-                      )}
-                    >
-                      {child.icon}
-                      <span className="ml-2">{child.name}</span>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {item.children && collapsed && (
+            <div
+              className={clsx(
+                "overflow-hidden transition-all duration-300 ease-in-out",
+                openDropdowns.includes(item.name)
+                  ? "max-h-[500px] opacity-100"
+                  : "max-h-0 opacity-0"
+              )}
+            >
+              <ul className="pl-4 py-1 space-y-1 bg-gray-100/50 rounded-md">
+                {item.children.map((child, index) => (
+                  <li
+                    key={child.name}
+                    className={clsx(
+                      "transform transition-all duration-200",
+                      openDropdowns.includes(item.name)
+                        ? "translate-y-0 opacity-100"
+                        : "-translate-y-4 opacity-0",
+                      `delay-[${Math.min(index * 30, 100)}ms]`
+                    )}
+                  >
+                    <Link href={child.href}>
+                      <div
+                        className={clsx(
+                          "flex items-center px-4 py-2 rounded-md",
+                          "transition-all duration-300 ease-in-out",
+                          "hover:bg-gray-100/90 hover:translate-x-1",
+                          pathname.split("/")[1] === child.href
+                            ? "bg-blue-100/90 text-blue-500"
+                            : ""
+                        )}
+                      >
+                        <span className="transform transition-transform duration-300 group-hover:scale-110">
+                          {child.icon}
+                        </span>
+                        <span className="ml-2">{child.name}</span>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </li>
       ))}
