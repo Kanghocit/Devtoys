@@ -1,22 +1,32 @@
 "use client";
+import dynamic from "next/dynamic";
 import Textarea from "@/components/textarea";
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import { MdClear } from "react-icons/md";
 import { MdFilePresent } from "react-icons/md";
 import { BiPaste } from "react-icons/bi";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Input from "@/components/input";
-import CheatSheet from "./CheatSheet";
+
+// Tách CheatSheet thành dynamic import
+const CheatSheet = dynamic(() => import("./CheatSheet"), { ssr: false });
 
 const JsonPathTester = () => {
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>("{}");
   const [jsonPath, setJsonPath] = useState<string>("");
   const [output, setOutput] = useState<string>("");
+  const [isClient, setIsClient] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Kiểm tra môi trường client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const handlePaste = async () => {
+    if (!isClient) return;
     try {
       const text = await navigator.clipboard.readText();
       setInput(text);
@@ -35,11 +45,58 @@ const JsonPathTester = () => {
       reader.readAsText(file);
     }
   };
-  //focus on the input field when the page loads
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (isClient) {
+      inputRef.current?.focus();
+    }
+  }, [isClient]);
+
+  const handleJsonPathTest = useCallback(() => {
+    if (!isClient) return;
+
+    try {
+      if (!input.trim()) {
+        setOutput("");
+        return;
+      }
+
+      if (!jsonPath.trim()) {
+        setOutput("");
+        return;
+      }
+
+      // Dynamic import của jsonpath
+      import("jsonpath")
+        .then((jp) => {
+          const json = JSON.parse(input);
+          const result = jp.query(json, jsonPath);
+          setOutput(JSON.stringify(result, null, 2));
+        })
+        .catch((error) => {
+          setOutput(`Error loading jsonpath: ${error.message}`);
+        });
+    } catch (error) {
+      if (error instanceof Error) {
+        setOutput(`Error: ${error.message}`);
+      } else {
+        setOutput("An unknown error occurred");
+      }
+    }
+  }, [input, jsonPath, isClient]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleJsonPathTest();
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [handleJsonPathTest]);
+
+  if (!isClient) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div
@@ -73,7 +130,7 @@ const JsonPathTester = () => {
           <div className="min-h-[calc(100vh-140px)] border-1 border-gray-300 rounded-md">
             <Textarea
               kind="hide"
-              ref
+              //   ref
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
@@ -113,11 +170,27 @@ const JsonPathTester = () => {
           <div className="flex justify-between gap-2">
             <p className="text-xs mx-2">Test results</p>
             <div className="flex gap-2 ">
-              <Button icon={<MdClear />} />
-              <Button icon={<MdClear />}>
+              <Button icon={<MdClear />} onClick={() => setOutput("")} />
+              <Button
+                icon={<MdClear />}
+                onClick={() => {
+                  try {
+                    navigator.clipboard.writeText(output);
+                  } catch (err) {
+                    console.error("Error copying to clipboard:", err);
+                  }
+                }}
+              >
                 <p>Copy</p>
               </Button>
-              <Button icon={<MdClear />} />
+              <Button
+                icon={<MdClear />}
+                onClick={() => {
+                  setInput("{}");
+                  setJsonPath("");
+                  setOutput("");
+                }}
+              />
             </div>
           </div>
           <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
