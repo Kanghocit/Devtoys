@@ -20,6 +20,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { TbJson } from "react-icons/tb";
 import { TbFileTypeXml } from "react-icons/tb";
 import { LuCodeXml } from "react-icons/lu";
+import { FaEyeSlash } from "react-icons/fa";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -102,13 +103,6 @@ export const subMenus: MenuItem[] = [
         detail: " Encode and decode Base64 text data",
         href: "base64-text",
         isDone: true,
-      },
-      {
-        name: "Certificate",
-        icon: <CiDatabase />,
-        detail: "Encode and decode Certificate data",
-        href: "certificate",
-        isDone: false,
       },
       {
         name: "Gzip",
@@ -220,11 +214,11 @@ export const subMenus: MenuItem[] = [
         isDone: false,
       },
       {
-        name: "Color Converter",
-        icon: <BsFiletypeJson />,
-        detail: "Convert color data",
-        href: "color-converter",
-        isDone: false,
+        name: "Color Blindness Simulator",
+        icon: <FaEyeSlash />,
+        detail: "Simulate color blindness",
+        href: "color-blindness",
+        isDone: true,
       },
     ],
   },

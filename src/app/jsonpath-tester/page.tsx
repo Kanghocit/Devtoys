@@ -25,13 +25,23 @@ const JsonPathTester = () => {
     setIsClient(true);
   }, []);
 
-  const handlePaste = async () => {
+  const handlePasteJson = async () => {
     if (!isClient) return;
     try {
       const text = await navigator.clipboard.readText();
       setInput(text);
     } catch (error) {
-      console.error("Error copying to clipboard:", error);
+      console.error("Error pasting JSON:", error);
+    }
+  };
+
+  const handlePasteJsonPath = async () => {
+    if (!isClient) return;
+    try {
+      const text = await navigator.clipboard.readText();
+      setJsonPath(text);
+    } catch (error) {
+      console.error("Error pasting JSONPath:", error);
     }
   };
 
@@ -110,7 +120,7 @@ const JsonPathTester = () => {
           <div className="flex m-2 justify-between">
             <p className="text-xs flex justify-center items-center">JSON</p>
             <div className="flex gap-2">
-              <Button icon={<BiPaste />} onClick={handlePaste}>
+              <Button icon={<BiPaste />} onClick={handlePasteJson}>
                 Paste
               </Button>
               <input
@@ -143,7 +153,7 @@ const JsonPathTester = () => {
           <div className="flex ms-2 justify-between ">
             <p className="text-xs flex justify-center items-center">JSONPath</p>
             <div className="flex gap-2">
-              <Button icon={<BiPaste />} onClick={handlePaste}>
+              <Button icon={<BiPaste />} onClick={handlePasteJsonPath}>
                 Paste
               </Button>
               <input
