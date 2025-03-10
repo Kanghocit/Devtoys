@@ -22,6 +22,7 @@ import { TbFileTypeXml } from "react-icons/tb";
 import { LuCodeXml } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa";
 import { RiImage2Line } from "react-icons/ri";
+import { FaKey } from "react-icons/fa6";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -196,10 +197,10 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "UUID",
-        icon: <BsFiletypeJson />,
+        icon: <FaKey />,
         detail: "Generate UUID data",
         href: "uuid",
-        isDone: false,
+        isDone: true,
       },
     ],
   },

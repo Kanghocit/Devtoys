@@ -27,6 +27,7 @@
     "react-icons": "^5.5.0",
     "react-textarea-autosize": "^8.5.7",
     "sql-formatter": "^15.4.11",
+    "uuid": "^11.1.0",
     "vkbeautify": "^0.99.3"
   },
   "devDependencies": {
