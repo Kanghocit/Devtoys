@@ -75,10 +75,10 @@ const URL = () => {
         />
       </CustomCard>
 
-      <div className="flex flex-col flex-grow mt-4 overflow-hidden">
-        <div className="flex flex-col flex-grow rounded-lg p-4 ">
+      <div className="flex flex-col mt-4 overflow-hidden">
+        <div className="flex flex-col rounded-lg p-4 ">
           {/* Input */}
-          <div className="flex flex-col flex-grow my0-1">
+          <div className="flex flex-col my0-1">
             <div className="flex justify-between items-center">
               <p className="text-xs">Input</p>
               <div className="flex gap-2">
@@ -87,15 +87,18 @@ const URL = () => {
                 <Button icon={<MdClear />} onClick={() => setInputText("")} />
               </div>
             </div>
-            <Textarea
-              className="w-full h-0 flex-grow mt-1"
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-            />
+            <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md mt-1">
+              <Textarea
+                kind="hide"
+                className="w-full mt-1"
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Output */}
-          <div className="flex flex-col flex-grow mt-4">
+          <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
               <p className="text-xs">Output</p>
               <div className="flex gap-2">
@@ -103,11 +106,14 @@ const URL = () => {
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <Textarea
-              className="w-full h-0 flex-grow mt-1"
-              value={outputText}
-              readOnly
-            />
+            <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md mt-1">
+              <Textarea
+                kind="hide"
+                className="w-full mt-1"
+                value={outputText}
+                readOnly
+              />
+            </div>
           </div>
         </div>
       </div>

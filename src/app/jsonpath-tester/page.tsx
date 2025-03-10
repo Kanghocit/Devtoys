@@ -13,7 +13,7 @@ import Input from "@/components/input";
 const CheatSheet = dynamic(() => import("./CheatSheet"), { ssr: false });
 
 const JsonPathTester = () => {
-  const [input, setInput] = useState<string>("{}");
+  const [input, setInput] = useState<string>("");
   const [jsonPath, setJsonPath] = useState<string>("");
   const [output, setOutput] = useState<string>("");
   const [isClient, setIsClient] = useState(false);
@@ -133,6 +133,8 @@ const JsonPathTester = () => {
               //   ref
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              placeholder="{}"
+              autoFocus
             />
           </div>
         </div>
@@ -193,7 +195,8 @@ const JsonPathTester = () => {
               />
             </div>
           </div>
-          <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+
+          <div className="h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea kind="hide" value={output} readOnly />
           </div>
           <div className="flex flex-col gap-2">

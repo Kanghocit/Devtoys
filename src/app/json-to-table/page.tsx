@@ -12,7 +12,7 @@ import { MdClear, MdFilePresent, MdOpenInFull } from "react-icons/md";
 const JsonToTable = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [widthFull, setWidthFull] = useState(false);
-  const [input, setInput] = useState("[]");
+  const [input, setInput] = useState("");
 
   // ✅ Tự động format JSON khi nhập liệu
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -101,11 +101,15 @@ const JsonToTable = () => {
               <Button icon={<MdClear />} onClick={() => setInput("{}")} />
             </div>
           </div>
-          <Textarea
-            value={input}
-            onChange={handleInputChange}
-            className="min-h-300"
-          />
+          <div className="min-h-[calc(95vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+            <Textarea
+              kind="hide"
+              value={input}
+              onChange={handleInputChange}
+              autoFocus
+              placeholder="[]"
+            />
+          </div>
         </div>
 
         {/* Output */}

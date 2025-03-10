@@ -56,7 +56,7 @@ const EscapeUnescape = () => {
           <div className="flex flex-col  my-1">
             <div className="flex justify-between items-center">
               <p className="text-xs">Input</p>
-              <div className="flex gap-2">
+              <div className="flex gap-2 mb-1">
                 <Button icon={<FaRegPaste />}>Paste</Button>
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setInputText("")} />
@@ -64,6 +64,7 @@ const EscapeUnescape = () => {
             </div>
             <Textarea
               className="w-full h-130 mt-1"
+              autoFocus
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder={
@@ -76,7 +77,7 @@ const EscapeUnescape = () => {
           <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
               <p className="text-xs">Output</p>
-              <div className="flex gap-2">
+              <div className="flex gap-2 mb-1">
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>

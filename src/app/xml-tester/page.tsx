@@ -198,12 +198,13 @@ const XmlTester = () => {
               </Button>
             </div>
           </div>
-          <div className="min-h-[calc(90vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+          <div className="min-h-[calc(100vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
               kind="hide"
               value={xsd}
               onChange={(e) => setXsd(e.target.value)}
-              placeholder="XSD validation is not supported in the browser version. This feature may be added in a future update."
+              autoFocus
+              placeholder="Enter your XSD here to validate the XML..."
             />
           </div>
         </div>
@@ -241,7 +242,7 @@ const XmlTester = () => {
               </Button>
             </div>
           </div>
-          <div className="min-h-[calc(90vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+          <div className="min-h-[calc(100vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
               kind="hide"
               value={xml}

@@ -91,7 +91,7 @@ const Textarea: React.FC<TextareaProps> = ({
         }}
         onPaste={handlePaste}
         className={clsx(
-          "w-full resize-none font-mono text-sm outline-none p-2",
+          "w-full resize-none font-mono text-sm outline-none py-2",
           "leading-[20px]",
           "scrollbar-custom",
           "placeholder:text-gray-400",

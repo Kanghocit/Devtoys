@@ -69,11 +69,14 @@ const MarkdownPreview = () => {
               <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>
-          <Textarea
-            value={input}
-            onChange={handleInputChange}
-            className="min-h-280"
-          />
+          <div className="min-h-[calc(95vh-140px)] border-1 border-gray-300 rounded-md mt-1">
+            <Textarea
+              kind="hide"
+              value={input}
+              onChange={handleInputChange}
+              className="min-h-280"
+            />
+          </div>
         </div>
 
         {/* Output (Preview) */}
@@ -85,7 +88,7 @@ const MarkdownPreview = () => {
           </div>
           <div
             className={clsx(
-              "min-h-280 p-3 border-1 border-gray-300 rounded-md",
+              "min-h-[calc(95vh-140px)] p-3 border-1 border-gray-300 rounded-md",
               theme === "Dark"
                 ? "bg-gray-800 text-white"
                 : "bg-white text-black"

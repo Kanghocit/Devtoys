@@ -77,13 +77,14 @@ const JsonToYaml = () => {
               <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>
-
-          <Textarea
-            value={input}
-            className="min-h-265"
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your Input Array..."
-          />
+          <div className="min-h-[calc(85vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+            <Textarea
+              kind="hide"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your Input Array..."
+            />
+          </div>
         </div>
 
         {/* Output */}
@@ -100,12 +101,9 @@ const JsonToYaml = () => {
               />
             </div>
           </div>
-          <Textarea
-            // onInput={updateLines}
-            value={output}
-            readOnly
-            className="min-h-265 cursor-not-allowed"
-          />
+          <div className="cursor-not-allowed min-h-[calc(85vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+            <Textarea kind="hide" value={output} readOnly />
+          </div>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import Button from "@/components/button";
 import { LuCopy } from "react-icons/lu";
 import { MdClear, MdFilePresent } from "react-icons/md";
 import { useCallback, useRef, useState } from "react";
+import Textarea from "@/components/textarea";
 
 const Base64Image = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -48,12 +49,15 @@ const Base64Image = () => {
             </div>
           </div>
 
-          <textarea
-            className="w-full h-[85vh] items-start focus:outline-none p-2 border-1 shadow-md border-gray-300 rounded-md"
-            placeholder="Enter your base64 text here"
-            value={imgsrc || ""}
-            onChange={(e) => setImgsrc(e.target.value)}
-          />
+          <div className="min-h-[calc(100vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+            <Textarea
+              kind="hide"
+              value={imgsrc || ""}
+              onChange={(e) => setImgsrc(e.target.value)}
+              autoFocus
+              placeholder="Enter your base64 text here"
+            />
+          </div>
         </div>
 
         <div className=" flex flex-col gap-2">
@@ -77,7 +81,7 @@ const Base64Image = () => {
               <Button variant="text">Paste</Button>
             </div>
           </div>
-          <div className="h-[78vh] p-3 rounded-md text-sm shadow-md border border-gray-300 flex justify-center items-center">
+          <div className="min-h-[calc(94vh-140px)] p-3 rounded-md text-sm me-1 shadow-md border border-gray-300 flex justify-center items-center">
             {imgsrc ? (
               <img
                 src={imgsrc}
