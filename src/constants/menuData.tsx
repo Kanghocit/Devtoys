@@ -24,6 +24,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { RiImage2Line } from "react-icons/ri";
 import { FaKey } from "react-icons/fa6";
 import { FiFileText } from "react-icons/fi";
+import { FaFingerprint } from "react-icons/fa";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -177,10 +178,10 @@ export const subMenus: MenuItem[] = [
     children: [
       {
         name: "Hash / Checksum",
-        icon: <BsFiletypeJson />,
+        icon: <FaFingerprint />,
         detail: "Generate Hash / Checksum data",
-        href: "hashchecksum",
-        isDone: false,
+        href: "hash-checksum",
+        isDone: true,
       },
       {
         name: "Lorem Ipsum",
