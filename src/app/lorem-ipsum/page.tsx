@@ -88,7 +88,7 @@ const LoremIpsum = () => {
     try {
       await navigator.clipboard.writeText(generatedText);
       toast.success("Copied to clipboard!");
-    } catch (err) {
+    } catch {
       toast.error("Failed to copy text");
     }
   };
