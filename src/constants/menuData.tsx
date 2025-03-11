@@ -23,6 +23,7 @@ import { LuCodeXml } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa";
 import { RiImage2Line } from "react-icons/ri";
 import { FaKey } from "react-icons/fa6";
+import { FiFileText } from "react-icons/fi";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -183,10 +184,10 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "Lorem Ipsum",
-        icon: <BsFiletypeJson />,
+        icon: <FiFileText />,
         detail: "Generate Lorem Ipsum data",
-        href: "loremipsum",
-        isDone: false,
+        href: "lorem-ipsum",
+        isDone: true,
       },
       {
         name: "Password",

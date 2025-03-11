@@ -53,9 +53,9 @@ const Base64Text = () => {
       <div className="flex flex-col mt-4 overflow-hidden">
         <div className="flex flex-col rounded-lg p-4 ">
           {/* Input */}
-          <div className="flex flex-col  my-1">
+          <div className="flex flex-col">
             <div className="flex justify-between items-center">
-              <p className="text-xs">Input</p>
+              <p className="text-xs ms-2">Input</p>
               <div className="flex gap-2 my-1">
                 <Button
                   icon={<FaRegPaste />}
@@ -69,17 +69,21 @@ const Base64Text = () => {
                 <Button icon={<MdClear />} onClick={() => setInputText("")} />
               </div>
             </div>
-            <Textarea
-              className="w-full min-h-100 mt-1"
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-            />
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1">
+              <Textarea
+                className="w-full"
+                autoFocus
+                kind="hide"
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Output */}
           <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
-              <p className="text-xs">Output</p>
+              <p className="text-xs ms-2">Output</p>
               <div className="flex gap-2 my-1">
                 <Button
                   icon={<LuCopy />}
@@ -90,11 +94,14 @@ const Base64Text = () => {
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <Textarea
-              className="w-full min-h-100 mt-1"
-              value={outputText}
-              readOnly
-            />
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-not-allowed">
+              <Textarea
+                className="w-full cursor-not-allowed "
+                value={outputText}
+                readOnly
+                kind="hide"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -81,7 +81,7 @@ const Gzip = () => {
       <div className="flex flex-col mt-4 overflow-hidden">
         <div className="flex flex-col rounded-lg p-4 ">
           {/* Input */}
-          <div className="flex flex-col my0-1">
+          <div className="flex flex-col">
             <div className="flex justify-between items-center">
               <p className="text-xs">Input</p>
               <div className="flex gap-2">
@@ -110,7 +110,7 @@ const Gzip = () => {
               <Textarea
                 kind="hide"
                 autoFocus
-                className="w-full mt-1"
+                className="w-full"
                 value={fileName ? fileContent || "" : inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder={
@@ -134,7 +134,7 @@ const Gzip = () => {
             <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1">
               <Textarea
                 kind="hide"
-                className="w-full mt-1"
+                className="w-full"
                 value={outputText}
                 readOnly
               />
