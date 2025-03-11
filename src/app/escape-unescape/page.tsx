@@ -62,15 +62,18 @@ const EscapeUnescape = () => {
                 <Button icon={<MdClear />} onClick={() => setInputText("")} />
               </div>
             </div>
-            <Textarea
-              className="w-full h-130 mt-1"
-              autoFocus
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder={
-                !isEscape ? "Enter text to escape" : "Enter text to unescape"
-              }
-            />
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 ">
+              <Textarea
+                className="w-full"
+                kind="hide"
+                autoFocus
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder={
+                  !isEscape ? "Enter text to escape" : "Enter text to unescape"
+                }
+              />
+            </div>
           </div>
 
           {/* Output */}
@@ -82,11 +85,14 @@ const EscapeUnescape = () => {
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <Textarea
-              className="w-full h-130 mt-1 cursor-not-allowed"
-              value={outputText}
-              readOnly
-            />
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-not-allowed">
+              <Textarea
+                className="w-full h-130 mt-1 cursor-not-allowed"
+                value={outputText}
+                readOnly
+                kind="hide"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -25,6 +25,7 @@ import { RiImage2Line } from "react-icons/ri";
 import { FaKey } from "react-icons/fa6";
 import { FiFileText } from "react-icons/fi";
 import { FaFingerprint } from "react-icons/fa";
+import { BsMarkdownFill } from "react-icons/bs";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -273,7 +274,7 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "Markdown Preview",
-        icon: <BsFiletypeJson />,
+        icon: <BsMarkdownFill />,
         detail: "Preview Markdown data",
         href: "markdown-preview",
         isDone: true,

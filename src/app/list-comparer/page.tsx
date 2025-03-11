@@ -110,11 +110,15 @@ const ListComparer = () => {
                   />
                 </div>
               </div>
-              <Textarea
-                className="w-full h-100 mt-1"
-                value={inputTextA}
-                onChange={(e) => setInputTextA(e.target.value)}
-              />
+              <div className="min-h-[calc(40vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-text">
+                <Textarea
+                  className="w-full h-100 mt-1"
+                  value={inputTextA}
+                  onChange={(e) => setInputTextA(e.target.value)}
+                  kind="hide"
+                  autoFocus
+                />
+              </div>
             </div>
             <div className="flex flex-col  my-1">
               <div className="flex justify-between items-center">
@@ -128,11 +132,15 @@ const ListComparer = () => {
                   />
                 </div>
               </div>
-              <Textarea
-                className="w-full h-100 mt-1"
-                value={inputTextB}
-                onChange={(e) => setInputTextB(e.target.value)}
-              />
+              <div className="min-h-[calc(40vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-text">
+                <Textarea
+                  className="w-full h-100"
+                  value={inputTextB}
+                  onChange={(e) => setInputTextB(e.target.value)}
+                  kind="hide"
+                  autoFocus
+                />
+              </div>
             </div>
           </div>
 
@@ -145,11 +153,14 @@ const ListComparer = () => {
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <Textarea
-              className="w-full h-130 mt-1"
-              value={outputText}
-              readOnly
-            />
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-not-allowed">
+              <Textarea
+                className="w-full h-130  cursor-not-allowed"
+                value={outputText}
+                readOnly
+                kind="hide"
+              />
+            </div>
           </div>
         </div>
       </div>
