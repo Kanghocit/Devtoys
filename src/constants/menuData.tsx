@@ -1,5 +1,5 @@
 import { AiOutlinePicture } from "react-icons/ai";
-import { BsFiletypeJson } from "react-icons/bs";
+// import { BsFiletypeJson } from "react-icons/bs";
 import { CiCalendarDate, CiDatabase, CiSettings } from "react-icons/ci";
 import { FaQrcode, FaHtml5, FaListUl } from "react-icons/fa";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -26,6 +26,7 @@ import { FaKey } from "react-icons/fa6";
 import { FiFileText } from "react-icons/fi";
 import { FaFingerprint } from "react-icons/fa";
 import { BsMarkdownFill } from "react-icons/bs";
+import { AiOutlineFileText } from "react-icons/ai";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -238,13 +239,13 @@ export const subMenus: MenuItem[] = [
         href: "jsonpath-tester",
         isDone: true,
       },
-      {
-        name: "Regex",
-        icon: <BsFiletypeJson />,
-        detail: "Test Regex data",
-        href: "regex-tester",
-        isDone: false,
-      },
+      // {
+      //   name: "Regex",
+      //   icon: <BsFiletypeJson />,
+      //   detail: "Test Regex data",
+      //   href: "regex-tester",
+      //   isDone: false,
+      // },
       {
         name: "XML",
         icon: <TbFileTypeXml />,
@@ -281,18 +282,18 @@ export const subMenus: MenuItem[] = [
       },
       {
         name: "Analyze & Utilities",
-        icon: <BsFiletypeJson />,
+        icon: <AiOutlineFileText />,
         detail: "Analyze and utilities text data",
-        href: "analyzeutilities",
-        isDone: false,
-      },
-      {
-        name: "Compare",
-        icon: <BsFiletypeJson />,
-        detail: "Compare text data",
-        href: "compare",
+        href: "text-analyzer",
         isDone: true,
       },
+      // {
+      //   name: "Compare",
+      //   icon: <BsFiletypeJson />,
+      //   detail: "Compare text data",
+      //   href: "compare",
+      //   isDone: true,
+      // },
     ],
   },
 ];
