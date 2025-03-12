@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
@@ -79,7 +79,7 @@ const JsonToYaml = () => {
           </div>
           <div className="min-h-[calc(85vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
-              kind="hide"
+              hasBorder={false}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your Input Array..."
@@ -102,7 +102,7 @@ const JsonToYaml = () => {
             </div>
           </div>
           <div className="cursor-not-allowed min-h-[calc(85vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
-            <Textarea kind="hide" value={output} readOnly />
+            <Textarea hasBorder={false} value={output} readOnly />
           </div>
         </div>
       </div>

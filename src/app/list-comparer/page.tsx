@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import { useCallback, useEffect, useState } from "react";
@@ -115,7 +115,7 @@ const ListComparer = () => {
                   className="w-full h-100 mt-1"
                   value={inputTextA}
                   onChange={(e) => setInputTextA(e.target.value)}
-                  kind="hide"
+                  hasBorder={false}
                   autoFocus
                 />
               </div>
@@ -137,7 +137,7 @@ const ListComparer = () => {
                   className="w-full h-100"
                   value={inputTextB}
                   onChange={(e) => setInputTextB(e.target.value)}
-                  kind="hide"
+                  hasBorder={false}
                   autoFocus
                 />
               </div>
@@ -158,7 +158,7 @@ const ListComparer = () => {
                 className="w-full h-130  cursor-not-allowed"
                 value={outputText}
                 readOnly
-                kind="hide"
+                hasBorder={false}
               />
             </div>
           </div>

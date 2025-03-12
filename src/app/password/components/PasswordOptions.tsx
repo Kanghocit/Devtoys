@@ -1,6 +1,6 @@
 import { characters } from "../constants";
 import { HandlerType } from "../types";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Switch from "@/components/switch";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import clsx from "clsx";

@@ -51,7 +51,7 @@ const Base64Image = () => {
 
           <div className="min-h-[calc(100vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
-              kind="hide"
+              hasBorder={false}
               value={imgsrc || ""}
               onChange={(e) => setImgsrc(e.target.value)}
               autoFocus

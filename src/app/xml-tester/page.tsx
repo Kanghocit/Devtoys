@@ -203,7 +203,7 @@ const XmlTester = () => {
           </div>
           <div className="min-h-[calc(100vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
-              kind="hide"
+              hasBorder={false}
               value={xsd}
               onChange={(e) => setXsd(e.target.value)}
               autoFocus
@@ -247,7 +247,7 @@ const XmlTester = () => {
           </div>
           <div className="min-h-[calc(100vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
-              kind="hide"
+              hasBorder={false}
               value={xml}
               onChange={(e) => setXml(e.target.value)}
               placeholder="Enter your XML here to check if it is well-formed..."

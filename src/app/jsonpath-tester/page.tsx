@@ -139,7 +139,7 @@ const JsonPathTester = () => {
           </div>
           <div className="min-h-[calc(100vh-140px)] border-1 border-gray-300 rounded-md">
             <Textarea
-              kind="hide"
+              hasBorder={false}
               //   ref
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -207,7 +207,7 @@ const JsonPathTester = () => {
           </div>
 
           <div className="h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
-            <Textarea kind="hide" value={output} readOnly />
+            <Textarea hasBorder={false} value={output} readOnly />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex justify-between gap-2">

@@ -2,7 +2,7 @@
 
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Textarea from "@/components/textarea";
 import { useState } from "react";
 import { LuCopy, LuLock } from "react-icons/lu";

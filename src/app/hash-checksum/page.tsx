@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from "react";
 import Header from "@/common/Header";
-import ConfigCard from "@/components/Card/configCard";
+import ConfigCard from "@/components/card/configCard";
 import { BsTextParagraph } from "react-icons/bs";
 import Button from "@/components/button";
 import { FaPaste, FaTrash, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
@@ -204,7 +204,7 @@ const HashChecksum = () => {
               autoFocus
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              kind="hide"
+              hasBorder={false}
             />
           </div>
         </div>

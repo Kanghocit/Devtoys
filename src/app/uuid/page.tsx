@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import React, { useCallback, useEffect, useState } from "react";
@@ -186,7 +186,7 @@ const Uuid = () => {
 
       <div className="min-h-[calc(70vh-140px)] border-1 border-gray-300 rounded-md">
         <Textarea
-          kind="hide"
+          hasBorder={false}
           value={uuids.join("\n")}
           readOnly
           placeholder="Generated UUIDs will appear here"

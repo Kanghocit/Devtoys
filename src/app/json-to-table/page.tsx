@@ -103,7 +103,7 @@ const JsonToTable = () => {
           </div>
           <div className="min-h-[calc(95vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
-              kind="hide"
+              hasBorder={false}
               value={input}
               onChange={handleInputChange}
               autoFocus

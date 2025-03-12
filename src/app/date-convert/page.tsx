@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
 import { useEffect, useRef, useState } from "react";

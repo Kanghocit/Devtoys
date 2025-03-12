@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import { useCallback, useEffect, useState } from "react";
@@ -65,7 +65,7 @@ const EscapeUnescape = () => {
             <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 ">
               <Textarea
                 className="w-full"
-                kind="hide"
+                hasBorder={false}
                 autoFocus
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
@@ -90,7 +90,7 @@ const EscapeUnescape = () => {
                 className="w-full h-130 mt-1 cursor-not-allowed"
                 value={outputText}
                 readOnly
-                kind="hide"
+                hasBorder={false}
               />
             </div>
           </div>

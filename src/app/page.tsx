@@ -1,5 +1,5 @@
-import MainContent from "@/components/MainContent";
-import Suggest from "@/components/Suggest";
+import MainContent from "@/components/maincontent";
+import Suggest from "@/components/suggest";
 export default function Home() {
   return (
     <>

@@ -1,6 +1,6 @@
 import React from "react";
 import { IoMdAlert } from "react-icons/io";
-import Button from "./button";
+import Button from "../button"
 import Link from "next/link";
 
 const Suggest = () => {

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
-import Menu from "./menu";
+import Menu from "../menu";
 import Input from "@/components/input";
 import { menus, subMenus, footerMenus } from "@/constants/menuData";
 import { useSearch } from "@/context/SearchContext";

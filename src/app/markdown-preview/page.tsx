@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import { useRef, useState, useCallback } from "react";
@@ -292,7 +292,7 @@ const MarkdownPreview = () => {
             onDrop={handleDrop}
           >
             <Textarea
-              kind="hide"
+             hasBorder={false}
               value={input}
               onChange={handleInputChange}
               className="min-h-280"

@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/components/button";
 import Header from "@/common/Header";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import React, { useRef, useState, DragEvent } from "react";
 import { BiPaste } from "react-icons/bi";
 import { LiaExchangeAltSolid } from "react-icons/lia";

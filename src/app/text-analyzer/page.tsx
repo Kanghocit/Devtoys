@@ -373,7 +373,7 @@ const TextAnalyzer = () => {
             <Textarea
               className="w-full"
               autoFocus
-              kind="hide"
+              hasBorder={false}
               value={input}
               onChange={(e) => {
                 setInput(e.target.value);

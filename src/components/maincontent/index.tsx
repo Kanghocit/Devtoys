@@ -1,7 +1,7 @@
 "use client";
 
 import { footerMenus, subMenus } from "@/constants/menuData";
-import Card from "./Card";
+import Card from "../card";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
 
@@ -65,7 +65,6 @@ const MainContent = () => {
         ) : (
           <div className="text-gray-500 text-sm">
             <p>Please pay to unlock the feature 😘</p>
-            
           </div>
         )}
       </div>

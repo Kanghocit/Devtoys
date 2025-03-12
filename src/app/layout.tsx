@@ -1,4 +1,4 @@
-import SideBar from "@/components/SideBar";
+import SideBar from "@/components/sidebar";
 import { SearchProvider } from "@/context/SearchContext";
 
 import type { Metadata } from "next";

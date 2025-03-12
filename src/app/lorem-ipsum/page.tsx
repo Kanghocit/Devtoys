@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/common/Header";
-import ConfigCard from "@/components/Card/configCard";
+import ConfigCard from "@/components/card/configCard";
 import Button from "@/components/button";
 import Textarea from "@/components/textarea";
 import { useCallback, useRef, useState } from "react";
@@ -205,7 +205,7 @@ const LoremIpsum = () => {
           <Textarea
             className="w-full"
             autoFocus
-            kind="hide"
+            hasBorder={false}
             value={generatedText}
             readOnly
           />

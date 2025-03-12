@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 
 type TextareaProps = React.ComponentPropsWithoutRef<"textarea"> & {
-  kind?: "default" | "hide";
+  hasBorder?: boolean;
   useLine?: boolean;
   minLines?: number;
   maxLines?: number;
@@ -11,7 +11,7 @@ type TextareaProps = React.ComponentPropsWithoutRef<"textarea"> & {
 
 const Textarea: React.FC<TextareaProps> = ({
   className,
-  kind = "default",
+  hasBorder = true,
   useLine = true,
   minLines = 1,
   maxLines = 999,
@@ -67,7 +67,7 @@ const Textarea: React.FC<TextareaProps> = ({
 
   const textareaClass = clsx(
     "relative flex border border-gray-300 w-full rounded-md overflow-hidden bg-white",
-    kind === "hide" && "border-none bg-gray-300"
+    !hasBorder && "border-none bg-gray-300"
   );
   return (
     <div className={textareaClass}>

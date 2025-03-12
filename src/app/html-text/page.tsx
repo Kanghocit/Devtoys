@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/Card/CusCard";
+import CustomCard from "@/components/card/CusCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import { useCallback, useEffect, useState } from "react";
@@ -74,7 +74,7 @@ const HtmlText = () => {
             </div>
             <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md mt-1">
               <Textarea
-                kind="hide"
+                hasBorder={false}
                 className="w-full mt-1"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
@@ -93,7 +93,7 @@ const HtmlText = () => {
             </div>
             <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md mt-1">
               <Textarea
-                kind="hide"
+                hasBorder={false}
                 className="w-full mt-1"
                 value={outputText}
               />
