@@ -19,8 +19,8 @@ const SideBar = () => {
   return (
     <div
       className={clsx(
-        "rounded-tr-lg border-r-1 border-gray-300 transition-all duration-300 ease-in-out",
-        collapsed ? "w-[350px]" : "w-[60px]"
+        "rounded-tr-lg border-r-1 border-gray-300",
+        collapsed && "min-w-[300px]"
       )}
     >
       <div className="flex flex-col justify-between h-screen gap-2 ">
@@ -45,14 +45,11 @@ const SideBar = () => {
               <GoSearch />
             </div>
           )}
-
           <div className="border-b-1 border-gray-300">
             <Menu items={menus} collapsed={collapsed} />
           </div>
-
           <Menu items={subMenus} collapsed={collapsed} />
         </div>
-
         <div className="border-t-1 border-gray-300">
           <Menu items={footerMenus} collapsed={collapsed} />
         </div>
