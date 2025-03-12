@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 
 interface MenuItem {
@@ -28,31 +28,27 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
   const pathname = usePathname();
 
   // Tính toán trực tiếp các dropdowns cần mở dựa trên pathname
-  const openDropdowns = useMemo(
-    () =>
-      items
-        .filter((item) =>
-          item.children?.some((child) => pathname.split("/")[1] === child.href)
-        )
-        .map((item) => item.name),
-    [pathname]
-  );
-
-  const [userToggledDropdowns, setUserToggledDropdowns] = useState<string[]>(
-    []
-  );
-
+  const getOpenDropdowns = (pathname: string) =>
+    items
+      .filter((item) =>
+        item.children?.some((child) => pathname.split("/")[1] === child.href)
+      )
+      .map((item) => item.name);
+  
+  const [openDropdowns, setOpenDropdowns] = useState<string[]>(() => getOpenDropdowns(pathname));
+  
   const toggleDropdown = (itemName: string) => {
-    setUserToggledDropdowns((prev) =>
+    setOpenDropdowns((prev) =>
       prev.includes(itemName)
         ? prev.filter((name) => name !== itemName)
         : [...prev, itemName]
     );
   };
-
-  const isDropdownOpen = (itemName: string) =>
-    openDropdowns.includes(itemName) || userToggledDropdowns.includes(itemName);
-
+  
+  useEffect(() => {
+    setOpenDropdowns(getOpenDropdowns(pathname));
+  }, [pathname]);
+  
   return (
     <ul className="space-y-1">
       {items.map((item) => (
@@ -63,7 +59,7 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
                 "flex items-center justify-between px-4 py-2 cursor-pointer",
                 "hover:bg-gray-100/90 rounded-md transition-all duration-300 ease-in-out",
                 "text-xl relative",
-                isDropdownOpen(item.name) && "bg-gray-50"
+                openDropdowns.includes(item.name) && "bg-gray-50"
               )}
               onClick={() => toggleDropdown(item.name)}
             >
