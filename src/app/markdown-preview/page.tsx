@@ -1,9 +1,13 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/card/CusCard";
 import Textarea from "@/components/textarea";
+import Input from "@/components/input";
+
 import clsx from "clsx";
+
 import { useRef, useState, useCallback } from "react";
 import { FaBusinessTime } from "react-icons/fa";
 import { LiaExchangeAltSolid } from "react-icons/lia";
@@ -267,13 +271,14 @@ const MarkdownPreview = () => {
               <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
               </Button>
-              <input
+
+              <Input
                 type="file"
-                ref={fileInputRef}
-                className="hidden"
+                inputRef={fileInputRef}
                 accept=".md"
                 onChange={handleFileUpload}
               />
+
               <Button
                 icon={<MdFilePresent />}
                 onClick={() => fileInputRef.current?.click()}
@@ -292,7 +297,7 @@ const MarkdownPreview = () => {
             onDrop={handleDrop}
           >
             <Textarea
-             hasBorder={false}
+              hasBorder={false}
               value={input}
               onChange={handleInputChange}
               className="min-h-280"

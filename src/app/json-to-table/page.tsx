@@ -2,6 +2,7 @@
 
 import Header from "@/common/Header";
 import Button from "@/components/button";
+import Input from "@/components/input";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import { useRef, useState } from "react";
@@ -87,13 +88,15 @@ const JsonToTable = () => {
               <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
               </Button>
-              <input
+
+              <Input
                 type="file"
-                ref={fileInputRef}
-                className="hidden"
-                onChange={handleFileUpload}
+                inputRef={fileInputRef}
                 accept="application/json"
+                multiple
+                onChange={handleFileUpload}
               />
+
               <Button
                 icon={<MdFilePresent />}
                 onClick={() => fileInputRef.current?.click()}

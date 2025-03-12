@@ -7,6 +7,7 @@ import { BiPaste } from "react-icons/bi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { MdDelete, MdFilePresent, MdSave } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
+import Input from "@/components/input";
 
 interface ImageFile {
   id: string;
@@ -215,10 +216,9 @@ const ImageConverter = () => {
         <p>Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here</p>
         <span>or</span>
         <div className="flex gap-2 text-blue-500 items-center">
-          <input
+          <Input
             type="file"
-            className="hidden"
-            ref={fileInputRef}
+            inputRef={fileInputRef}
             accept="image/*"
             multiple
             onChange={handleFileUpload}

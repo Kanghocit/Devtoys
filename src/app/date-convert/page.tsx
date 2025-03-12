@@ -157,7 +157,7 @@ const DateConvert = () => {
             <div className="flex gap-2">
               <Button icon={<FaBusinessTime />} onClick={handleGetTime} />
               <Button icon={<LuCopy />}>Paste</Button>
-              <input type="file" ref={fileInputRef} className="hidden" />
+              <Input type="file" inputRef={fileInputRef} />
               <Button icon={<MdFilePresent />} onClick={handleIconClick} />
               <Button icon={<MdClear />} onClick={handleClear} />
             </div>

@@ -15,6 +15,7 @@ import {
   MdOutlineSpaceBar,
 } from "react-icons/md";
 import { formatJson } from "@/utils/jsonUtils";
+import Input from "@/components/input";
 
 const JsonFormatter = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -100,13 +101,15 @@ const JsonFormatter = () => {
               <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
               </Button>
-              <input
+
+              <Input
                 type="file"
-                ref={fileInputRef}
-                className="hidden"
-                onChange={handleOpenFile}
+                inputRef={fileInputRef}
                 accept="application/json"
+                multiple
+                onChange={handleOpenFile}
               />
+
               <Button
                 icon={<MdFilePresent />}
                 onClick={() => fileInputRef.current?.click()}

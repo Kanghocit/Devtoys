@@ -5,6 +5,7 @@ import { LuCopy } from "react-icons/lu";
 import { MdClear, MdFilePresent } from "react-icons/md";
 import { useCallback, useRef, useState } from "react";
 import Textarea from "@/components/textarea";
+import Input from "@/components/input";
 
 const Base64Image = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -65,10 +66,9 @@ const Base64Image = () => {
             <p>Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here</p>
             <span>or</span>
             <div className="flex gap-2 text-blue-500 hover:text-blue-800">
-              <input
+              <Input
                 type="file"
-                className="hidden"
-                ref={fileInputRef}
+                inputRef={fileInputRef}
                 accept="image/*"
                 onChange={handleFileUpload}
               />

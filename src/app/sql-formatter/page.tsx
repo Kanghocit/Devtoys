@@ -16,6 +16,7 @@ import Button from "@/components/button";
 import { FaPaste } from "react-icons/fa";
 import clsx from "clsx";
 import { format as sqlFormatter } from "sql-formatter";
+import Input from "@/components/input";
 
 const SQLFormatter = () => {
   const [widthFull, setWidthFull] = useState(false);
@@ -165,13 +166,14 @@ const SQLFormatter = () => {
                 icon={<MdFilePresent />}
                 onClick={() => document.getElementById("sql-input")?.click()}
               />
-              <input
+
+              <Input
                 id="sql-input"
                 type="file"
-                className="hidden"
                 accept=".sql,.txt"
                 onChange={handleFileUpload}
               />
+
               <Button icon={<MdClear />} onClick={() => setInput("")} />
             </div>
           </div>

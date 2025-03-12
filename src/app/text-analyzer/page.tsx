@@ -15,6 +15,7 @@ import { MdClear } from "react-icons/md";
 import { FaRegPaste } from "react-icons/fa6";
 import { LiaSaveSolid } from "react-icons/lia";
 import { toast } from "react-hot-toast";
+import Input from "@/components/input";
 
 const TextAnalyzer = () => {
   const [input, setInput] = useState<string>("");
@@ -347,13 +348,14 @@ const TextAnalyzer = () => {
                 icon={<MdFilePresent />}
                 onClick={() => document.getElementById("file-input")?.click()}
               />
-              <input
-                id="file-input"
+
+              <Input
+                id="sql-input"
                 type="file"
-                className="hidden"
                 accept=".txt"
                 onChange={handleFileUpload}
               />
+
               <Button icon={<LiaSaveSolid />} onClick={handleSave}>
                 Save as
               </Button>

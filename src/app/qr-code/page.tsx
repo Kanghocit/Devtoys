@@ -6,6 +6,8 @@ import { MdClear, MdFilePresent } from "react-icons/md";
 import { useCallback, useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import jsQR from "jsqr";
+import Textarea from "@/components/textarea";
+import Input from "@/components/input";
 
 const QRCodeGenerator = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -165,17 +167,20 @@ const QRCodeGenerator = () => {
             </div>
           </div>
 
-          <textarea
-            className="w-full h-[85vh] items-start focus:outline-none p-2 border-1 shadow-md border-gray-300 rounded-md"
-            placeholder={
-              isDecode
-                ? "Decoded text will appear here..."
-                : "Enter text to generate QR code..."
-            }
-            value={isDecode ? decodedText : text}
-            onChange={(e) => !isDecode && setText(e.target.value)}
-            readOnly={isDecode}
-          />
+          <div className="min-h-[calc(100vh-140px)] border-1 border-gray-300 rounded-md mt-1">
+            <Textarea
+              hasBorder={false}
+              placeholder={
+                isDecode
+                  ? "Decoded text will appear here..."
+                  : "Enter text to generate QR code..."
+              }
+              className="w-full mt-1"
+              value={isDecode ? decodedText : text}
+              onChange={(e) => !isDecode && setText(e.target.value)}
+              readOnly={isDecode}
+            />
+          </div>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -187,25 +192,26 @@ const QRCodeGenerator = () => {
             </p>
             <span>or</span>
             <div className="flex gap-2 text-blue-500 hover:text-blue-800">
-              <input
+              <Input
                 type="file"
-                className="hidden"
-                ref={fileInputRef}
+                inputRef={fileInputRef}
                 accept="image/*"
                 onChange={handleFileUpload}
               />
+
               <Button
                 variant="text"
                 onClick={() => fileInputRef.current?.click()}
               >
                 Browse files
               </Button>
+
               <Button variant="text" onClick={handlePaste}>
                 Paste
               </Button>
             </div>
           </div>
-          <div className="h-[78vh] p-3 rounded-md text-sm shadow-md border border-gray-300 flex justify-center items-center">
+          <div className="h-[76vh] p-3 rounded-md text-sm shadow-md border border-gray-300 flex justify-center items-center">
             {qrcode ? (
               <img
                 src={qrcode}

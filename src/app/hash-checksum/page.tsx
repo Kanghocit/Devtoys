@@ -220,10 +220,9 @@ const HashChecksum = () => {
           <p>{isDragging ? "Drop file here" : "Drag & drop a file here"}</p>
           <span>or</span>
           <div className="flex gap-2">
-            <input
+            <Input
               type="file"
-              className="hidden"
-              ref={fileInputRef}
+              inputRef={fileInputRef}
               onChange={handleFileUpload}
             />
             <Button

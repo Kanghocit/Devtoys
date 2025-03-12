@@ -2,6 +2,7 @@
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/card/CusCard";
+import Input from "@/components/input";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
@@ -160,13 +161,9 @@ const XMLFormatter = () => {
               icon={<MdFilePresent />}
               onClick={() => document.getElementById("xml-input")?.click()}
             />
-            <input
-              id="xml-input"
-              type="file"
-              className="hidden"
-              accept=".xml,.txt"
-              onChange={handleFileUpload}
-            />
+
+            <Input type="file" accept=".xml,.txt" onChange={handleFileUpload} />
+
             <Button icon={<MdClear />} onClick={() => setInput("")} />
           </div>
         </div>

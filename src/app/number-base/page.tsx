@@ -92,18 +92,20 @@ const NumberBase = () => {
               >
                 Paste
               </Button>
-              <input
+
+              <Input
                 type="file"
-                ref={fileInputRef}
-                className="hidden"
+                inputRef={fileInputRef}
                 onChange={(e) =>
                   handleFileUpload(e, (val) => handleChange(val, base))
                 }
               />
+
               <Button
                 icon={<MdFilePresent />}
                 onClick={() => fileInputRef.current?.click()}
               />
+
               <Button
                 icon={<LuTrash />}
                 onClick={() =>

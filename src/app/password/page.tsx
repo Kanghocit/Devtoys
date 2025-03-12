@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { HandlerType } from "./types";
 import { generatePassword } from "./utils";
 import { PasswordOptions } from "./components/PasswordOptions";
+import Input from "@/components/input";
 
 const PasswordGenerator = () => {
   const [input, setInput] = useState("");
@@ -75,11 +76,10 @@ const PasswordGenerator = () => {
         icon={<LuLock />}
       >
         <div className="flex items-center">
-          <input
+          <Input
             type="number"
             value={length}
             onChange={(e) => setLength(Number(e.target.value))}
-            className="border-1 border-gray-300 rounded-md px-2 py-1 focus:outline-none w-20"
           />
           <Button
             variant="text"
@@ -110,7 +110,8 @@ const PasswordGenerator = () => {
           Generate Password(s)
         </Button>
         <span className="mx-2">x</span>
-        <input
+
+        <Input
           type="number"
           value={rows}
           min={1}
@@ -118,7 +119,6 @@ const PasswordGenerator = () => {
           onChange={(e) =>
             setRows(Math.min(100, Math.max(1, Number(e.target.value))))
           }
-          className="border-1 border-gray-300 rounded-md px-2 py-1 focus:outline-none w-20"
         />
       </div>
 
@@ -132,13 +132,7 @@ const PasswordGenerator = () => {
             icon={<MdFilePresent />}
             onClick={() => document.getElementById("password-input")?.click()}
           />
-          <input
-            id="password-input"
-            type="file"
-            className="hidden"
-            accept=".txt"
-            // onChange={handleFileUpload}
-          />
+
           <Button
             icon={<MdClear />}
             onClick={() => {

@@ -1,62 +1,38 @@
 "use client";
 import clsx from "clsx";
-import { useRef } from "react";
-import { CiFileOn } from "react-icons/ci";
 
 type InputProps = React.ComponentPropsWithoutRef<"input"> & {
   strfix?: React.ReactNode;
   suffix?: React.ReactNode;
+  inputRef?: React.Ref<HTMLInputElement>;
 };
 
 const Input: React.FC<InputProps> = ({
   className,
   strfix,
   suffix,
+  inputRef,
   type = "text",
   ...rest
 }) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleIconClick = () => {
-    fileInputRef.current?.click(); // Mở hộp thoại chọn file khi nhấn icon
-  };
-
   const containerClass = clsx(
-    "flex items-center w-80 gap-2 rounded-md px-2 py-2 mx-2 my-1 drop-shadow-md border border-gray-300 border-b-gray-500 focus:outline-b-blue-700 ",
-    type === "file"
-      ? "bg-gray-100 cursor-pointer hover:bg-gray-200"
-      : "hover:bg-gray-100/50",
+    "flex items-center gap-2 rounded-md px-2 py-2 mx-2 my-1 drop-shadow-md focus:outline-none focus:ring-2 focus:ring-blue-700 ",
+    type === "text" && "w-80",
+    type === "file" && "hidden",
+    type === "number" && " border-1 border-gray-300",
     className
   );
 
   const inputClass = clsx(
-    "bg-transparent outline-none flex-1 text-sm",
-    type === "file" && "hidden"
+    "bg-transparent outline-none text-sm",
+    type === "number" && "w-15"
   );
 
   return (
     <div className={containerClass}>
       {strfix && <span className="text-gray-500">{strfix}</span>}
 
-      {type === "file" ? (
-        <>
-          <input
-            type="file"
-            {...rest}
-            ref={fileInputRef}
-            className={inputClass}
-          />
-          <button
-            type="button"
-            onClick={handleIconClick}
-            className="text-gray-500 hover:text-blue-500"
-          >
-            <CiFileOn size={24} /> {/* Icon mở file */}
-          </button>
-        </>
-      ) : (
-        <input type={type} {...rest} className={inputClass} />
-      )}
+      <input type={type} {...rest} ref={inputRef} className={inputClass} />
 
       {suffix && <span className="text-gray-500 cursor-pointer">{suffix}</span>}
     </div>

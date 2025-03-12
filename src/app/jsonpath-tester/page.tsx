@@ -123,12 +123,12 @@ const JsonPathTester = () => {
               <Button icon={<BiPaste />} onClick={handlePasteJson}>
                 Paste
               </Button>
-              <input
+              <Input
                 type="file"
-                ref={fileInputRef}
-                className="hidden"
-                onChange={handleFileUpload}
+                inputRef={fileInputRef}
                 accept="application/json"
+                multiple
+                onChange={handleFileUpload}
               />
               <Button
                 icon={<MdFilePresent />}
@@ -156,12 +156,12 @@ const JsonPathTester = () => {
               <Button icon={<BiPaste />} onClick={handlePasteJsonPath}>
                 Paste
               </Button>
-              <input
+              <Input
                 type="file"
-                ref={fileInputRef}
-                className="hidden"
-                onChange={handleFileUpload}
+                inputRef={fileInputRef}
                 accept="application/json"
+                multiple
+                onChange={handleFileUpload}
               />
               <Button
                 icon={<MdFilePresent />}

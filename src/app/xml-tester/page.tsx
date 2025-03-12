@@ -9,6 +9,7 @@ import Textarea from "@/components/textarea";
 import { RiErrorWarningFill } from "react-icons/ri";
 import toast from "react-hot-toast";
 import { MdContentCopy } from "react-icons/md";
+import Input from "@/components/input";
 
 const XmlTester = () => {
   const [xml, setXml] = useState("");
@@ -175,12 +176,12 @@ const XmlTester = () => {
               <Button icon={<BiPaste />} onClick={() => handlePaste("xsd")}>
                 Paste
               </Button>
-              <input
+
+              <Input
                 type="file"
-                ref={xsdFileRef}
-                className="hidden"
-                onChange={(e) => handleFileUpload(e, "xsd")}
+                inputRef={xsdFileRef}
                 accept=".xsd"
+                onChange={(e) => handleFileUpload(e, "xsd")}
               />
               <Button
                 icon={<MdFilePresent />}

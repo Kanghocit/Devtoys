@@ -1,6 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
+import Input from "@/components/input";
 import { DragEvent, useRef, useState } from "react";
 import { BiPaste } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
@@ -175,10 +176,9 @@ const ColorBlindness = () => {
         <p>Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here</p>
         <span>or</span>
         <div className="flex gap-2 text-blue-500 items-center">
-          <input
+          <Input
             type="file"
-            className="hidden"
-            ref={fileInputRef}
+            inputRef={fileInputRef}
             accept="image/*"
             onChange={handleFileUpload}
           />

@@ -70,6 +70,7 @@ const ConfigCard: React.FC<ConfigCardProps> = ({
           onChange={onInputChange}
           min={1}
         />
+        
       )}
     </div>
   );

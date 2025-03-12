@@ -13,6 +13,7 @@ import { FaArrowRotateRight } from "react-icons/fa6";
 import { GoHash } from "react-icons/go";
 import { MdContentCopy } from "react-icons/md";
 import { PiBookOpenTextLight } from "react-icons/pi";
+import Input from "@/components/input";
 
 const corpusData: { [key: string]: string } = {
   "Childe Harold's Pilgrimage (Lord Byron)": `Roll on, thou deep and dark blue Ocean, roll! Ten thousand fleets sweep over thee in vain; Man marks the earth with ruin, his control Stops with the shore; upon the watery plain The wrecks are all thy deed, nor doth remain A shadow of man's ravage, save his own, When, for a moment, like a drop of rain, He sinks into thy depths with bubbling groan, Without a grave, unknell'd, uncoffin'd, and unknown.`,
@@ -175,19 +176,21 @@ const LoremIpsum = () => {
         <div className="flex items-end justify-between mx-2">
           <p className="text-xs ms-2">Result</p>
           <div className="flex gap-2">
-            <input
+            <Input
               type="file"
-              className="hidden"
-              ref={fileInputRef}
+              inputRef={fileInputRef}
               accept=".txt"
+              multiple
               onChange={handleFileUpload}
             />
+
             <Button
               variant="text"
               onClick={() => fileInputRef.current?.click()}
             >
               Upload
             </Button>
+
             <Button icon={<FaArrowRotateRight />} onClick={generateText}>
               Generate
             </Button>

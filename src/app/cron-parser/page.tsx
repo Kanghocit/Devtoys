@@ -88,7 +88,9 @@ const CronParser = () => {
 
         <div className="flex gap-2 pe-2">
           <Button icon={<FaRegPaste />}>Paste</Button>
-          <input type="file" ref={fileInputRef} className="hidden" />
+
+          <Input type="file" inputRef={fileInputRef} />
+
           <Button
             icon={<MdFilePresent />}
             onClick={() => fileInputRef.current?.click()}

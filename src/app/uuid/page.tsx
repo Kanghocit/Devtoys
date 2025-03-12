@@ -2,6 +2,7 @@
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/card/CusCard";
+import Input from "@/components/input";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
 import React, { useCallback, useEffect, useState } from "react";
@@ -147,7 +148,7 @@ const Uuid = () => {
             Generate UUID(s)
           </Button>
           <span className="mx-2">x</span>
-          <input
+          <Input
             type="number"
             value={rows}
             min={1}
@@ -158,7 +159,6 @@ const Uuid = () => {
                 setRows(value);
               }
             }}
-            className="border-1 border-gray-300 rounded-md px-2 py-1 focus:outline-none w-20"
           />
         </div>
       </div>
@@ -172,10 +172,10 @@ const Uuid = () => {
           <Button icon={<MdFilePresent />} onClick={handleSaveToFile}>
             Save
           </Button>
-          <input
+
+          <Input
             id="uuid-input"
             type="file"
-            className="hidden"
             accept=".txt"
             onChange={handleFileUpload}
           />
