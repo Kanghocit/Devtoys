@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/common/Header";
-import ConfigCard from "@/components/card/configCard";
+import ConfigCard from "@/components/card/ConfigCard";
 import Button from "@/components/button";
 import Textarea from "@/components/textarea";
 import { useCallback, useRef, useState } from "react";

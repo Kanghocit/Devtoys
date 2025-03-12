@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 
 interface MenuItem {
@@ -28,21 +28,30 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
   const pathname = usePathname();
 
   // Tính toán trực tiếp các dropdowns cần mở dựa trên pathname
-  const [openDropdowns, setOpenDropdowns] = useState<string[]>(() => {
-    return items
-      .filter((item) =>
-        item.children?.some((child) => pathname.split("/")[1] === child.href)
-      )
-      .map((item) => item.name);
-  });
+  const openDropdowns = useMemo(
+    () =>
+      items
+        .filter((item) =>
+          item.children?.some((child) => pathname.split("/")[1] === child.href)
+        )
+        .map((item) => item.name),
+    [pathname]
+  );
+
+  const [userToggledDropdowns, setUserToggledDropdowns] = useState<string[]>(
+    []
+  );
 
   const toggleDropdown = (itemName: string) => {
-    setOpenDropdowns((prev) =>
+    setUserToggledDropdowns((prev) =>
       prev.includes(itemName)
         ? prev.filter((name) => name !== itemName)
         : [...prev, itemName]
     );
   };
+
+  const isDropdownOpen = (itemName: string) =>
+    openDropdowns.includes(itemName) || userToggledDropdowns.includes(itemName);
 
   return (
     <ul className="space-y-1">
@@ -54,7 +63,7 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
                 "flex items-center justify-between px-4 py-2 cursor-pointer",
                 "hover:bg-gray-100/90 rounded-md transition-all duration-300 ease-in-out",
                 "text-xl relative",
-                openDropdowns.includes(item.name) && "bg-gray-50"
+                isDropdownOpen(item.name) && "bg-gray-50"
               )}
               onClick={() => toggleDropdown(item.name)}
             >

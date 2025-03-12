@@ -1,11 +1,16 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import { LuCopy } from "react-icons/lu";
-import { MdClear, MdFilePresent } from "react-icons/md";
-import { useCallback, useRef, useState } from "react";
-import Textarea from "@/components/textarea";
+import ButtonCopy from "@/components/button/copy";
+import ButtonDelete from "@/components/button/delete";
+import ButtonPaste from "@/components/button/paste";
 import Input from "@/components/input";
+import Textarea from "@/components/textarea";
+
+import { useRef, useState } from "react";
+
+import { MdFilePresent } from "react-icons/md";
 
 const Base64Image = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -22,15 +27,6 @@ const Base64Image = () => {
     }
   };
 
-  const handlePaste = useCallback(async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      setImgsrc(text);
-    } catch (err) {
-      console.error("Lỗi khi dán từ clipboard:", err);
-    }
-  }, []);
-
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="Base64 Image Encoder / Decoder" />
@@ -41,12 +37,10 @@ const Base64Image = () => {
             <p className="text-xs">Text</p>
 
             <div className="flex gap-2">
-              <Button icon={<LuCopy />} onClick={handlePaste}>
-                Paste
-              </Button>
+              <ButtonPaste setInputText={setImgsrc} />
               <Button icon={<MdFilePresent />} />
-              <Button icon={<MdClear />} onClick={() => setImgsrc("")} />
-              <Button icon={<LuCopy />}>Copy</Button>
+              <ButtonDelete setClearText={setImgsrc} />
+              <ButtonCopy input={imgsrc || ""} />
             </div>
           </div>
 

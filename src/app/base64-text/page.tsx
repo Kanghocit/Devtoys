@@ -1,15 +1,17 @@
 "use client";
 import Header from "@/common/Header";
-import Button from "@/components/button";
-import CustomCard from "@/components/card/CusCard";
-import Switch from "@/components/switch";
-import Textarea from "@/components/textarea";
-import { handleCopy, handlePaste } from "@/utils/numberUtils";
+
 import { useCallback, useEffect, useState } from "react";
-import { FaRegPaste } from "react-icons/fa6";
+
+import ButtonCopy from "@/components/button/copy";
+import ButtonDelete from "@/components/button/delete";
+import ButtonPaste from "@/components/button/paste";
+
+import ConfigCard from "@/components/card/ConfigCard";
+
+import Textarea from "@/components/textarea";
 import { LiaExchangeAltSolid } from "react-icons/lia";
-import { LuCopy } from "react-icons/lu";
-import { MdClear } from "react-icons/md";
+
 const Base64Text = () => {
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
@@ -38,17 +40,15 @@ const Base64Text = () => {
 
       <p className="text-xs ms-2">Configuration</p>
 
-      <CustomCard
+      <ConfigCard
         title="Conversion"
         icon={<LiaExchangeAltSolid />}
         subTitle="Select which conversion mode you want to use"
-      >
-        <Switch
-          valueTrue="Encode"
-          valueFalse="Decode"
-          onToggle={() => setIsEncode(!isEncode)}
-        />
-      </CustomCard>
+        type="switch"
+        trueValue="Encode"
+        falseValue="Decode"
+        onToggleChange={() => setIsEncode(!isEncode)}
+      />
 
       <div className="flex flex-col mt-4 overflow-hidden">
         <div className="flex flex-col rounded-lg p-4 ">
@@ -57,16 +57,11 @@ const Base64Text = () => {
             <div className="flex justify-between items-center">
               <p className="text-xs ms-2">Input</p>
               <div className="flex gap-2 my-1">
-                <Button
-                  icon={<FaRegPaste />}
-                  onClick={() => handlePaste((val) => setInputText(val))}
-                >
-                  Paste
-                </Button>
-                <Button icon={<LuCopy />} onClick={() => handleCopy(inputText)}>
-                  Copy
-                </Button>
-                <Button icon={<MdClear />} onClick={() => setInputText("")} />
+                <ButtonPaste setInputText={setInputText} />
+
+                <ButtonCopy input={inputText} />
+
+                <ButtonDelete setClearText={setInputText} />
               </div>
             </div>
             <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1">
@@ -85,13 +80,9 @@ const Base64Text = () => {
             <div className="flex justify-between items-center">
               <p className="text-xs ms-2">Output</p>
               <div className="flex gap-2 my-1">
-                <Button
-                  icon={<LuCopy />}
-                  onClick={() => handleCopy(outputText)}
-                >
-                  Copy
-                </Button>
-                <Button icon={<MdClear />} onClick={() => setOutputText("")} />
+                <ButtonCopy input={outputText} />
+
+                <ButtonDelete setClearText={setOutputText} />
               </div>
             </div>
             <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-not-allowed">

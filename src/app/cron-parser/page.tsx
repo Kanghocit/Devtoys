@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/card/CusCard";
+import ConfigCard from "@/components/card/ConfigCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
@@ -30,6 +30,7 @@ const CronParser = () => {
       const formattedDate = now.toISOString().split("T")[0]; // yyyy-MM-dd
       const dayOfWeek = now.toLocaleString("en-US", { weekday: "short" }); // ddd
       const time = now.toTimeString().split(" ")[0]; // HH:mm:ss
+      console.log("hihi", now.toTimeString().split(" "));
 
       dates.push(`${formattedDate} ${dayOfWeek} ${time}`);
     }
@@ -56,29 +57,25 @@ const CronParser = () => {
 
       <p className="text-xs ms-2">Configuration</p>
 
-      <CustomCard title="Include seconds" icon={<LiaExchangeAltSolid />}>
+      <ConfigCard title="Include seconds" icon={<LiaExchangeAltSolid />}>
         <Switch />
-      </CustomCard>
-      <CustomCard title="Next scheduled dates" icon={<MdOutlineSpaceBar />}>
-        <select
-          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
-          value={scheduleCount}
-          onChange={(e) => setScheduleCount(Number(e.target.value))}
-        >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-      </CustomCard>
-      <CustomCard title="Output format" icon={<MdOutlineSpaceBar />}>
-        <select className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none">
-          <option value="yyyy-MM-dd ddd HH:mm:ss">
-            yyyy-MM-dd ddd HH:mm:ss
-          </option>
-        </select>
-      </CustomCard>
+      </ConfigCard>
+
+      <ConfigCard
+        title="Next scheduled dates"
+        icon={<MdOutlineSpaceBar />}
+        type="select"
+        value={scheduleCount}
+        onSelectChange={(e) => setScheduleCount(Number(e.target.value))}
+        options={["5", "10", "25", "50", "100"]}
+      />
+
+      <ConfigCard
+        title="Output format"
+        icon={<MdOutlineSpaceBar />}
+        type="select"
+        options={["yyyy-MM-dd ddd HH:mm:ss", "yyyy-MM-dd ddd HH:mm"]}
+      />
 
       {/* Cron expression to parse */}
       <div className="flex justify-between my-2">

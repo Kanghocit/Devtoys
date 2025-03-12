@@ -13,6 +13,7 @@ type ConfigCardProps = React.ComponentPropsWithoutRef<"div"> & {
   value?: string | number;
   onSelectChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onToggleChange?: () => void;
 };
 
 const ConfigCard: React.FC<ConfigCardProps> = ({
@@ -27,6 +28,7 @@ const ConfigCard: React.FC<ConfigCardProps> = ({
   value,
   onSelectChange,
   onInputChange,
+  onToggleChange,
   ...rest
 }) => {
   const configCardClass = clsx(
@@ -50,7 +52,11 @@ const ConfigCard: React.FC<ConfigCardProps> = ({
         </div>
       </div>
       {type === "switch" && (
-        <Switch valueTrue={trueValue} valueFalse={falseValue} />
+        <Switch
+          valueTrue={trueValue}
+          valueFalse={falseValue}
+          onToggle={() => onToggleChange?.()}
+        />
       )}
       {type === "select" && (
         <select className={inputClass} value={value} onChange={onSelectChange}>
@@ -70,7 +76,6 @@ const ConfigCard: React.FC<ConfigCardProps> = ({
           onChange={onInputChange}
           min={1}
         />
-        
       )}
     </div>
   );
