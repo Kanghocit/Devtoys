@@ -1,16 +1,22 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import ConfigCard from "@/components/card/ConfigCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
+
 import { useEffect, useRef, useState } from "react";
+
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LuCopy, LuTrash } from "react-icons/lu";
 import { MdFilePresent, MdOutlineSpaceBar } from "react-icons/md";
+
+import parser from "cron-parser";
+import cronstrue from "cronstrue";
 
 const CronParser = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -21,26 +27,40 @@ const CronParser = () => {
   const [scheduleCount, setScheduleCount] = useState<number>(5); // Lưu số lượng lịch trình cần tạo
 
   // Hàm để tính toán các thời điểm tiếp theo dựa trên cron expression
-  const generateScheduledDates = (cron: string, count: number) => {
-    const now = new Date();
-    const dates = [];
-    for (let i = 0; i < count; i++) {
-      now.setSeconds(now.getSeconds() + 1);
+  const generateScheduledDates = () => {
+    const interval = parser.parse(valueCron);
+    const nextDate = interval.next().toDate(); // Lấy thời gian chạy tiếp theo
 
-      const formattedDate = now.toISOString().split("T")[0]; // yyyy-MM-dd
-      const dayOfWeek = now.toLocaleString("en-US", { weekday: "short" }); // ddd
-      const time = now.toTimeString().split(" ")[0]; // HH:mm:ss
-      console.log("hihi", now.toTimeString().split(" "));
+    console.log("nextDate", nextDate);
 
-      dates.push(`${formattedDate} ${dayOfWeek} ${time}`);
+    const date = [];
+    for (let i = 0; i < scheduleCount; i++) {
+      const formattedDate = nextDate.toLocaleDateString("en-CA");
+      const formattedTime = nextDate.toLocaleTimeString("en-GB", {
+        hour12: false,
+      });
+      const formattedSecond = Number(formattedTime.split(":")[2]) + i;
+      const formattedTime2 =
+        formattedTime.split(":")[0] +
+        ":" +
+        formattedTime.split(":")[1] +
+        ":" +
+        formattedSecond;
+      const formattedDay = nextDate.toLocaleDateString("en-US", {
+        weekday: "short",
+      });
+      date.push(`${formattedDate} ${formattedDay} ${formattedTime2}`);
     }
-    return dates.join("\n");
+    setScheduledDates(date.join("\n"));
   };
 
   useEffect(() => {
-    if (valueCron === "* * * * * *") {
-      setDesCron("Every second");
-      setScheduledDates(generateScheduledDates(valueCron, scheduleCount));
+    try {
+      setDesCron(cronstrue.toString(valueCron, { use24HourTimeFormat: true }));
+      generateScheduledDates();
+    } catch {
+      setDesCron("Invalid cron expression");
+      setScheduledDates("");
     }
   }, [valueCron, scheduleCount]);
 
