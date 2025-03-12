@@ -184,7 +184,7 @@ const Uuid = () => {
 
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      <div className="min-h-[calc(80vh-140px)] border-1 border-gray-300 rounded-md">
+      <div className="min-h-[calc(70vh-140px)] border-1 border-gray-300 rounded-md">
         <Textarea
           kind="hide"
           value={uuids.join("\n")}
