@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import Header from "@/common/Header";
-import CustomCard from "@/components/card/CusCard";
+import CustomCard from "@/components/card/CustomCard";
 import { LuCopy, LuCopySlash, LuLanguages } from "react-icons/lu";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import {

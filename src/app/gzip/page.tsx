@@ -2,7 +2,7 @@
 
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/card/CusCard";
+import CustomCard from "@/components/card/CustomCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";

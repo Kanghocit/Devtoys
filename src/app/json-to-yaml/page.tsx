@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import CustomCard from "@/components/card/CusCard";
+import CustomCard from "@/components/card/CustomCard";
 import Textarea from "@/components/textarea";
 import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
