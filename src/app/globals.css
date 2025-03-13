@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-customPurple: #593af3;
+}
+.text-supprimary {
+  color: var(--color-customPurple);
+}
+.bg-supprimary {
+  background-color: var(--color-customPurple);
 }
 @layer utilities {
   .scrollbar-custom::-webkit-scrollbar {

@@ -4,9 +4,13 @@ import { footerMenus, subMenus } from "@/constants/menuData";
 import Card from "../card";
 import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
+import Button from "../button";
+import { LuLogOut } from "react-icons/lu";
+import { useRouter } from "next/navigation";
 
 const MainContent = () => {
   const { searchQuery } = useSearch();
+  const router = useRouter();
 
   // Lọc danh sách footerMenus theo searchQuery
   const filteredFooterMenus = footerMenus.filter((item) =>
@@ -23,9 +27,14 @@ const MainContent = () => {
 
   return (
     <div className="w-full" suppressHydrationWarning>
-      <div className="flex items-center gap-2 pb-4 cursor-default">
-        <p className="text-[40px] font-bold ">Welcome to DevToys</p>
-        <span className="text-gray-400 text-sm">v2.0-preview.8</span>
+      <div className="flex justify-between">
+        <div className="flex items-center gap-2 pb-4 cursor-default">
+          <p className="text-[40px] font-bold ">Welcome to DevToys</p>
+          <span className="text-gray-400 text-sm">v2.0-preview.8</span>
+        </div>
+        <div className="me-2">
+          <Button icon={<LuLogOut />} onClick={() => router.push("/login")} />
+        </div>
       </div>
 
       {/* Recents */}
