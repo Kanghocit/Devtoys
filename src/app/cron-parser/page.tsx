@@ -22,6 +22,7 @@ const CronParser = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [valueCron, setValueCron] = useState("* * * * * *");
+  const [outputFormat, setOutputFormat] = useState("yyyy-MM-dd ddd HH:mm:ss");
   const [desCron, setDesCron] = useState("");
   const [scheduledDates, setScheduledDates] = useState("");
   const [scheduleCount, setScheduleCount] = useState<number>(5); // Lưu số lượng lịch trình cần tạo
@@ -93,8 +94,10 @@ const CronParser = () => {
       <ConfigCard
         title="Output format"
         icon={<MdOutlineSpaceBar />}
+        value={outputFormat}
         type="select"
         options={["yyyy-MM-dd ddd HH:mm:ss", "yyyy-MM-dd ddd HH:mm"]}
+        onSelectChange={(e) => setOutputFormat(e.target.value)}
       />
 
       {/* Cron expression to parse */}
