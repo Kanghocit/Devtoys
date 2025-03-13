@@ -34,9 +34,11 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
         item.children?.some((child) => pathname.split("/")[1] === child.href)
       )
       .map((item) => item.name);
-  
-  const [openDropdowns, setOpenDropdowns] = useState<string[]>(() => getOpenDropdowns(pathname));
-  
+
+  const [openDropdowns, setOpenDropdowns] = useState<string[]>(() =>
+    getOpenDropdowns(pathname)
+  );
+
   const toggleDropdown = (itemName: string) => {
     setOpenDropdowns((prev) =>
       prev.includes(itemName)
@@ -44,11 +46,11 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
         : [...prev, itemName]
     );
   };
-  
+
   useEffect(() => {
     setOpenDropdowns(getOpenDropdowns(pathname));
   }, [pathname]);
-  
+
   return (
     <ul className="space-y-1">
       {items.map((item) => (
@@ -59,7 +61,8 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
                 "flex items-center justify-between px-4 py-2 cursor-pointer",
                 "hover:bg-gray-100/90 rounded-md transition-all duration-300 ease-in-out",
                 "text-xl relative",
-                openDropdowns.includes(item.name) && "bg-gray-50"
+                openDropdowns.includes(item.name) && "bg-gray-50",
+                collapsed && "opacity-100"
               )}
               onClick={() => toggleDropdown(item.name)}
             >
@@ -69,7 +72,7 @@ const Menu: React.FC<MenuProps> = ({ items, collapsed }) => {
                 ) : (
                   <>
                     {item.icon}
-                    <span className="ml-2">{item.name}</span>
+                    <span className="ml-2 ">{item.name}</span>
                   </>
                 )}
               </div>
