@@ -1,7 +1,7 @@
 import { AiOutlinePicture } from "react-icons/ai";
 // import { BsFiletypeJson } from "react-icons/bs";
 import { CiCalendarDate, CiDatabase, CiSettings } from "react-icons/ci";
-import { FaQrcode, FaHtml5, FaListUl } from "react-icons/fa";
+import { FaQrcode, FaHtml5, FaListUl, FaMoneyBill } from "react-icons/fa";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { IoIosAlarm } from "react-icons/io";
 import { IoText } from "react-icons/io5";
@@ -88,6 +88,13 @@ export const subMenus: MenuItem[] = [
         icon: <TbHexagonNumber5Filled />,
         detail: "Convert number from one base to another",
         href: "number-base",
+        isDone: true,
+      },
+      {
+        name: "Currency Change",
+        icon: <FaMoneyBill />,
+        detail: "Convert currency data",
+        href: "currency-change",
         isDone: true,
       },
     ],

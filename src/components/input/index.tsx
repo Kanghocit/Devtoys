@@ -5,6 +5,8 @@ type InputProps = React.ComponentPropsWithoutRef<"input"> & {
   strfix?: React.ReactNode;
   suffix?: React.ReactNode;
   inputRef?: React.Ref<HTMLInputElement>;
+  hasBorder?: boolean;
+  error?: string;
 };
 
 const Input: React.FC<InputProps> = ({
@@ -12,7 +14,9 @@ const Input: React.FC<InputProps> = ({
   strfix,
   suffix,
   inputRef,
+  hasBorder = true,
   type = "text",
+  error,
   ...rest
 }) => {
   const containerClass = clsx(
@@ -20,6 +24,8 @@ const Input: React.FC<InputProps> = ({
     type === "text" && " border-1 border-gray-300",
     type === "file" && "hidden",
     type === "number" && " border-1 border-gray-300",
+    !hasBorder && "border-none",
+    error && "border-red-500",
     className
   );
 
@@ -29,12 +35,15 @@ const Input: React.FC<InputProps> = ({
   );
 
   return (
-    <div className={containerClass}>
-      {strfix && <span className="text-gray-500">{strfix}</span>}
-
-      <input type={type} {...rest} ref={inputRef} className={inputClass} />
-
-      {suffix && <span className="text-gray-500 cursor-pointer">{suffix}</span>}
+    <div className="flex flex-col">
+      <div className={containerClass}>
+        {strfix && <span className="text-gray-500">{strfix}</span>}
+        <input type={type} {...rest} ref={inputRef} className={inputClass} />
+        {suffix && (
+          <span className="text-gray-500 cursor-pointer">{suffix}</span>
+        )}
+      </div>
+      {error && <span className="text-red-500 text-xs mx-2">{error}</span>}
     </div>
   );
 };

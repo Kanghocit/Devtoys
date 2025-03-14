@@ -4,9 +4,20 @@
   --background: #ffffff;
   --foreground: #171717;
   --color-customPurple: #593af3;
+  --color-supergreen: #3fb35f;
+  --color-bggreen: #deefda;
 }
 .text-supprimary {
   color: var(--color-customPurple);
+}
+.text-supergreen {
+  color: var(--color-supergreen);
+}
+.bg-supergreen {
+  background-color: var(--color-supergreen);
+}
+.bg-bggreen {
+  background-color: var(--color-bggreen);
 }
 .bg-supprimary {
   background-color: var(--color-customPurple);

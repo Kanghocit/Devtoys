@@ -7,6 +7,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { FaEye } from "react-icons/fa";
+import OtpInput from "@/components/input/OtpInput";
 
 type LoginFormData = {
   email: string;
@@ -30,6 +31,13 @@ const Login = () => {
   };
 
   const [showPassword, setShowPassword] = useState(false);
+  const [otp, setOtp] = useState("");
+
+  const handleOtpChange = (newOtp: string) => {
+    setOtp(newOtp);
+  };
+
+  console.log("otp", otp);
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -116,6 +124,16 @@ const Login = () => {
               </Link>
             </span>
           </div>
+          <OtpInput
+            value={otp}
+            onChange={handleOtpChange}
+            length={6}
+            separator="-"
+            // variant="filled"
+            // mark="🔑"
+            formatter={(value) => value.toUpperCase()}
+            // mark="*"3
+          />
         </form>
       </div>
     </div>
