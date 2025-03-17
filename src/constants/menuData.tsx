@@ -31,6 +31,7 @@ import { MdMoreHoriz } from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
 import { FaShieldVirus } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
+import { TiWeatherCloudy } from "react-icons/ti";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -330,6 +331,13 @@ export const subMenus: MenuItem[] = [
         icon: <TbPigMoney />,
         detail: "Convert crypto currency data",
         href: "crypto-exchange",
+        isDone: true,
+      },
+      {
+        name: "Weather",
+        icon: <TiWeatherCloudy />,
+        detail: "Get weather data",
+        href: "weather",
         isDone: true,
       },
     ],
