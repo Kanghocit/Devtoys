@@ -27,6 +27,8 @@ import { FiFileText } from "react-icons/fi";
 import { FaFingerprint } from "react-icons/fa";
 import { BsMarkdownFill } from "react-icons/bs";
 import { AiOutlineFileText } from "react-icons/ai";
+import { MdMoreHoriz } from "react-icons/md";
+import { CiLocationOn } from "react-icons/ci";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -88,13 +90,6 @@ export const subMenus: MenuItem[] = [
         icon: <TbHexagonNumber5Filled />,
         detail: "Convert number from one base to another",
         href: "number-base",
-        isDone: true,
-      },
-      {
-        name: "Currency Change",
-        icon: <FaMoneyBill />,
-        detail: "Convert currency data",
-        href: "currency-change",
         isDone: true,
       },
     ],
@@ -301,6 +296,26 @@ export const subMenus: MenuItem[] = [
       //   href: "compare",
       //   isDone: true,
       // },
+    ],
+  },
+  {
+    name: "More Tools",
+    icon: <MdMoreHoriz />,
+    children: [
+      {
+        name: "Currency Change",
+        icon: <FaMoneyBill />,
+        detail: "Convert currency data",
+        href: "currency-change",
+        isDone: true,
+      },
+      {
+        name: "Ip geo Location",
+        icon: <CiLocationOn />,
+        detail: "Ip geo Location text data",
+        href: "ip-geo-location",
+        isDone: true,
+      },
     ],
   },
 ];

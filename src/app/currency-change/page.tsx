@@ -9,15 +9,12 @@ import Input from "@/components/input";
 import { FaArrowsAltV } from "react-icons/fa";
 import ConfigCard from "@/components/card/ConfigCard";
 
-import useForm from "react-hook-form";
-
 const CurrencyChange = () => {
-  const [rates, setRates] = useState<any>(null);
+  const [rates, setRates] = useState<string | null>(null);
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [amount, setAmount] = useState("");
   const [result, setResult] = useState("");
-  const [isEnabled, setIsEnabled] = useState(true);
   const [showFromDropdown, setShowFromDropdown] = useState(false);
   const [showToDropdown, setShowToDropdown] = useState(false);
   const [error, setError] = useState("");
@@ -50,7 +47,7 @@ const CurrencyChange = () => {
   };
 
   const handleConvert = () => {
-    if (!rates || !isEnabled) return;
+    if (!rates) return;
     if (!validateAmount(amount)) return;
 
     const fromRate = rates[fromCurrency]?.value;
@@ -63,7 +60,6 @@ const CurrencyChange = () => {
   };
 
   const handleSwap = () => {
-    if (!isEnabled) return;
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
     setAmount("");
@@ -72,7 +68,6 @@ const CurrencyChange = () => {
   };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isEnabled) return;
     const value = e.target.value;
     setAmount(value);
     setResult("");
@@ -148,7 +143,6 @@ const CurrencyChange = () => {
             placeholder="Amount"
             value={amount}
             onChange={handleAmountChange}
-            disabled={!isEnabled}
             error={error}
             type="text"
             min="0"
@@ -172,7 +166,6 @@ const CurrencyChange = () => {
             value={result}
             className="cursor-not-allowed"
             readOnly
-            disabled={!isEnabled}
           />
         </div>
       </div>
@@ -181,7 +174,7 @@ const CurrencyChange = () => {
         <Button
           className="bg-supergreen text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all disabled:opacity-50"
           onClick={handleConvert}
-          disabled={!isEnabled || !amount || !!error}
+          disabled={!amount || !!error}
         >
           Convert
         </Button>

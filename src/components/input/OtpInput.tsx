@@ -106,7 +106,7 @@ const OtpInput: React.FC<OtpInputProps> = ({
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text");
     const chars = pastedData.split("");
-    let newValue = value.split("");
+    const newValue = value.split("");
 
     for (let i = 0; i < chars.length && index + i < numInputs; i++) {
       newValue[index + i] = formatter ? formatter(chars[i]) : chars[i];

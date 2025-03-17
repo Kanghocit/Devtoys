@@ -48,7 +48,7 @@ export const generatePassword = (options: PasswordOptions): string[] => {
     throw new Error("No special characters available after exclusion");
   }
 
-  const newPasswords = [];
+  const newPasswords: string[] = [];
   for (let i = 0; i < rows; i++) {
     // 1. Đảm bảo mỗi loại ký tự được chọn xuất hiện ít nhất một lần
     const password: string[] = [];

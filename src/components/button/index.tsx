@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     "flex gap-2 rounded-md w-fit text-xs cursor-pointer",
     variant === "default" &&
       "bg-white border-1 border-gray-300 border-solid hover:bg-gray-200/50 px-2 py-1",
-    variant === "text" && "bg-transparent px-2 py-1",
+    variant === "text" && "items-center  px-2 py-1",
     variant === "primary" && "bg-blue-700 text-white",
     variant === "secondary" && "border-none color-white ",
     block && "w-full",

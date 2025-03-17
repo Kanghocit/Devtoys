@@ -34,7 +34,7 @@ const CronParser = () => {
 
     console.log("nextDate", nextDate);
 
-    const date = [];
+    const date: string[] = [];
     for (let i = 0; i < scheduleCount; i++) {
       const formattedDate = nextDate.toLocaleDateString("en-CA");
       const formattedTime = nextDate.toLocaleTimeString("en-GB", {
