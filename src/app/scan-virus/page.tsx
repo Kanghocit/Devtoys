@@ -3,6 +3,7 @@ import Input from "@/components/input";
 import Header from "@/common/Header";
 import React, { useRef, useState } from "react";
 import Button from "@/components/button";
+import clsx from "clsx";
 
 interface ScanResult {
   scan_results: {
@@ -206,15 +207,15 @@ const ScanVirus = () => {
             <h2 className="text-lg font-semibold mb-3">Kết quả quét</h2>
 
             <div
-              className="mb-4 p-4 rounded-md"
-              style={{
-                backgroundColor: `var(--${getThreatColor(
+              className={clsx(
+                "mb-4 p-4 rounded-md",
+                `bg-${getThreatColor(
                   report.scan_results.scan_all_result_i
-                )}-50)`,
-                color: `var(--${getThreatColor(
+                )}-50`,
+                `text-${getThreatColor(
                   report.scan_results.scan_all_result_i
-                )}-700)`,
-              }}
+                )}-700`
+              )}
             >
               <p className="text-lg font-semibold">
                 {getThreatLevel(report.scan_results.scan_all_result_i)}
