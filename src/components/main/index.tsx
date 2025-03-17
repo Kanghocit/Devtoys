@@ -1,12 +1,12 @@
 "use client";
 
 import { footerMenus, subMenus } from "@/constants/menuData";
-import Card from "../card";
-import Link from "next/link";
 import { useSearch } from "@/context/SearchContext";
-import Button from "../button";
-import { LuLogOut } from "react-icons/lu";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { LuLogOut } from "react-icons/lu";
+import Button from "../button";
+import Card from "../card";
 
 const MainContent = () => {
   const { searchQuery } = useSearch();

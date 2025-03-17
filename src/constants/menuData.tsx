@@ -29,6 +29,7 @@ import { BsMarkdownFill } from "react-icons/bs";
 import { AiOutlineFileText } from "react-icons/ai";
 import { MdMoreHoriz } from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
+import { FaShieldVirus } from "react-icons/fa";
 
 // Định nghĩa kiểu dữ liệu cho menu items
 export interface MenuItem {
@@ -314,6 +315,13 @@ export const subMenus: MenuItem[] = [
         icon: <CiLocationOn />,
         detail: "Ip geo Location text data",
         href: "ip-geo-location",
+        isDone: true,
+      },
+      {
+        name: "Scan virus",
+        icon: <FaShieldVirus />,
+        detail: "Scan virus to protect your computer",
+        href: "scan-virus",
         isDone: true,
       },
     ],

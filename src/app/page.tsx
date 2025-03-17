@@ -1,4 +1,4 @@
-import MainContent from "@/components/maincontent";
+import MainContent from "@/components/main";
 import Suggest from "@/components/suggest";
 export default function Home() {
   return (

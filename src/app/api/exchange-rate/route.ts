@@ -15,7 +15,6 @@ export async function GET() {
 
   try {
     const response = await axios.get(url);
-    console.log("response", response.data);
     return NextResponse.json(response.data);
   } catch (error) {
     console.error("Error fetching currency data:", error);
