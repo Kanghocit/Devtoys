@@ -28,7 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/json-to-table"
+    "src/app/(converters)/json-to-table"
   ],
   "exclude": ["node_modules"]
 }
