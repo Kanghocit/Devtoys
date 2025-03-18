@@ -2,13 +2,12 @@
 
 import Header from "@/common/Header";
 import Button from "@/components/button";
-import Input from "@/components/input";
+import Upload from "@/components/upload";
 
-import { DragEvent, useRef, useState } from "react";
+import { useState } from "react";
 
-import { BiPaste } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
-import { MdClose, MdFilePresent } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 
 type ColorBlindnessType =
   | "protanopia" // Red-blind
@@ -18,16 +17,12 @@ type ColorBlindnessType =
 
 const ColorBlindness = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [selectedType, setSelectedType] = useState<ColorBlindnessType | null>(
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const dropZoneRef = useRef<HTMLDivElement>(null);
 
   const handleFile = async (file: File) => {
     try {
@@ -45,51 +40,6 @@ const ColorBlindness = () => {
       setError("Failed to load image");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      handleFile(file);
-    }
-  };
-
-  const handleDrop = (e: DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      handleFile(file);
-    }
-  };
-
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handlePaste = async () => {
-    try {
-      const items = await navigator.clipboard.read();
-      for (const item of items) {
-        const imageType = item.types.find((type) => type.startsWith("image/"));
-        if (imageType) {
-          const blob = await item.getType(imageType);
-          const file = new File([blob], "pasted-image", { type: imageType });
-          handleFile(file);
-          return;
-        }
-      }
-      setError("No image found in clipboard");
-    } catch {
-      setError("Failed to paste image");
     }
   };
 
@@ -127,7 +77,6 @@ const ColorBlindness = () => {
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
-
       <Header title="Color Blindness Simulator" />
 
       {/* SVG Filters */}
@@ -166,45 +115,11 @@ const ColorBlindness = () => {
         </defs>
       </svg>
 
-      <div
-        ref={dropZoneRef}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        className={`text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center mx-2 
-          border-dashed border-2 rounded-md transition-colors duration-200
-          ${isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"}
+      <Upload
+        title="Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here"
+        onFileSelect={handleFile}
+      />
 
-          `}
-      >
-        <p>Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here</p>
-        <span>or</span>
-        <div className="flex gap-2 text-blue-500 items-center">
-          <Input
-            type="file"
-            inputRef={fileInputRef}
-            accept="image/*"
-            onChange={handleFileUpload}
-          />
-          <Button
-            variant="text"
-            onClick={() => fileInputRef.current?.click()}
-            className="hover:text-blue-800"
-            icon={<MdFilePresent />}
-          >
-            Browse files
-          </Button>
-          <p>/</p>
-          <Button
-            variant="text"
-            className="hover:text-blue-800"
-            onClick={handlePaste}
-            icon={<BiPaste />}
-          >
-            Paste
-          </Button>
-        </div>
-      </div>
       {imageUrl && (
         <>
           <div className="grid grid-cols-2 gap-4 w-full">

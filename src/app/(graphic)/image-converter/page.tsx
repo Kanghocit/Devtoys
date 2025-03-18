@@ -12,6 +12,7 @@ import { MdDelete, MdFilePresent, MdSave } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
 
 import Input from "@/components/input";
+import Upload from "@/components/upload";
 
 interface ImageFile {
   id: string;
@@ -211,44 +212,10 @@ const ImageConverter = () => {
         </select>
       </CustomCard>
 
-      <div
-        ref={dropZoneRef}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        className={`text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center mx-2 
-          border-dashed border-2 rounded-md transition-colors duration-200
-          ${isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"}`}
-      >
-        <p>Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here</p>
-        <span>or</span>
-        <div className="flex gap-2 text-blue-500 items-center">
-          <Input
-            type="file"
-            inputRef={fileInputRef}
-            accept="image/*"
-            multiple
-            onChange={handleFileUpload}
-          />
-          <Button
-            variant="text"
-            onClick={() => fileInputRef.current?.click()}
-            className="hover:text-blue-800"
-            icon={<MdFilePresent />}
-          >
-            Browse files
-          </Button>
-          <p>/</p>
-          <Button
-            variant="text"
-            className="hover:text-blue-800"
-            onClick={handlePaste}
-            icon={<BiPaste />}
-          >
-            Paste
-          </Button>
-        </div>
-      </div>
+      <Upload
+        title="Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here"
+        onFileSelect={handleFile}
+      />
 
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
@@ -303,7 +270,7 @@ const ImageConverter = () => {
                     </Button>
                   )}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 ms-2">
                   {file.converted && (
                     <Button
                       variant="default"
