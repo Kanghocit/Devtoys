@@ -1,12 +1,16 @@
 "use client";
+
 import Button from "@/components/button";
 import Header from "@/common/Header";
 import CustomCard from "@/components/card/CustomCard";
+
 import React, { useRef, useState, DragEvent } from "react";
+
 import { BiPaste } from "react-icons/bi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { MdDelete, MdFilePresent, MdSave } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
+
 import Input from "@/components/input";
 
 interface ImageFile {
@@ -187,7 +191,10 @@ const ImageConverter = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="Image Converter" />
-      <p className="text-xs">Configuration </p>
+
+      <div className="flex justify-between ms-2">
+        <p className="text-sm font-semibold">Configuration </p>
+      </div>
       <CustomCard
         title="Conversion"
         icon={<LiaExchangeAltSolid />}
@@ -209,7 +216,7 @@ const ImageConverter = () => {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className={`text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center 
+        className={`text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center mx-2 
           border-dashed border-2 rounded-md transition-colors duration-200
           ${isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"}`}
       >
@@ -246,7 +253,7 @@ const ImageConverter = () => {
       {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
       {files.length > 0 && (
-        <div className="flex justify-end gap-2 mt-1">
+        <div className="flex justify-end gap-2 mt-1 me-2">
           <Button
             variant="primary"
             className="flex items-center px-4"
@@ -289,7 +296,7 @@ const ImageConverter = () => {
                   {!file.converted && !file.converting && (
                     <Button
                       variant="primary"
-                      className="p-1 hover:bg-blue-500"
+                      className="py-2 flex items-center px-4 hover:bg-blue-500"
                       onClick={() => convertImage(file)}
                     >
                       Convert to {targetFormat}

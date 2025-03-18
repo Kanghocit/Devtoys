@@ -1,8 +1,11 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import Input from "@/components/input";
+
 import { DragEvent, useRef, useState } from "react";
+
 import { BiPaste } from "react-icons/bi";
 import { FaEye } from "react-icons/fa";
 import { MdClose, MdFilePresent } from "react-icons/md";
@@ -124,6 +127,7 @@ const ColorBlindness = () => {
 
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
+
       <Header title="Color Blindness Simulator" />
 
       {/* SVG Filters */}
@@ -167,7 +171,7 @@ const ColorBlindness = () => {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className={`text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center 
+        className={`text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center mx-2 
           border-dashed border-2 rounded-md transition-colors duration-200
           ${isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"}
 
