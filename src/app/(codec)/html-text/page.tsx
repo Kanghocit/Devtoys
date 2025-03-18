@@ -46,7 +46,7 @@ const HtmlText = () => {
       {/* Header  */}
       <Header title="HTML Text Encoder / Decoder" />
 
-      <p className="text-xs ms-2">Configuration</p>
+      <p className="text-sm font-semibold ms-2">Configuration</p>
 
       <CustomCard
         title="Conversion"
@@ -61,18 +61,18 @@ const HtmlText = () => {
       </CustomCard>
 
       <div className="flex flex-col mt-4 overflow-hidden">
-        <div className="flex flex-col rounded-lg p-4 ">
+        <div className="flex flex-col rounded-lg pe-2 ">
           {/* Input */}
           <div className="flex flex-col my0-1">
             <div className="flex justify-between items-center">
-              <p className="text-xs">Input</p>
+              <p className="text-sm font-semibold ms-2">Input</p>
               <div className="flex gap-2">
                 <Button icon={<FaRegPaste />}>Paste</Button>
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setInputText("")} />
               </div>
             </div>
-            <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md mt-1">
+            <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md ms-2 mt-2">
               <Textarea
                 hasBorder={false}
                 className="w-full mt-1"
@@ -85,13 +85,13 @@ const HtmlText = () => {
           {/* Output */}
           <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
-              <p className="text-xs">Output</p>
+              <p className="text-sm font-semibold ms-2">Output</p>
               <div className="flex gap-2">
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md mt-1">
+            <div className="min-h-[calc(50vh-140px)] border-1 border-gray-300 rounded-md ms-2 mt-2">
               <Textarea
                 hasBorder={false}
                 className="w-full mt-1"
