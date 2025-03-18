@@ -129,7 +129,7 @@ const QRCodeGenerator = () => {
   }, [text, isDecode]);
 
   return (
-    <div className="flex flex-col rounded-2xl h-full p-2">
+    <div className="flex flex-col rounded-2xl h-full p-2 ">
       <Header title="QR Code Encoder / Decoder" />
 
       <div className="flex justify-end mb-2">
@@ -144,8 +144,12 @@ const QRCodeGenerator = () => {
 
       <div className="grid grid-cols-[70%_30%] gap-2">
         <div>
-          <div className="flex justify-between items-center p-2">
-            <p className="text-xs">{isDecode ? "Decoded Text" : "Text"}</p>
+          <div className="flex justify-between  p-2">
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">
+                {isDecode ? "Decoded Text" : "Text"}
+              </p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
@@ -167,7 +171,7 @@ const QRCodeGenerator = () => {
             </div>
           </div>
 
-          <div className="min-h-[calc(100vh-140px)] border-1 border-gray-300 rounded-md mt-1">
+          <div className="min-h-[calc(98vh-140px)] border-1 border-gray-300 rounded-md mt-1 ms-2">
             <Textarea
               hasBorder={false}
               placeholder={
@@ -183,7 +187,7 @@ const QRCodeGenerator = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 ms-2 me-4">
           <div className="text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center border-dashed border-2 border-gray-300 rounded-md">
             <p>
               {isDecode
@@ -211,7 +215,7 @@ const QRCodeGenerator = () => {
               </Button>
             </div>
           </div>
-          <div className="h-[76vh] p-3 rounded-md text-sm shadow-md border border-gray-300 flex justify-center items-center">
+          <div className="h-[78vh] p-3 rounded-md text-sm shadow-md border border-gray-300 flex justify-center items-center">
             {qrcode ? (
               <img
                 src={qrcode}
