@@ -84,7 +84,9 @@ const NumberBase = () => {
       {numberBases.map(({ title, value, base }) => (
         <div key={value}>
           <div className="flex justify-between">
-            <p className="text-sm ms-2 text-gray-500">{title}</p>
+            <div className="flex items-end gap-2 ms-3">
+              <p className="text-sm font-semibold items-end">{title}</p>
+            </div>
 
             <div className="flex gap-2 pe-2">
               <Button
@@ -130,7 +132,7 @@ const NumberBase = () => {
           )}
 
           {/* values['hex'] : ) */}
-          <div className="me-3 pe-1">
+          <div className="me-3 pe-1 py-1">
             <Input
               type="text"
               className="w-full"

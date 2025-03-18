@@ -67,7 +67,7 @@ const Textarea: React.FC<TextareaProps> = ({
   }, [value, minLines]);
 
   const textareaClass = clsx(
-    "relative flex border border-gray-300 w-full rounded-md overflow-hidden bg-white",
+    "relative flex border border-gray-300 w-full rounded-md overflow-hidden bg-white ",
     !hasBorder && "border-none bg-gray-300"
   );
   return (

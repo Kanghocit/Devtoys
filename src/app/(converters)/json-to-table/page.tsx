@@ -15,7 +15,7 @@ const JsonToTable = () => {
   const [widthFull, setWidthFull] = useState(false);
   const [input, setInput] = useState("");
 
-  // ✅ Tự động format JSON khi nhập liệu
+  // Tự động format JSON khi nhập liệu
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const rawInput = e.target.value;
     try {
@@ -26,7 +26,7 @@ const JsonToTable = () => {
     }
   };
 
-  // ✅ Dán từ clipboard
+  // Dán từ clipboard
   const handlePaste = async () => {
     const text = await navigator.clipboard.readText();
     try {
@@ -37,7 +37,7 @@ const JsonToTable = () => {
     }
   };
 
-  // ✅ Mở file JSON
+  // Mở file JSON
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -57,7 +57,7 @@ const JsonToTable = () => {
     }
   };
 
-  // ✅ Xử lý JSON đầu vào
+  // Xử lý JSON đầu vào
   const parsedInput = (() => {
     try {
       const data = JSON.parse(input);
@@ -67,7 +67,7 @@ const JsonToTable = () => {
     }
   })();
 
-  // ✅ Lấy tất cả key trong JSON array
+  // Lấy tất cả key trong JSON array
   const allKeys = Array.from(
     new Set(parsedInput.flatMap((item) => Object.keys(item)))
   );

@@ -155,7 +155,7 @@ const CronParser = () => {
           <p className="text-xs">Next scheduled dates</p>
         </div>
         <Textarea
-          className="w-full min-h-200 "
+          className="w-full min-h-200"
           value={scheduledDates}
           onChange={(e) => setScheduledDates(e.target.value)}
         />
