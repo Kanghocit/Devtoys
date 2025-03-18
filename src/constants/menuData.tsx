@@ -302,7 +302,7 @@ export const subMenus: MenuItem[] = [
     ],
   },
   {
-    name: "More Tools",
+    name: "APIs Tools",
     icon: <MdMoreHoriz />,
     children: [
       {

@@ -1,10 +1,13 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/card/CustomCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
+
 import { useCallback, useEffect, useState } from "react";
+
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
@@ -64,7 +67,9 @@ const ListComparer = () => {
       {/* Header  */}
       <Header title="List Compare" />
 
-      <p className="text-xs ms-2">Configuration</p>
+      <div className="flex justify-between ms-2">
+        <p className="text-sm font-semibold">Configuration</p>
+      </div>
 
       <CustomCard
         title="Conversion"
@@ -77,6 +82,7 @@ const ListComparer = () => {
           onToggle={() => setIsEscape(!isEscape)}
         />
       </CustomCard>
+
       <CustomCard
         title="Conversion"
         icon={<LiaExchangeAltSolid />}
@@ -95,12 +101,14 @@ const ListComparer = () => {
       </CustomCard>
 
       <div className="flex flex-col mt-4 overflow-hidden">
-        <div className="flex flex-col rounded-lg p-4 ">
+        <div className="flex flex-col rounded-lg">
           {/* Input */}
           <div className="grid grid-cols-2 gap-2">
             <div className="flex flex-col  my-1">
-              <div className="flex justify-between items-center">
-                <p className="text-xs">A</p>
+              <div className="flex justify-between ms-2">
+                <div className="flex justify-center items-end mb-1">
+                  <p className="text-sm font-semibold">A</p>
+                </div>
                 <div className="flex gap-2 mb-1">
                   <Button icon={<FaRegPaste />}>Paste</Button>
                   <Button icon={<FiSave />} />
@@ -120,9 +128,11 @@ const ListComparer = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col  my-1">
-              <div className="flex justify-between items-center">
-                <p className="text-xs">Input</p>
+            <div className="flex flex-col me-2 my-1">
+              <div className="flex justify-between ms-2">
+                <div className="flex justify-center items-end mb-1">
+                  <p className="text-sm font-semibold">B</p>
+                </div>
                 <div className="flex gap-2 mb-1">
                   <Button icon={<FaRegPaste />}>Paste</Button>
                   <Button icon={<FiSave />} />
@@ -146,14 +156,16 @@ const ListComparer = () => {
 
           {/* Output */}
           <div className="flex flex-col mt-4">
-            <div className="flex justify-between items-center">
-              <p className="text-xs">Output</p>
+            <div className="flex justify-between items-center mx-2">
+              <div className="flex gap-2 mb-1">
+                <p className="text-sm font-semibold">Output</p>
+              </div>
               <div className="flex gap-2 mb-1">
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-not-allowed">
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 me-2">
               <Textarea
                 className="w-full h-130  cursor-not-allowed"
                 value={outputText}

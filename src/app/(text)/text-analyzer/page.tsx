@@ -1,21 +1,26 @@
 "use client";
-import Textarea from "@/components/textarea";
+
 import { useState } from "react";
+
+import Textarea from "@/components/textarea";
 import Header from "@/common/Header";
 import Button from "@/components/button";
+import Input from "@/components/input";
+
 import Statistics from "./Statistics";
 import {
   caseConvertButton,
   lineConvertButton,
   lineSortButton,
 } from "./constants";
+
 import { LuCopy } from "react-icons/lu";
 import { MdFilePresent } from "react-icons/md";
 import { MdClear } from "react-icons/md";
 import { FaRegPaste } from "react-icons/fa6";
 import { LiaSaveSolid } from "react-icons/lia";
+
 import { toast } from "react-hot-toast";
-import Input from "@/components/input";
 
 const TextAnalyzer = () => {
   const [input, setInput] = useState<string>("");
@@ -289,11 +294,18 @@ const TextAnalyzer = () => {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl h-full p-2">
+    <div
+      className="flex flex-col rounded-2xl h-full p-2"
+      suppressHydrationWarning
+    >
       <Header title="Text Analyzer" />
+
       <div className="flex flex-col">
-        <p className="text-xs">Convert line break</p>
-        <div className="flex gap-2 m-2 ms-0">
+        <div className="flex justify-between items-center mx-2">
+          <p className="text-sm font-semibold">Convert line break</p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 m-2 ">
           {lineConvertButton.map((item, index) => (
             <Button
               variant="default"
@@ -304,8 +316,12 @@ const TextAnalyzer = () => {
             </Button>
           ))}
         </div>
-        <p className="text-xs">Convert case</p>
-        <div className="flex gap-2 m-2 ms-0">
+
+        <div className="flex justify-between items-center mx-2">
+          <p className="text-sm font-semibold">Convert case</p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 m-2 ">
           {caseConvertButton.map((item, index) => (
             <Button
               variant="default"
@@ -316,8 +332,10 @@ const TextAnalyzer = () => {
             </Button>
           ))}
         </div>
-        <p className="text-xs">Sort lines</p>
-        <div className="flex gap-2 m-2 ms-0">
+        <div className="flex justify-between items-center mx-2">
+          <p className="text-sm font-semibold">Sort lines</p>
+        </div>
+        <div className="flex flex-wrap+ gap-2 m-2 ">
           {lineSortButton.map((item, index) => (
             <Button
               variant="default"
@@ -329,10 +347,13 @@ const TextAnalyzer = () => {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-[85%_15%] gap-4 p-4">
+      <div className="grid grid-cols-[85%_15%] gap-4 mx-2 my-1">
         <div className="flex flex-col">
           <div className="flex justify-between">
-            <p className="text-xs">Text</p>
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Text</p>
+            </div>
+
             <div className="flex gap-2">
               <Button
                 variant="primary"

@@ -1,10 +1,13 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/card/CustomCard";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
+
 import { useCallback, useEffect, useState } from "react";
+
 import { FaRegPaste } from "react-icons/fa6";
 import { FiSave } from "react-icons/fi";
 import { LiaExchangeAltSolid } from "react-icons/lia";
@@ -36,7 +39,9 @@ const EscapeUnescape = () => {
       {/* Header  */}
       <Header title="Text Escape / Unescape" />
 
-      <p className="text-xs ms-2">Configuration</p>
+      <div className="flex justify-between ms-2">
+        <p className="text-sm font-semibold">Configuration</p>
+      </div>
 
       <CustomCard
         title="Conversion"
@@ -51,18 +56,20 @@ const EscapeUnescape = () => {
       </CustomCard>
 
       <div className="flex flex-col mt-4 overflow-hidden">
-        <div className="flex flex-col rounded-lg p-4 ">
+        <div className="flex flex-col rounded-lg">
           {/* Input */}
-          <div className="flex flex-col  my-1">
-            <div className="flex justify-between items-center">
-              <p className="text-xs">Input</p>
+          <div className="flex flex-col my-1">
+            <div className="flex justify-between items-center mx-2">
+              <div className="flex gap-2 mb-1">
+                <p className="text-sm font-semibold">Input</p>
+              </div>
               <div className="flex gap-2 mb-1">
                 <Button icon={<FaRegPaste />}>Paste</Button>
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setInputText("")} />
               </div>
             </div>
-            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 ">
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 me-2">
               <Textarea
                 className="w-full"
                 hasBorder={false}
@@ -78,14 +85,16 @@ const EscapeUnescape = () => {
 
           {/* Output */}
           <div className="flex flex-col mt-4">
-            <div className="flex justify-between items-center">
-              <p className="text-xs">Output</p>
+            <div className="flex justify-between items-center mx-2">
+              <div className="flex gap-2 mb-1">
+                <p className="text-sm font-semibold">Output</p>
+              </div>
               <div className="flex gap-2 mb-1">
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 cursor-not-allowed">
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1 me-2">
               <Textarea
                 className="w-full h-130 mt-1 cursor-not-allowed"
                 value={outputText}

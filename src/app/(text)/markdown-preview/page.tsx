@@ -9,10 +9,12 @@ import Input from "@/components/input";
 import clsx from "clsx";
 
 import { useRef, useState, useCallback } from "react";
+
 import { FaBusinessTime } from "react-icons/fa";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import { LuCopy } from "react-icons/lu";
 import { MdClear, MdFilePresent } from "react-icons/md";
+
 import { toast } from "react-hot-toast";
 
 const MarkdownPreview = () => {
@@ -253,7 +255,7 @@ const MarkdownPreview = () => {
 
       <CustomCard title="Conversion" icon={<LiaExchangeAltSolid />}>
         <select
-          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
+          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none py-1"
           value={theme}
           onChange={(e) => setTheme(e.target.value)}
         >
@@ -265,7 +267,10 @@ const MarkdownPreview = () => {
       <div className="grid grid-cols-2 gap-4">
         <div className="mx-1">
           <div className="flex m-2 justify-between">
-            <p className="text-xs flex justify-center items-center">Markdown</p>
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Markdown</p>
+            </div>
+
             <div className="flex gap-2">
               <Button icon={<FaBusinessTime />} onClick={handleSave} />
               <Button icon={<LuCopy />} onClick={handlePaste}>
@@ -288,7 +293,7 @@ const MarkdownPreview = () => {
           </div>
           <div
             className={clsx(
-              "min-h-[calc(95vh-140px)] border-2",
+              "min-h-[calc(95vh-140px)] border-2 ms-2",
               isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300",
               "rounded-md mt-1 transition-colors duration-200"
             )}
@@ -306,11 +311,11 @@ const MarkdownPreview = () => {
           </div>
         </div>
 
-        <div className="mx-1">
-          <div className="flex m-2 justify-between">
-            <p className="text-xs flex justify-center items-center py-1">
-              Preview
-            </p>
+        <div className="mx-2">
+          <div className="flex my-2 justify-between">
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Preview</p>
+            </div>
             <Button icon={<LuCopy />} onClick={handleCopy}>
               Copy Markdown
             </Button>
