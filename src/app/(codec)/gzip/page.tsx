@@ -66,7 +66,7 @@ const Gzip = () => {
       {/* Header  */}
       <Header title="Gzip Encoder / Decoder" />
 
-      <p className="text-xs ms-2">Configuration</p>
+      <p className="text-sm font-semibold ms-2">Configuration</p>
 
       <CustomCard
         title="Conversion"
@@ -80,12 +80,12 @@ const Gzip = () => {
         />
       </CustomCard>
 
-      <div className="flex flex-col mt-4 overflow-hidden">
-        <div className="flex flex-col rounded-lg p-4 ">
+      <div className="flex flex-col mt-2 overflow-hidden">
+        <div className="flex flex-col rounded-lg pe-2 ">
           {/* Input */}
           <div className="flex flex-col">
             <div className="flex justify-between items-center">
-              <p className="text-xs">Input</p>
+              <p className="text-sm font-semibold ms-2">Input</p>
               <div className="flex gap-2">
                 <Button icon={<FaRegPaste />}>Paste</Button>
 
@@ -109,7 +109,7 @@ const Gzip = () => {
                 />
               </div>
             </div>
-            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1">
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-2">
               <Textarea
                 hasBorder={false}
                 autoFocus
@@ -128,13 +128,13 @@ const Gzip = () => {
           {/* Output */}
           <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
-              <p className="text-xs">Output</p>
+              <p className="text-sm font-semibold ms-2">Output</p>
               <div className="flex gap-2">
                 <Button icon={<FiSave />} />
                 <Button icon={<MdClear />} onClick={() => setOutputText("")} />
               </div>
             </div>
-            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1">
+            <div className="min-h-[calc(50vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-2">
               <Textarea
                 hasBorder={false}
                 className="w-full"
