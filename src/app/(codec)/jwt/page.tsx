@@ -369,8 +369,10 @@ const JsonWebToken = () => {
 
       <div className="flex flex-col overflow-hidden">
         <div className="flex flex-col rounded-lg p-4">
-          <div className="flex justify-between items-center">
-            <p className="text-xs">Token</p>
+          <div className="flex justify-between mb-2">
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Token</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<FaRegPaste />} onClick={handlePaste}>
                 Paste
@@ -385,7 +387,7 @@ const JsonWebToken = () => {
           <TextareaAutoSize
             value={inputToken}
             placeholder="Nhập JWT token của bạn..."
-            className="rounded-lg p-2 mt-1 focus:outline-none border-1 border-gray-300"
+            className="rounded-lg p-2 focus:outline-none border-1 border-gray-300"
             onChange={(e) => {
               setInputToken(e.target.value);
               parseJwt(e.target.value);
@@ -395,9 +397,11 @@ const JsonWebToken = () => {
 
         <div className="grid grid-cols-2 gap-2">
           <div className="flex flex-col rounded-lg p-4">
-            <div className="flex justify-between items-center">
-              <p className="text-xs">Header</p>
-              <div className="flex gap-2">
+            <div className="flex justify-between mb-2">
+              <div className="flex justify-center items-end gap-2">
+                <p className="text-sm font-semibold">Header</p>
+              </div>
+              <div className="flex gap-2 ">
                 <Button
                   icon={<FaRegPaste />}
                   onClick={async () => {
@@ -420,13 +424,15 @@ const JsonWebToken = () => {
             <TextareaAutoSize
               value={inputHeader}
               placeholder="JWT Header sẽ hiển thị ở đây..."
-              className="rounded-lg p-2 mt-1 focus:outline-none border-1 border-gray-300"
+              className="rounded-lg p-2 focus:outline-none border-1 border-gray-300"
               readOnly
             />
           </div>
           <div className="flex flex-col rounded-lg p-4">
-            <div className="flex justify-between items-center">
-              <p className="text-xs">Payload</p>
+            <div className="flex justify-between mb-2">
+              <div className="flex justify-center items-end gap-2">
+                <p className="text-sm font-semibold">Payload</p>
+              </div>
               <div className="flex gap-2">
                 <Button
                   icon={<FaRegPaste />}
@@ -450,7 +456,7 @@ const JsonWebToken = () => {
             <TextareaAutoSize
               value={inputPayload}
               placeholder="JWT Payload sẽ hiển thị ở đây..."
-              className="rounded-lg p-2 mt-1 focus:outline-none border-1 border-gray-300"
+              className="rounded-lg p-2 focus:outline-none border-1 border-gray-300"
               readOnly
             />
           </div>
