@@ -111,7 +111,7 @@ const DateConvert = () => {
       milliseconds: "",
     });
   };
-  
+
   return (
     <div className="flex flex-col rounded-tl-2xl h-full p-2">
       {/* Header */}
@@ -137,20 +137,20 @@ const DateConvert = () => {
       </CustomCard>
 
       {/* Thông tin thời gian */}
-      <div className="grid grid-cols-4 gap-2 border border-gray-300 rounded-md mx-2 p-2 text-xs">
-        <div className="gap-2">
-          <p>Offset</p>
-          <p>Local Date and Time</p>
+      <div className="grid grid-cols-4 gap-2 border border-gray-300 rounded-md mx-2 p-2 text-xs my-2">
+        <div className="flex flex-col justify-center gap-2">
+          <p className="text-sm font-semibold">Offset</p>
+          <p className="text-sm font-semibold">Local Date and Time</p>
         </div>
-        <div className="gap-2">
+        <div className="flex flex-col justify-center gap-2">
           <p>{timeData.offset}</p>
           <p className="">{timeData.localDateTime}</p>
         </div>
-        <div className="gap-2">
-          <p>UTC Date and Time</p>
-          <p>UtcTicks</p>
+        <div className="flex flex-col justify-center gap-2">
+          <p className="text-sm font-semibold">UTC Date and Time</p>
+          <p className="text-sm font-semibold">UtcTicks</p>
         </div>
-        <div className="gap-2">
+        <div className="flex flex-col justify-center gap-2">
           <p className="">{timeData.utcDateTime}</p>
           <p className="">{timeData.utcTicks}</p>
         </div>
@@ -158,10 +158,14 @@ const DateConvert = () => {
 
       {/* Input cho Date & ISO */}
       {items.map((item, index) => (
-        <div key={index} className="text-xs px-2 mt-2">
-          <div className="flex justify-between">
-            <p className="font-semibold">{item.name.toUpperCase()}</p>
-            <div className="flex gap-2">
+        <div key={index} className="text-xs me-4 mt-2">
+          <div className="flex justify-between  mb-1">
+            <div className="flex items-end gap-2 ms-2">
+              <p className="font-semibold text-sm ps-1">
+                {item.name.toUpperCase()}
+              </p>
+            </div>
+            <div className="flex gap-2 ">
               <Button icon={<FaBusinessTime />} onClick={handleGetTime} />
               <Button icon={<LuCopy />}>Paste</Button>
               <Input type="file" inputRef={fileInputRef} />
@@ -184,10 +188,12 @@ const DateConvert = () => {
       ))}
 
       {/* Grid nhập thông tin thời gian */}
-      <div className="grid grid-cols-3 gap-2 mx-2 text-xs">
+      <div className="grid grid-cols-3 gap-2 me-4 text-xs">
         {["year", "month", "day"].map((field) => (
           <div key={field} className="gap-2">
-            <p>{field.charAt(0).toUpperCase() + field.slice(1)}</p>
+            <p className="text-sm font-semibold ms-3">
+              {field.charAt(0).toUpperCase() + field.slice(1)}
+            </p>
             <Input
               type="text"
               className="w-full"
@@ -197,10 +203,12 @@ const DateConvert = () => {
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-4 gap-2 mx-2 text-xs">
+      <div className="grid grid-cols-4 gap-2 me-4 text-xs">
         {["hour", "minute", "second", "milliseconds"].map((field) => (
           <div key={field} className="gap-2">
-            <p>{field.charAt(0).toUpperCase() + field.slice(1)}</p>
+            <p className="text-sm font-semibold ms-3">
+              {field.charAt(0).toUpperCase() + field.slice(1)}
+            </p>
             <Input
               type="text"
               className="w-full"
