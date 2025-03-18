@@ -145,7 +145,9 @@ const LoremIpsum = () => {
   return (
     <div className="flex flex-col rounded-2xl p-2" suppressHydrationWarning>
       <Header title="Lorem Ipsum" />
-      <p className="text-xs ms-2">Configuration</p>
+      <div className="flex justify-between ms-2">
+        <p className="text-sm font-semibold">Configuration</p>
+      </div>
       <ConfigCard
         title="Text corpus"
         icon={<PiBookOpenTextLight />}
@@ -184,10 +186,7 @@ const LoremIpsum = () => {
               onChange={handleFileUpload}
             />
 
-            <Button
-              variant="text"
-              onClick={() => fileInputRef.current?.click()}
-            >
+            <Button onClick={() => fileInputRef.current?.click()}>
               Upload
             </Button>
 
@@ -204,7 +203,7 @@ const LoremIpsum = () => {
             <Button icon={<FaTrash />} onClick={handleClear} />
           </div>
         </div>
-        <div className="min-h-[calc(80vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
+        <div className="min-h-[calc(76vh-140px)] border-1 ms-2 border-gray-300 rounded-md mx-2">
           <Textarea
             className="w-full"
             autoFocus
