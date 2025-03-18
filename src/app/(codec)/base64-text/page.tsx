@@ -38,7 +38,7 @@ const Base64Text = () => {
       {/* Header  */}
       <Header title="Base64 Text Encoder / Decoder" />
 
-      <p className="text-xs ms-2">Configuration</p>
+      <p className="text-sm font-semibold ms-2">Configuration</p>
 
       <ConfigCard
         title="Conversion"
@@ -50,12 +50,12 @@ const Base64Text = () => {
         onToggleChange={() => setIsEncode(!isEncode)}
       />
 
-      <div className="flex flex-col mt-4 overflow-hidden">
-        <div className="flex flex-col rounded-lg p-4 ">
+      <div className="flex flex-col mt-2 overflow-hidden">
+        <div className="flex flex-col rounded-lg pe-2 ">
           {/* Input */}
           <div className="flex flex-col">
             <div className="flex justify-between items-center">
-              <p className="text-xs ms-2">Input</p>
+              <p className="text-sm font-semibold ms-2">Input</p>
               <div className="flex gap-2 my-1">
                 <ButtonPaste setInputText={setInputText} />
 
@@ -78,7 +78,7 @@ const Base64Text = () => {
           {/* Output */}
           <div className="flex flex-col mt-4">
             <div className="flex justify-between items-center">
-              <p className="text-xs ms-2">Output</p>
+              <p className="text-sm font-semibold ms-2">Output</p>
               <div className="flex gap-2 my-1">
                 <ButtonCopy input={outputText} />
 
