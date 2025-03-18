@@ -148,7 +148,7 @@ const SQLFormatter = () => {
           //   onToggle={() => setIsCompress(!isCompress)}
         />
       </CustomCard>
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 ms-1">
         {/* Input */}
         <div className={clsx("mx-1", widthFull && "hidden")}>
           <div
@@ -189,7 +189,7 @@ const SQLFormatter = () => {
         </div>
 
         {/* Output */}
-        <div className={clsx("mx-1 h-full", widthFull && "w-full col-span-2")}>
+        <div className={clsx("mx-2 h-full ", widthFull && "col-span-2 ")}>
           <div className="flex m-2 justify-between">
             <div className="flex justify-center items-end gap-2">
               <p className="text-sm font-semibold">Output</p>
@@ -207,11 +207,7 @@ const SQLFormatter = () => {
               />
             </div>
           </div>
-          <Textarea
-            value={output}
-            readOnly
-            className="min-h-265 cursor-not-allowed"
-          />
+          <Textarea value={output} readOnly className="cursor-not-allowed " />
         </div>
       </div>
     </div>
