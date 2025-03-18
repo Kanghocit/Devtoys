@@ -68,7 +68,9 @@ const PasswordGenerator = () => {
     >
       <Header title="Password Generator" />
 
-      <p className="text-xs">Configuration</p>
+      <div className="flex justify-between ms-2">
+        <p className="text-sm font-semibold">Configuration</p>
+      </div>
 
       <CustomCard
         title="Length"
@@ -99,9 +101,11 @@ const PasswordGenerator = () => {
         excluded={excluded}
       />
 
-      <p className="text-xs">Generate</p>
+      <div className="flex justify-between ms-2">
+        <p className="text-sm font-semibold">Generate</p>
+      </div>
 
-      <div className="flex items-center mt-2">
+      <div className="flex items-center mt-2 mx-2">
         <Button
           variant="primary"
           className="px-5 py-2 hover:bg-blue-600"
@@ -122,9 +126,11 @@ const PasswordGenerator = () => {
         />
       </div>
 
-      <div className="mt-2 flex justify-between mb-1">
-        <p className="text-xs">Passwords</p>
-        <div className="flex gap-2">
+      <div className="mt-2 flex justify-between mb-1 ms-2">
+        <div className="flex justify-center items-end ">
+          <p className="text-sm font-semibold">Passwords</p>
+        </div>
+        <div className="flex gap-2 me-2 mb-1">
           <Button icon={<LuCopy />} onClick={handleCopy}>
             Copy
           </Button>
@@ -142,12 +148,16 @@ const PasswordGenerator = () => {
         </div>
       </div>
 
-      <Textarea
-        value={input}
-        className="min-h-265"
-        placeholder="Generated passwords will appear here..."
-        readOnly
-      />
+      <div className="min-h-[calc(20vh-140px)] border-1 ms-2 border-gray-300 rounded-md mx-2">
+        <Textarea
+          className="w-full"
+          autoFocus
+          hasBorder={false}
+          placeholder="Generated passwords will appear here..."
+          value={input}
+          readOnly
+        />
+      </div>
     </div>
   );
 };
