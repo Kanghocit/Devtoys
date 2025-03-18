@@ -170,8 +170,12 @@ const XmlTester = () => {
       <div className="grid grid-cols-2 mx-2">
         {/* Left */}
         <div className="flex flex-col gap-2">
-          <div className="flex m-2 justify-between items-center">
-            <p className="text-xs">XSD (Optional - Currently not supported)</p>
+          <div className="flex m-2 justify-between ">
+            <div className="flex justify-center items-end">
+              <p className="text-sm font-semibold">
+                XSD (Optional - Currently not supported)
+              </p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<BiPaste />} onClick={() => handlePaste("xsd")}>
                 Paste
@@ -213,9 +217,12 @@ const XmlTester = () => {
           </div>
         </div>
         {/* Right */}
+
         <div className="flex flex-col gap-2">
-          <div className="flex m-2 justify-between items-center">
-            <p className="text-xs">XML</p>
+          <div className="flex m-2 justify-between">
+            <div className="flex justify-center items-end">
+              <p className="text-sm font-semibold">XML</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<BiPaste />} onClick={() => handlePaste("xml")}>
                 Paste
@@ -246,6 +253,7 @@ const XmlTester = () => {
               </Button>
             </div>
           </div>
+
           <div className="min-h-[calc(100vh-140px)] border-1 ms-2 border-gray-300 rounded-md">
             <Textarea
               hasBorder={false}
@@ -256,6 +264,7 @@ const XmlTester = () => {
           </div>
         </div>
       </div>
+
       {result && (
         <div
           className={`flex items-center gap-2 m-2 p-2 ms-4 border-1 rounded-md ${

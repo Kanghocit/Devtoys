@@ -118,7 +118,9 @@ const JsonPathTester = () => {
         {/* Left */}
         <div className="flex flex-col">
           <div className="flex m-2 justify-between">
-            <p className="text-xs flex justify-center items-center">JSON</p>
+            <div className="flex justify-center items-end">
+              <p className="text-sm font-semibold">JSON</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<BiPaste />} onClick={handlePasteJson}>
                 Paste
@@ -151,7 +153,9 @@ const JsonPathTester = () => {
         {/* Right */}
         <div className="flex flex-col gap-2">
           <div className="flex ms-2 justify-between ">
-            <p className="text-xs flex justify-center items-center">JSONPath</p>
+            <div className="flex justify-center items-end">
+              <p className="text-sm font-semibold">JSONPath</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<BiPaste />} onClick={handlePasteJsonPath}>
                 Paste
@@ -179,8 +183,10 @@ const JsonPathTester = () => {
               onChange={(e) => setJsonPath(e.target.value)}
             />
           </div>
-          <div className="flex justify-between gap-2">
-            <p className="text-xs mx-2">Test results</p>
+          <div className="flex justify-between gap-2 ms-2">
+            <div className="flex justify-center items-end">
+              <p className="text-sm font-semibold">Test results</p>
+            </div>
             <div className="flex gap-2 ">
               <Button icon={<MdClear />} onClick={() => setOutput("")} />
               <Button
@@ -211,7 +217,9 @@ const JsonPathTester = () => {
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex justify-between gap-2">
-              <p className="text-xs mx-2">Cheat sheet</p>
+              <div className="flex justify-center items-end ms-2">
+                <p className="text-sm font-semibold">Cheat sheet</p>
+              </div>
 
               <Button icon={<MdClear />} />
             </div>
