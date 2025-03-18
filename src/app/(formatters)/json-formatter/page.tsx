@@ -61,7 +61,7 @@ const JsonFormatter = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="JSON Formatter" />
-      <p className="text-xs ms-2">Configuration</p>
+      <p className="text-sm font-semibold ms-2 mt-2">Configuration</p>
 
       {/* Cấu hình format */}
       <CustomCard title="Indentation" icon={<MdOutlineSpaceBar />}>
@@ -96,7 +96,9 @@ const JsonFormatter = () => {
         {/* Input */}
         <div className={`${widthFull ? "hidden" : "mx-1"}`}>
           <div className="flex m-2 justify-between">
-            <p className="text-xs">Input</p>
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Input</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
@@ -128,7 +130,9 @@ const JsonFormatter = () => {
         {/* Output */}
         <div className={`${widthFull ? "w-full col-span-2" : "mx-1 h-full"}`}>
           <div className="flex m-2 justify-between">
-            <p className="text-xs">Output</p>
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Output</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<LuCopySlash />}>Copy as</Button>
               <Button icon={<FaPaste />}>Paste as</Button>

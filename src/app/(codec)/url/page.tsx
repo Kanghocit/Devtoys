@@ -76,9 +76,9 @@ const URL = () => {
       </CustomCard>
 
       <div className="flex flex-col mt-3 overflow-hidden">
-        <div className="flex flex-col rounded-lg mx-2 ">
+        <div className="flex flex-col rounded-lg p-4 ">
           {/* Input */}
-          <div className="flex flex-col my0-1">
+          <div className="flex flex-col my-1">
             <div className="flex justify-between mb-1">
               <div className="flex justify-center items-end gap-2">
                 <p className="text-sm font-semibold">Input</p>
@@ -100,7 +100,7 @@ const URL = () => {
           </div>
 
           {/* Output */}
-          <div className="flex flex-col mt-3">
+          <div className="flex flex-col mt-4">
             <div className="flex justify-between mb-1">
               <div className="flex justify-center items-end gap-2">
                 <p className="text-sm font-semibold">Output</p>

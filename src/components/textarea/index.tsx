@@ -73,7 +73,7 @@ const Textarea: React.FC<TextareaProps> = ({
   return (
     <div className={textareaClass}>
       {useLine && (
-        <div className=" text-gray-400 px-2 py-2 pt-3 text-xs text-right select-none ">
+        <div className=" text-gray-400 px-2 py-2 text-xs text-right select-none ">
           {lines.map((line) => (
             <div key={line} className="leading-[20px]">
               {line}
