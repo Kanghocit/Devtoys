@@ -1,9 +1,12 @@
 "use client";
-import Input from "@/components/input";
+
 import Header from "@/common/Header";
-import React, { useRef, useState } from "react";
 import Button from "@/components/button";
+import Upload from "@/components/upload";
+
 import clsx from "clsx";
+
+import { useState } from "react";
 
 interface ScanResult {
   scan_results: {
@@ -30,23 +33,20 @@ interface ScanResult {
 }
 
 const ScanVirus = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [report, setReport] = useState<ScanResult | null>(null);
-  console.log("report", report);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<string>("");
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
+  const handleFileChange = (file: File) => {
+    if (file) {
       const MAX_SIZE = 140 * 1024 * 1024; // MetaDefender giới hạn 140MB
-      if (selectedFile.size > MAX_SIZE) {
+      if (file.size > MAX_SIZE) {
         setError("File quá lớn. Giới hạn 140MB");
         return;
       }
-      setFile(selectedFile);
+      setFile(file);
       setError(null);
       setProgress("");
       setReport(null);
@@ -90,7 +90,7 @@ const ScanVirus = () => {
       const maxAttempts = 30; // Tối đa 30 lần kiểm tra (2.5 phút)
 
       while (attempts < maxAttempts) {
-        setProgress(`Đang quét file... (${attempts + 1}/${maxAttempts})`);
+        setProgress(`Đang quét file...`);
 
         const reportRes = await fetch(`/api/scan-virus/report?id=${dataId}`);
         if (!reportRes.ok) {
@@ -155,25 +155,10 @@ const ScanVirus = () => {
     <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="Quét Virus File" />
       <div className="flex flex-col gap-4 p-4">
-        <div className="text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center border-dashed border-2 border-gray-300 rounded-md">
-          <p>Chọn file để quét virus</p>
-          <span>hoặc</span>
-          <div className="flex gap-2">
-            <Input
-              type="file"
-              inputRef={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
-            />
-            <Button
-              variant="text"
-              onClick={() => fileInputRef.current?.click()}
-              className="text-blue-500 hover:text-blue-800"
-            >
-              Chọn file
-            </Button>
-          </div>
-        </div>
+        <Upload
+          title="Chọn file để quét virus"
+          onFileSelect={handleFileChange}
+        />
 
         {file && (
           <div className="flex items-center justify-between bg-gray-50 p-3 rounded-md">

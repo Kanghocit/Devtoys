@@ -1,13 +1,13 @@
 "use client";
 import Header from "@/common/Header";
 import Button from "@/components/button";
+import Textarea from "@/components/textarea";
+import Upload from "@/components/upload";
+import jsQR from "jsqr";
+import QRCode from "qrcode";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LuCopy } from "react-icons/lu";
 import { MdClear, MdFilePresent } from "react-icons/md";
-import { useCallback, useEffect, useRef, useState } from "react";
-import QRCode from "qrcode";
-import jsQR from "jsqr";
-import Textarea from "@/components/textarea";
-import Input from "@/components/input";
 
 const QRCodeGenerator = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -29,8 +29,7 @@ const QRCodeGenerator = () => {
     }
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleFileUpload = async (file: File) => {
     if (!file) return;
 
     // Hiển thị ảnh trước
@@ -94,10 +93,7 @@ const QRCodeGenerator = () => {
             const file = new File([blob], "pasted-image.png", {
               type: item.types[0],
             });
-            const event = {
-              target: { files: [file] },
-            } as unknown as React.ChangeEvent<HTMLInputElement>;
-            handleFileUpload(event);
+            handleFileUpload(file);
             break;
           }
         }
@@ -187,34 +183,16 @@ const QRCodeGenerator = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 ms-2 me-4">
-          <div className="text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center border-dashed border-2 border-gray-300 rounded-md">
-            <p>
-              {isDecode
+        <div className="flex flex-col gap-2 ms-1 me-4">
+          <Upload
+            title={
+              isDecode
                 ? "Upload QR code image to decode"
-                : "Upload image to display"}
-            </p>
-            <span>or</span>
-            <div className="flex gap-2 text-blue-500 hover:text-blue-800">
-              <Input
-                type="file"
-                inputRef={fileInputRef}
-                accept="image/*"
-                onChange={handleFileUpload}
-              />
+                : "Upload image to display"
+            }
+            onFileSelect={handleFileUpload}
+          />
 
-              <Button
-                variant="text"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                Browse files
-              </Button>
-
-              <Button variant="text" onClick={handlePaste}>
-                Paste
-              </Button>
-            </div>
-          </div>
           <div className="h-[78vh] p-3 rounded-md text-sm shadow-md border border-gray-300 flex justify-center items-center">
             {qrcode ? (
               <img

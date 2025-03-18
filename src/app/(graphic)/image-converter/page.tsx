@@ -1,17 +1,15 @@
 "use client";
 
-import Button from "@/components/button";
 import Header from "@/common/Header";
+import Button from "@/components/button";
 import CustomCard from "@/components/card/CustomCard";
 
-import React, { useRef, useState, DragEvent } from "react";
+import { useState } from "react";
 
-import { BiPaste } from "react-icons/bi";
-import { LiaExchangeAltSolid } from "react-icons/lia";
-import { MdDelete, MdFilePresent, MdSave } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
+import { LiaExchangeAltSolid } from "react-icons/lia";
+import { MdDelete, MdSave } from "react-icons/md";
 
-import Input from "@/components/input";
 import Upload from "@/components/upload";
 
 interface ImageFile {
@@ -24,12 +22,8 @@ interface ImageFile {
 
 const ImageConverter = () => {
   const [targetFormat, setTargetFormat] = useState("PNG");
-  const [isDragging, setIsDragging] = useState(false);
   const [files, setFiles] = useState<ImageFile[]>([]);
   const [error, setError] = useState<string | null>(null);
-
-  const dropZoneRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = async (file: File) => {
     try {
@@ -53,47 +47,6 @@ const ImageConverter = () => {
       setError(null);
     } catch {
       setError("Failed to load image");
-    }
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFiles = Array.from(event.target.files || []);
-    newFiles.forEach(handleFile);
-  };
-
-  const handleDrop = (e: DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    droppedFiles.forEach(handleFile);
-  };
-
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handlePaste = async () => {
-    try {
-      const items = await navigator.clipboard.read();
-      for (const item of items) {
-        const imageType = item.types.find((type) => type.startsWith("image/"));
-        if (imageType) {
-          const blob = await item.getType(imageType);
-          const file = new File([blob], "pasted-image", { type: imageType });
-          await handleFile(file);
-          return;
-        }
-      }
-      setError("No image found in clipboard");
-    } catch {
-      setError("Failed to paste image");
     }
   };
 

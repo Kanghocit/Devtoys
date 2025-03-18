@@ -5,28 +5,24 @@ import Button from "@/components/button";
 import ButtonCopy from "@/components/button/copy";
 import ButtonDelete from "@/components/button/delete";
 import ButtonPaste from "@/components/button/paste";
-import Input from "@/components/input";
 import Textarea from "@/components/textarea";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
+import Upload from "@/components/upload";
 import { MdFilePresent } from "react-icons/md";
 
 const Base64Image = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [imgsrc, setImgsrc] = useState<string | null>(null);
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImgsrc(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImgsrc(e.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
   return (
     <div className="flex flex-col rounded-2xl h-full p-2 me-2 ">
       <Header title="Base64 Image Encoder / Decoder" />
@@ -56,25 +52,10 @@ const Base64Image = () => {
         </div>
 
         <div className=" flex flex-col gap-2">
-          <div className="text-xs px-3 py-5 flex flex-col gap-3 justify-between items-center  border-dashed border-2 border-gray-300 rounded-md">
-            <p>Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here</p>
-            <span>or</span>
-            <div className="flex gap-2 text-blue-500 hover:text-blue-800">
-              <Input
-                type="file"
-                inputRef={fileInputRef}
-                accept="image/*"
-                onChange={handleFileUpload}
-              />
-              <Button
-                variant="text"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                Browse files
-              </Button>
-              <Button variant="text">Paste</Button>
-            </div>
-          </div>
+          <Upload
+            title="Drag & drop a BMP, GIF, JPG, PNG, SVG WEBP file here"
+            onFileSelect={handleFileUpload}
+          />
           <div className="min-h-[calc(94vh-140px)] p-3 rounded-md text-sm me-1 shadow-md border border-gray-300 flex justify-center items-center">
             {imgsrc ? (
               <img
