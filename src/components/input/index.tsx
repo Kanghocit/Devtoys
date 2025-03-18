@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({
   ...rest
 }) => {
   const containerClass = clsx(
-    "flex gap-2 rounded-md px-2 py-2 mx-2 my-1 drop-shadow-md focus:outline-none focus:ring-2 focus:ring-blue-700 ",
+    "flex gap-2 rounded-md px-2 py-2 mx-2 drop-shadow-md focus:outline-none focus:ring-2 focus:ring-blue-700 ",
     type === "text" && " border-1 border-gray-300",
     type === "file" && "hidden",
     type === "number" && " border-1 border-gray-300",

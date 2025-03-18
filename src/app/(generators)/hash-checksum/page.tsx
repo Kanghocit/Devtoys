@@ -176,7 +176,9 @@ const HashChecksum = () => {
   return (
     <div className="flex flex-col rounded-2xl p-2" suppressHydrationWarning>
       <Header title="Hash / Checksum Generator" />
-      <p className="text-xs ms-2">Configuration</p>
+
+      <p className="text-sm font-semibold ms-2 mt-2">Configuration</p>
+
       <ConfigCard
         title="Hashing Algorithm"
         icon={<BsTextParagraph />}
@@ -186,10 +188,13 @@ const HashChecksum = () => {
         value={algorithm}
         onSelectChange={(e) => setAlgorithm(e.target.value)}
       />
+
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col">
-          <div className="flex justify-between items-center ms-2 ">
-            <p>Input text</p>
+          <div className="flex justify-between ms-2">
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Input text</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<FaPaste />} onClick={handlePasteInput}>
                 Paste
@@ -198,6 +203,7 @@ const HashChecksum = () => {
               <Button icon={<FaTrash />} onClick={handleClearInput} />
             </div>
           </div>
+
           <div className="min-h-[calc(30vh-140px)] border-1 ms-2 border-gray-300 rounded-md mt-1">
             <Textarea
               className="w-full"
@@ -210,7 +216,7 @@ const HashChecksum = () => {
         </div>
 
         <div
-          className={`text-xs px-3 py-5 flex flex-col gap-3 justify-center items-center border-dashed border-2 ${
+          className={`text-xs ps-3 mx-2 py-5 flex flex-col gap-3 justify-center items-center border-dashed border-2 ${
             isDragging ? "border-blue-500 bg-blue-50" : "border-gray-300"
           } rounded-md transition-colors duration-200`}
           onDragOver={handleDragOver}
@@ -243,9 +249,11 @@ const HashChecksum = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 mt-1">
-        <div className="flex justify-between items-center ms-2 ">
-          <p>Output</p>
+      <div className="flex flex-col gap-2 mt-1 me-2">
+        <div className="flex justify-between ms-2">
+          <div className="flex justify-center items-end">
+            <p className="text-sm font-semibold">Output</p>
+          </div>
           <div className="flex gap-2">
             <Button
               icon={<FaPaste />}
@@ -257,13 +265,17 @@ const HashChecksum = () => {
           </div>
         </div>
         <div className="me-2">
-          <Input className="w-full pe-2" readOnly value={outputText} />
+          <Input className="w-full" readOnly value={outputText} />
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 mt-1">
-        <div className="flex justify-between items-center ms-2 ">
-          <p>Checksum to verify data integrity</p>
+      <div className="flex flex-col gap-2 mt-1 me-2">
+        <div className="flex justify-between ms-2">
+          <div className="flex justify-center items-end gap-2">
+            <p className="text-sm font-semibold">
+              Checksum to verify data integrity
+            </p>
+          </div>
           <div className="flex gap-2">
             <Button icon={<FaPaste />} onClick={handlePasteChecksum}>
               Paste
@@ -282,7 +294,7 @@ const HashChecksum = () => {
             onChange={(e) => setChecksum(e.target.value)}
           />
         </div>
-        <div className="flex items-center ms-2 ">
+        <div className="flex items-center ms-2">
           {result ? (
             <div className="flex items-center gap-2 bg-green-100 rounded-md px-1 py-3 w-full font-bold text-xs">
               <FaCheckCircle className="text-green-500 ms-2" />
