@@ -1,16 +1,20 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import CustomCard from "@/components/card/CustomCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
 import Textarea from "@/components/textarea";
+
 import React, { useCallback, useEffect, useState } from "react";
+
 import { LuCopy } from "react-icons/lu";
 import { MdFilePresent } from "react-icons/md";
 import { PiTextAa } from "react-icons/pi";
 import { TbCircuitSwitchClosed } from "react-icons/tb";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
+
 import { v1, v4, v7 } from "uuid";
 
 const Uuid = () => {
@@ -96,13 +100,20 @@ const Uuid = () => {
       setError("Failed to save file");
     }
   };
+
   useEffect(() => {
     generateUUID();
   }, [generateUUID]);
 
   return (
-    <div className="flex flex-col gap-4 mx-2">
+    <div className="flex flex-col gap-4 mx-2" suppressHydrationWarning>
+      
       <Header title="UUID Generator" />
+
+      <div className="flex justify-between ms-2">
+        <p className="text-sm font-semibold">Configuration</p>
+      </div>
+
       <CustomCard title="Hyphens" icon={<TfiLayoutLineSolid />}>
         <Switch
           valueFalse="Off"
@@ -138,8 +149,10 @@ const Uuid = () => {
       </CustomCard>
 
       <div className="flex flex-col mx-2">
-        <p className="text-xs">Generate</p>
-        <div className="flex items-center mt-2">
+        <div className="flex justify-between ">
+          <p className="text-sm font-semibold">Generate</p>
+        </div>
+        <div className="flex items-center">
           <Button
             variant="primary"
             className="px-5 py-2 hover:bg-blue-600"
@@ -163,8 +176,10 @@ const Uuid = () => {
         </div>
       </div>
 
-      <div className="flex justify-between gap-2">
-        <p className="text-xs">UUID(s)</p>
+      <div className="flex justify-between gap-2 mx-2">
+        <div className="flex justify-center items-end">
+          <p className="text-sm font-semibold">UUID(s)</p>
+        </div>
         <div className="flex gap-2">
           <Button icon={<LuCopy />} onClick={handleCopy}>
             Copy
@@ -172,7 +187,6 @@ const Uuid = () => {
           <Button icon={<MdFilePresent />} onClick={handleSaveToFile}>
             Save
           </Button>
-
           <Input
             id="uuid-input"
             type="file"
@@ -184,7 +198,7 @@ const Uuid = () => {
 
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      <div className="min-h-[calc(70vh-140px)] border-1 border-gray-300 rounded-md">
+      <div className="border-1 border-gray-300 rounded-md mx-2">
         <Textarea
           hasBorder={false}
           value={uuids.join("\n")}
