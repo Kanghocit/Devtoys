@@ -66,7 +66,7 @@ const JsonFormatter = () => {
       {/* Cấu hình format */}
       <CustomCard title="Indentation" icon={<MdOutlineSpaceBar />}>
         <select
-          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
+          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none py-2"
           onChange={(e) =>
             setFormatOptions(
               e.target.value as "2 spaces" | "4 spaces" | "1 tab" | "Minified"

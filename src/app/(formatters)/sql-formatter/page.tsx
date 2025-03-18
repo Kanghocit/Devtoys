@@ -102,10 +102,10 @@ const SQLFormatter = () => {
   return (
     <div className="flex flex-col rounded-2xl h-full p-2">
       <Header title="SQL Formatter" />
-      <p className="text-xs ms-2">Configuration</p>
+      <p className="text-sm font-semibold ms-2 mt-2">Configuration</p>
       <CustomCard title="Conversion" icon={<LuLanguages />}>
         <select
-          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
+          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none py-2"
           value={format}
           onChange={(e) => setFormat(e.target.value as typeof format)}
         >
@@ -132,7 +132,7 @@ const SQLFormatter = () => {
       </CustomCard>
       <CustomCard title="Indentation" icon={<MdOutlineSpaceBar />}>
         <select
-          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none"
+          className="border border-gray-300 rounded-md p-1 text-sm focus:outline-none py-2"
           value={indentation}
           onChange={(e) => setIndentation(e.target.value as typeof indentation)}
         >
@@ -157,7 +157,9 @@ const SQLFormatter = () => {
               widthFull ? "hidden" : ""
             )}
           >
-            <p className="text-xs flex justify-center items-center">Input</p>
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Input</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<LuCopy />} onClick={handlePaste}>
                 Paste
@@ -189,7 +191,9 @@ const SQLFormatter = () => {
         {/* Output */}
         <div className={clsx("mx-1 h-full", widthFull && "w-full col-span-2")}>
           <div className="flex m-2 justify-between">
-            <p className="text-xs flex justify-center items-center">Output</p>
+            <div className="flex justify-center items-end gap-2">
+              <p className="text-sm font-semibold">Output</p>
+            </div>
             <div className="flex gap-2">
               <Button icon={<LuCopySlash />} onClick={handleCopy}>
                 Copy
