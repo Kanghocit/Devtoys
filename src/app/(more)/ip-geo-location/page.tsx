@@ -1,9 +1,12 @@
 "use client";
+
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import Input from "@/components/input";
+
 import axios from "axios";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 
 interface IpGeoData {
   ip: string;
@@ -27,6 +30,13 @@ const IpGeoLocation = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    axios.get("/api/current-ip").then((res) => {
+      setIp(res.data.ip);
+    });
+    fetchIpData(ip);
+  }, []);
+
   const fetchIpData = async (ipAddress?: string) => {
     try {
       setLoading(true);
@@ -49,12 +59,15 @@ const IpGeoLocation = () => {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl h-full p-2">
+    <div
+      className="flex flex-col rounded-2xl h-full p-2"
+      suppressHydrationWarning
+    >
       <Header title="Ip Geo Location" />
       <p className="ms-2">
         Ip Location <span className="text-orange-200">Finder</span>
       </p>
-      <div className="w-full flex gap-2">
+      <div className="flex items-center gap-2">
         <div className="w-full">
           <Input
             placeholder="Enter IP address"
@@ -67,12 +80,12 @@ const IpGeoLocation = () => {
         </div>
         <div className="flex items-center justify-center ms-1 p-2">
           <Button
-            variant="text"
-            className="bg-orange-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
+            variant="primary"
+            className="text-white  px-4 py-2 rounded-md disabled:opacity-50"
             onClick={handleSearch}
             disabled={loading}
           >
-            {loading ? "Searching..." : "Find"}
+            Find
           </Button>
         </div>
       </div>

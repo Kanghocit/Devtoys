@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {
-  variant?: "default" | "text" | "primary" | "secondary";
+  variant?: "default" | "text" | "primary" | "secondary" | "custom";
   icon?: React.ReactNode;
   block?: boolean;
 };
@@ -24,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
     variant === "text" && "items-center  px-2 py-1",
     variant === "primary" && "bg-blue-700 text-white",
     variant === "secondary" && "border-none color-white ",
+    variant === "custom" && "text-white",
     block && "w-full",
     className
   );

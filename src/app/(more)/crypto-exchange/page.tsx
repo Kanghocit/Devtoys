@@ -1,15 +1,12 @@
 "use client";
 
 import axios from "axios";
-
-import { useEffect, useRef, useState } from "react";
-
+import { useEffect, useState } from "react";
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import ConfigCard from "@/components/card/ConfigCard";
 import CustomCard from "@/components/card/CustomCard";
 import Input from "@/components/input";
-
 import { FaArrowsAltV } from "react-icons/fa";
 import { GiTargeted } from "react-icons/gi";
 
@@ -27,38 +24,13 @@ const CryptoExchange = () => {
   const [toCurrency, setToCurrency] = useState("ABC");
   const [amount, setAmount] = useState("");
   const [result, setResult] = useState("");
-  const [showFromDropdown, setShowFromDropdown] = useState(false);
-  const [showToDropdown, setShowToDropdown] = useState(false);
   const [error, setError] = useState("");
-  const fromDropdownRef = useRef<HTMLDivElement | null>(null);
-  const toDropdownRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     axios
       .get("/api/crypto-echange")
       .then((res) => setRates(res.data.rates))
       .catch((err) => console.error("Lỗi lấy dữ liệu:", err));
-  }, []);
-
-  // Handle click outside for dropdowns
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        fromDropdownRef.current &&
-        !fromDropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowFromDropdown(false);
-      }
-      if (
-        toDropdownRef.current &&
-        !toDropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowToDropdown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const validateAmount = (value: string) => {
@@ -88,8 +60,8 @@ const CryptoExchange = () => {
 
     if (fromRate && toRate) {
       const convertedAmount =
-        (parseFloat(amount) * Number(toRate)) / Number(fromRate);
-      setResult(convertedAmount.toFixed(2));
+        (parseFloat(amount) * toRate.value) / fromRate.value;
+      setResult(convertedAmount.toFixed(8)); // Use 8 decimal places for crypto
     }
   };
 
@@ -108,97 +80,74 @@ const CryptoExchange = () => {
     validateAmount(value);
   };
 
-  const CurrencyDropdown = ({
+  const CurrencySelect = ({
     value,
     onChange,
-    show,
-    setShow,
-    dropdownRef,
+    label,
   }: {
     value: string;
     onChange: (value: string) => void;
-    show: boolean;
-    setShow: (show: boolean) => void;
-    dropdownRef: React.RefObject<HTMLDivElement | null>;
+    label: string;
   }) => (
-    <div className="relative" ref={dropdownRef}>
-      <div
-        className="w-fit py-2 px-1 ms-2 rounded-md border border-gray-300 cursor-pointer flex items-center gap-2"
-        onClick={() => setShow(!show)}
+    <div className="flex items-center ms-2 gap-2">
+      <label className="text-sm text-gray-600">{label}</label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        {value}
-      </div>
-      {show && (
-        <div className="absolute z-10 mt-1 w-48 bg-white border border-gray-300 rounded-md shadow-lg max-h-[200px] overflow-y-auto">
-          {rates &&
-            Object.keys(rates).map((currency) => (
-              <div
-                key={currency}
-                className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
-                  onChange(currency);
-                  setShow(false);
-                }}
-              >
-                {currency}
-              </div>
-            ))}
-        </div>
-      )}
+        {rates &&
+          Object.keys(rates).map((currency) => (
+            <option key={currency} value={currency}>
+              {currency}
+            </option>
+          ))}
+      </select>
     </div>
   );
 
   return (
     <div className="flex flex-col m-2 p-2">
-      <Header title="Currency Change" />
+      <Header title="Crypto Exchange" />
 
       <ConfigCard
-        title="Currency Converter"
+        title="Crypto Converter"
         icon={<FaArrowsAltV />}
-        subTitle="Convert between different currencies"
+        subTitle="Convert between different cryptocurrencies"
         type="switch"
         trueValue="On"
         falseValue="Off"
         onToggleChange={handleSwap}
       />
+
       <CustomCard title="Target Currency" icon={<GiTargeted />}>
-        {" "}
         USD
       </CustomCard>
-      <div className="grid grid-cols-2 gap-2">
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2 ms-2">
-            <p>From:</p>
-            <CurrencyDropdown
-              value={fromCurrency}
-              onChange={setFromCurrency}
-              show={showFromDropdown}
-              setShow={setShowFromDropdown}
-              dropdownRef={fromDropdownRef}
-            />
-            <p>{}</p>
-          </div>
+
+      <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="flex flex-col gap-4">
+          <CurrencySelect
+            value={fromCurrency}
+            onChange={setFromCurrency}
+            label="From"
+          />
           <Input
             placeholder="Amount"
             value={amount}
             onChange={handleAmountChange}
             error={error}
-            type="number"
+            type="text"
             min="0"
-            step="0.01"
+            step="0.00000001"
           />
         </div>
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2 ms-2">
-            <p>To:</p>
-            <CurrencyDropdown
-              value={toCurrency}
-              onChange={setToCurrency}
-              show={showToDropdown}
-              setShow={setShowToDropdown}
-              dropdownRef={toDropdownRef}
-            />
-          </div>
+
+        <div className="flex flex-col gap-4">
+          <CurrencySelect
+            value={toCurrency}
+            onChange={setToCurrency}
+            label="To"
+          />
           <Input
             type="number"
             placeholder="Result"
@@ -211,8 +160,9 @@ const CryptoExchange = () => {
 
       <div className="flex justify-center gap-4 mt-4">
         <Button
-          className="bg-supergreen text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all disabled:opacity-50"
+          className="bg-green-500 text-white px-6 py-2 rounded-md transition-all hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={handleConvert}
+          variant="custom"
           disabled={!amount || !!error}
         >
           Convert

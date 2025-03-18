@@ -91,12 +91,17 @@ const Weather = () => {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl h-full p-2">
+    <div
+      className="flex flex-col rounded-2xl h-full p-2"
+      suppressHydrationWarning
+    >
       <Header title="Weather" />
+
       <p className="ms-2">
         Weather <span className="text-orange-200">Finder</span>
       </p>
-      <div className="w-full flex gap-2">
+
+      <div className="flex items-center gap-2">
         <div className="w-full">
           <Input
             placeholder="Enter Location"
@@ -108,22 +113,25 @@ const Weather = () => {
             error={error}
           />
         </div>
+
         <div className="flex items-center justify-center ms-1 p-2">
           <Button
-            variant="text"
-            className="bg-orange-200 text-white px-4 py-2 rounded-md disabled:opacity-50"
+            variant="primary"
+            className="text-white  px-4 py-2 rounded-md disabled:opacity-50"
             onClick={handleSearch}
             disabled={loading}
           >
-            {loading ? "Searching..." : "Find"}
+            Find
           </Button>
         </div>
       </div>
+
       {weather && (
         <div className="mt-4 p-4 rounded-lg shadow-md relative overflow-hidden">
           {/* Animated Background */}
           <div className="absolute inset-0 z-10">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-100/50 to-gray-200/50 opacity-50"></div>
+
             <div className="absolute inset-0">
               {[...Array(8)].map((_, index) => (
                 <div
