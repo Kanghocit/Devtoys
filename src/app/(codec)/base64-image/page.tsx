@@ -28,13 +28,13 @@ const Base64Image = () => {
   };
 
   return (
-    <div className="flex flex-col rounded-2xl h-full p-2">
+    <div className="flex flex-col rounded-2xl h-full p-2 me-2 ">
       <Header title="Base64 Image Encoder / Decoder" />
 
-      <div className="grid grid-cols-[70%_30%] gap-2">
+      <div className="grid grid-cols-[70%_30%] gap-2 me-3">
         <div>
           <div className="flex justify-between items-center p-2">
-            <p className="text-xs">Text</p>
+            <p className="text-sm font-semibold">Text</p>
 
             <div className="flex gap-2">
               <ButtonPaste setInputText={setImgsrc} />
