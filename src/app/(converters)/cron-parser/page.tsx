@@ -17,6 +17,7 @@ import { MdFilePresent, MdOutlineSpaceBar } from "react-icons/md";
 
 import parser from "cron-parser";
 import cronstrue from "cronstrue";
+import ButtonCopy from "@/components/button/copy";
 
 const CronParser = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -101,7 +102,7 @@ const CronParser = () => {
       />
 
       {/* Cron expression to parse */}
-      <div className="flex justify-between my-2">
+      <div className="flex justify-between my-1">
         <div className="flex flex-col justify-end ms-2">
           <p className="text-xs">Cron expression to parse</p>
         </div>
@@ -117,7 +118,7 @@ const CronParser = () => {
           />
           <Button icon={<LuTrash />} onClick={handleClear} />
           <Button icon={<FiSave />} />
-          <Button icon={<LuCopy />}>Copy</Button>
+          <ButtonCopy input={valueCron} />
         </div>
       </div>
       <div className="me-3 pe-1">
@@ -130,9 +131,9 @@ const CronParser = () => {
       </div>
 
       {/* Description Cron */}
-      <div className="flex justify-between my-2">
+      <div className="flex justify-between my-1 ">
         <div className="flex flex-col justify-end ms-2">
-          <p className="text-xs">Cron description</p>
+          <p className="text-xs">Cron description </p>
         </div>
 
         <div className="flex gap-2 pe-2">
@@ -150,11 +151,11 @@ const CronParser = () => {
       </div>
       {/* Next scheduled dates */}
       <div className="me-3 ms-2">
-        <div className="flex flex-col justify-end ">
+        <div className="flex flex-col justify-end my-1">
           <p className="text-xs">Next scheduled dates</p>
         </div>
         <Textarea
-          className="w-full min-h-200"
+          className="w-full min-h-200 "
           value={scheduledDates}
           onChange={(e) => setScheduledDates(e.target.value)}
         />

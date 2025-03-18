@@ -5,7 +5,9 @@ import Button from "@/components/button";
 import CustomCard from "@/components/card/CustomCard";
 import Input from "@/components/input";
 import Switch from "@/components/switch";
+
 import { useEffect, useRef, useState } from "react";
+
 import { BsCalendarDate } from "react-icons/bs";
 import { FaBusinessTime } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
@@ -53,12 +55,14 @@ const DateConvert = () => {
   const handleIconClick = () => {
     fileInputRef.current?.click();
   };
+
   const [timeData, setTimeData] = useState({
     offset: "07:00:00",
     localDateTime: "",
     utcDateTime: "",
     utcTicks: "",
   });
+
   const handleUpdateTimeData = () => {
     const date = new Date();
     const offset = date.getTimezoneOffset(); // Lấy offset tính bằng phút
@@ -81,6 +85,7 @@ const DateConvert = () => {
       utcTicks,
     });
   };
+
   useEffect(() => {
     handleUpdateTimeData(); // Cập nhật ngay khi component render
 
@@ -106,6 +111,7 @@ const DateConvert = () => {
       milliseconds: "",
     });
   };
+  
   return (
     <div className="flex flex-col rounded-tl-2xl h-full p-2">
       {/* Header */}

@@ -18,9 +18,9 @@ const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   const buttonClass = clsx(
-    "flex gap-2 rounded-md w-fit text-xs cursor-pointer",
+    "flex rounded-lg w-fit text-xs cursor-pointer",
     variant === "default" &&
-      "bg-white border-1 border-gray-300 border-solid hover:bg-gray-200/50 px-2 py-1",
+      "p-2 shadow-md bg-gradient-to-r from-gray-300 via-gray-200 to-gray-100 animate-moving-gradient",
     variant === "text" && "items-center  px-2 py-1",
     variant === "primary" && "bg-blue-700 text-white",
     variant === "secondary" && "border-none color-white ",
