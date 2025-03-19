@@ -83,6 +83,7 @@ const SideBar = () => {
         if (selectedIndex >= 0) {
           router.push(suggestions[selectedIndex].href);
           setShowSuggestions(false);
+          setSearchQuery("");
         }
         break;
       case "Escape":
