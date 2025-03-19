@@ -8,8 +8,16 @@ import Input from "@/components/input";
 import { FaArrowsAltV } from "react-icons/fa";
 import ConfigCard from "@/components/card/ConfigCard";
 
+interface Rate {
+  value: number;
+}
+
+interface Rates {
+  [currency: string]: Rate;
+}
+
 const CurrencyChange = () => {
-  const [rates, setRates] = useState<any>(null);
+  const [rates, setRates] = useState<Rates | null>(null);
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
   const [amount, setAmount] = useState("");

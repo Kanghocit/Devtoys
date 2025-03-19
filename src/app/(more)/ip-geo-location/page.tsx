@@ -5,8 +5,8 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 
 import axios from "axios";
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface IpGeoData {
   ip: string;
@@ -29,32 +29,43 @@ const IpGeoLocation = () => {
   const [ip, setIp] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams(); // 🚀 Đã bọc Suspense
 
   useEffect(() => {
-    axios.get("/api/current-ip").then((res) => {
-      setIp(res.data.ip);
-    });
-    fetchIpData(ip);
+    const ipParam = searchParams.get("ip");
+
+    if (ipParam) {
+      setIp(ipParam);
+      fetchIpData(ipParam);
+    } else {
+      axios.get("/api/current-ip").then((res) => {
+        setIp(res.data.ip);
+        fetchIpData(res.data.ip);
+      });
+    }
   }, []);
 
-  const fetchIpData = async (ipAddress?: string) => {
+  const fetchIpData = async (ipAddress: string) => {
     try {
       setLoading(true);
       setError("");
-      const url = ipAddress
-        ? `/api/ip-geo-location?ip=${ipAddress}`
-        : "/api/ip-geo-location";
-      const response = await axios.get<IpGeoData>(url);
+      const response = await axios.get<IpGeoData>(
+        `/api/ip-geo-location?ip=${ipAddress}`
+      );
       setIpData(response.data);
     } catch {
       setError("Lỗi khi lấy dữ liệu IP");
+      setIpData(null);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSearch = () => {
-    if (!ip) return;
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!ip.trim()) return;
+    router.push(`/ip-geo-location?ip=${encodeURIComponent(ip)}`);
     fetchIpData(ip);
   };
 
@@ -63,11 +74,12 @@ const IpGeoLocation = () => {
       className="flex flex-col rounded-2xl h-full p-2"
       suppressHydrationWarning
     >
-      <Header title="Ip Geo Location" />
+      <Header title="IP Geo Location" />
       <p className="ms-2">
-        Ip Location <span className="text-orange-200">Finder</span>
+        IP Location <span className="text-orange-200">Finder</span>
       </p>
-      <div className="flex items-center gap-2">
+
+      <form className="flex items-center gap-2" onSubmit={handleSearch}>
         <div className="w-full">
           <Input
             placeholder="Enter IP address"
@@ -78,22 +90,22 @@ const IpGeoLocation = () => {
             error={error}
           />
         </div>
+
         <div className="flex items-center justify-center ms-1 p-2">
           <Button
             variant="primary"
-            className="text-white  px-4 py-2 rounded-md disabled:opacity-50"
-            onClick={handleSearch}
+            className="text-white px-4 py-2 rounded-md disabled:opacity-50"
+            type="submit"
             disabled={loading}
           >
-            Find
+            {loading ? "Searching..." : "Find"}
           </Button>
         </div>
-      </div>
+      </form>
+
       {ipData && (
         <div className="mt-4 ms-2">
-          <div>
-            <p className="font-semibold mb-2">IP Address Details</p>
-          </div>
+          <p className="font-semibold mb-2">IP Address Details</p>
           <table className="w-full border-collapse border border-gray-300">
             <tbody>
               <tr className="bg-gray-100">
@@ -152,4 +164,11 @@ const IpGeoLocation = () => {
   );
 };
 
-export default IpGeoLocation;
+// Bọc component trong Suspense để tránh lỗi
+const WrappedIpGeoLocation = () => (
+  <Suspense fallback={<p>Loading...</p>}>
+    <IpGeoLocation />
+  </Suspense>
+);
+
+export default WrappedIpGeoLocation;

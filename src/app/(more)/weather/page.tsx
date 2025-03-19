@@ -3,7 +3,9 @@
 import Header from "@/common/Header";
 import Button from "@/components/button";
 import Input from "@/components/input";
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
 
 interface WeatherData {
   name: string;
@@ -39,28 +41,45 @@ const weatherIcons: { [key: string]: string } = {
 };
 
 const Weather = () => {
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("hanoi");
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [error, setError] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const fetchWeather = async () => {
+  const normalizeLocation = (location: string) => {
+    const locationMap: { [key: string]: string } = {
+      hanoi: "Hanoi",
+      hn: "Hanoi",
+      thaibinh: "Thái Bình",
+      tb: "Thái Bình",
+      hcm: "Ho Chi Minh City",
+      hcmc: "Ho Chi Minh City",
+      danang: "Đà Nẵng",
+      hoian: "Hội An",
+      haiphong: "Hải Phòng",
+      hp: "Hải Phòng",
+      vinh: "Vinh",
+      "vinh phuc": "Vĩnh Phúc",
+    };
+    return locationMap[location.trim().toLowerCase()] || location;
+  };
+
+  const fetchWeather = async (searchLocation: string) => {
     try {
       setLoading(true);
       setError("");
 
-      const response = await fetch(`/api/weather?q=${location}`);
+      const response = await axios.get(`/api/weather`, {
+        params: { q: normalizeLocation(searchLocation) },
+      });
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const text = await response.text();
-      if (!text) {
-        throw new Error("Empty response from server");
-      }
-
-      const data = JSON.parse(text);
+      const data = response.data;
       setWeather(data);
     } catch (error) {
       console.error("Error fetching weather data:", error);
@@ -71,12 +90,22 @@ const Weather = () => {
     }
   };
 
+  useEffect(() => {
+    if (searchParams.get("location")) {
+      setLocation(searchParams.get("location") || "");
+      fetchWeather(location);
+    } else {
+      fetchWeather("hanoi");
+    }
+  }, [searchParams]);
+
   const handleSearch = () => {
     if (!location.trim()) {
       setError("Please enter a location");
       return;
     }
-    fetchWeather();
+
+    router.push(`/weather?location=${encodeURIComponent(location)}`);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -117,11 +146,11 @@ const Weather = () => {
         <div className="flex items-center justify-center ms-1 p-2">
           <Button
             variant="primary"
-            className="text-white  px-4 py-2 rounded-md disabled:opacity-50"
+            className="text-white px-4 py-2 rounded-md disabled:opacity-50"
             onClick={handleSearch}
             disabled={loading}
           >
-            Find
+            {loading ? "Searching..." : "Find"}
           </Button>
         </div>
       </div>
@@ -198,4 +227,12 @@ const Weather = () => {
   );
 };
 
-export default Weather;
+const WrappedWeather = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Weather />
+    </Suspense>
+  );
+};
+
+export default WrappedWeather;
