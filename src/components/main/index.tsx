@@ -1,16 +1,46 @@
 "use client";
 
 import { footerMenus, subMenus } from "@/constants/menuData";
+
 import { useSearch } from "@/context/SearchContext";
+
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { LuLogOut } from "react-icons/lu";
-import Button from "../button";
+
 import Card from "../card";
+import Dropdown from "../dropdown";
+
+import { CgProfile } from "react-icons/cg";
+import { LuLogOut } from "react-icons/lu";
+import { useEffect, useState } from "react";
+
+interface User {
+  picture: string;
+  name: string;
+  email: string;
+}
+
+const profileMenu = [
+  {
+    name: "Profile",
+    icon: <CgProfile />,
+    href: "/profile",
+  },
+  {
+    name: "Logout",
+    icon: <LuLogOut />,
+    href: "/api/auth/logout",
+  },
+];
 
 const MainContent = () => {
   const { searchQuery } = useSearch();
-  const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data) => setUser(data));
+  }, []);
 
   // Lọc danh sách footerMenus theo searchQuery
   const filteredFooterMenus = footerMenus.filter((item) =>
@@ -20,7 +50,7 @@ const MainContent = () => {
   // Lọc danh sách subMenus theo searchQuery
   const filteredSubMenus = subMenus
     .flatMap((item) => item.children || []) // Gộp tất cả children thành 1 mảng duy nhất
-    .filter((child) => child.isDone) // Lọc ra những item có isDone === true
+    .filter((child) => child.isDone) 
     .filter((child) =>
       child.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -32,9 +62,11 @@ const MainContent = () => {
           <p className="text-[40px] font-bold ">Welcome to DevToys</p>
           <span className="text-gray-400 text-sm">v2.0-preview.8</span>
         </div>
-        <div className="me-2">
-          <Button icon={<LuLogOut />} onClick={() => router.push("/login")} />
-        </div>
+        {user && (
+          <div className="me-2">
+            <Dropdown image={user.picture || ""} items={profileMenu} />
+          </div>
+        )}
       </div>
 
       {/* Recents */}
