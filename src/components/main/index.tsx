@@ -50,7 +50,7 @@ const MainContent = () => {
   // Lọc danh sách subMenus theo searchQuery
   const filteredSubMenus = subMenus
     .flatMap((item) => item.children || []) // Gộp tất cả children thành 1 mảng duy nhất
-    .filter((child) => child.isDone) 
+    .filter((child) => child.isDone)
     .filter((child) =>
       child.name.toLowerCase().includes(searchQuery.toLowerCase())
     );

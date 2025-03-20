@@ -20,7 +20,7 @@ interface SearchSuggestion {
 }
 
 const SideBar = () => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const [suggestions, setSuggestions] = useState<SearchSuggestion[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -95,9 +95,7 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    if (!user) {
-      setCollapsed(false);
-    }
+    setCollapsed(user ? true : false);
   }, [user]);
 
   // Handle click outside to close suggestions
