@@ -1,6 +1,8 @@
-import React from "react";
-import Login from "../button/login";
-import { menus, subMenus, footerMenus } from "@/constants/menuData";
+"use client";
+
+import Login from "@/components/button/login";
+import { footerMenus, subMenus } from "@/constants/menuData";
+import { menus } from "@/constants/menuData";
 
 const Dashboard = () => {
   // Collect all icons from menuData
@@ -14,7 +16,7 @@ const Dashboard = () => {
   ].filter(Boolean);
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen overflow-hidden">
+    <div className="relative flex flex-col items-center justify-center h-screen overflow-hidden w-full">
       {/* Background with icons */}
       <div className="absolute inset-0 grid grid-cols-8 gap-4 p-8 opacity-10">
         {allIcons.map((icon, index) => (

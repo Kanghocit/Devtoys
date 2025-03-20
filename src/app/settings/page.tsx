@@ -1,4 +1,5 @@
 "use client";
+
 import Button from "@/components/button";
 import { footerMenus } from "@/constants/menuData";
 import Link from "next/link";
@@ -7,7 +8,6 @@ import { GoTrash } from "react-icons/go";
 import { LuEarth } from "react-icons/lu";
 
 const Settings = () => {
-  
   return (
     <div className="m-2 ">
       <div className="font-bold text-2xl p-2 m-2">Manage extensions</div>
