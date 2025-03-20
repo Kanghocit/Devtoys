@@ -1,20 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import useUser from "@/hooks/useUser";
 
-interface User {
-  picture: string;
-  name: string;
-  email: string;
-}
 const ProfileClient = () => {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then((res) => res.json())
-      .then((data) => setUser(data));
-  }, []);
+  const  user  = useUser();
 
   return user ? (
     <div>

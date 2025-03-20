@@ -1,11 +1,13 @@
+import Dashboard from "@/components/dashboard";
 import MainContent from "@/components/main";
 import Suggest from "@/components/suggest";
 import { getSession } from "@auth0/nextjs-auth0";
-import Login from "@/components/button/login";
+
 export default async function Home() {
   const session = await getSession();
   const user = session?.user;
-  console.log(user);
+
+
   return (
     <>
       <div className="mx-2 bg-white p-2 rounded-tl-lg ">
@@ -17,9 +19,7 @@ export default async function Home() {
             </div>
           </div>
         ) : (
-          <div className="">
-            <Login />
-          </div>
+          <Dashboard />
         )}
       </div>
     </>

@@ -10,6 +10,7 @@ import { menus, subMenus, footerMenus } from "@/constants/menuData";
 import { useSearch } from "@/context/SearchContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import useUser from "@/hooks/useUser";
 
 interface SearchSuggestion {
   name: string;
@@ -24,6 +25,7 @@ const SideBar = () => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const router = useRouter();
+  const user = useUser();
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -92,6 +94,12 @@ const SideBar = () => {
     }
   };
 
+  useEffect(() => {
+    if (!user) {
+      setCollapsed(false);
+    }
+  }, [user]);
+
   // Handle click outside to close suggestions
   useEffect(() => {
     const handleClickOutside = () => {
@@ -108,6 +116,7 @@ const SideBar = () => {
         "rounded-tr-lg border-r-1 border-gray-300 transition-all duration-300 ease-in-out",
         collapsed ? "w-[350px]" : "w-[60px]"
       )}
+      suppressHydrationWarning
     >
       <div className="flex flex-col justify-between h-screen gap-2 ">
         <div>
