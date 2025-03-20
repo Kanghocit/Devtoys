@@ -91,9 +91,11 @@ const MainContent = () => {
       )}
 
       {/* All Tools */}
-      <div className="text-sm font-bold border-b-2 border-gray-300 cursor-default sticky top-0 bg-white z-10">
+      <div className="text-sm font-bold cursor-default sticky top-0 bg-white z-10">
         All Tools
       </div>
+      <div className="w-full border-b-2 border-gray-300"></div>
+
       <div className="flex flex-wrap gap-4">
         {filteredSubMenus.length > 0 ? (
           filteredSubMenus.map((child, childIndex) => (

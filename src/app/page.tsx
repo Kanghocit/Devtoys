@@ -3,6 +3,8 @@ import Suggest from "@/components/suggest";
 import SideBar from "@/components/sidebar";
 import { getSession } from "@auth0/nextjs-auth0";
 import Dashboard from "./dashboard";
+import "./globals.css";
+
 
 export default async function Home() {
   const session = await getSession();

@@ -105,81 +105,82 @@ const SideBar = () => {
   return (
     <div
       className={clsx(
-        "rounded-tr-lg border-r-1 border-gray-300 transition-all duration-300 ease-in-out",
+        "rounded-tr-lg border-r-1 border-gray-300 transition-all duration-300 ease-in-out flex flex-col h-screen",
         collapsed ? "w-[350px]" : "w-[60px]"
       )}
       suppressHydrationWarning
     >
-      <div className="flex flex-col justify-between h-screen gap-2 ">
-        <div>
-          <div
-            className="px-3 py-2 text-2xl ms-1 cursor-pointer"
-            onClick={toggleCollapsed}
-          >
-            <RxHamburgerMenu />
-          </div>
+      {/* Header and Search */}
+      <div className="flex-none">
+        <div
+          className="px-3 py-2 text-2xl ms-1 cursor-pointer"
+          onClick={toggleCollapsed}
+        >
+          <RxHamburgerMenu />
+        </div>
 
-          <div className="relative">
-            {collapsed ? (
-              <>
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  suffix={<GoSearch />}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                />
-                {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute w-full z-50 bg-white border border-gray-200 rounded-md shadow-lg mt-1">
-                    {suggestions.map((item, index) => (
-                      <Link href={item.href} key={index}>
-                        <div
-                          key={index}
-                          className={clsx(
-                            "p-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2",
-                            index === selectedIndex && "bg-gray-100"
-                          )}
-                          onClick={() => {
-                            setShowSuggestions(false);
-                          }}
-                        >
-                          {item.icon && (
-                            <div className="text-xl">{item.icon}</div>
-                          )}
-                          <div>
-                            <div className="font-medium text-sm">
-                              {item.name}
+        <div className="relative">
+          {collapsed ? (
+            <>
+              <Input
+                type="text"
+                placeholder="Search..."
+                suffix={<GoSearch />}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+              {showSuggestions && suggestions.length > 0 && (
+                <div className="absolute w-full z-50 bg-white border border-gray-200 rounded-md shadow-lg mt-1">
+                  {suggestions.map((item, index) => (
+                    <Link href={item.href} key={index}>
+                      <div
+                        key={index}
+                        className={clsx(
+                          "p-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2",
+                          index === selectedIndex && "bg-gray-100"
+                        )}
+                        onClick={() => {
+                          setShowSuggestions(false);
+                        }}
+                      >
+                        {item.icon && (
+                          <div className="text-xl">{item.icon}</div>
+                        )}
+                        <div>
+                          <div className="font-medium text-sm">{item.name}</div>
+                          {item.detail && (
+                            <div className="text-xs text-gray-500">
+                              {item.detail}
                             </div>
-                            {item.detail && (
-                              <div className="text-xs text-gray-500">
-                                {item.detail}
-                              </div>
-                            )}
-                          </div>
+                          )}
                         </div>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="px-3 pt-4 pb-3 text-2xl ms-1 cursor-pointer">
-                <GoSearch />
-              </div>
-            )}
-          </div>
-
-          <div className="border-b-1 border-gray-300">
-            <Menu items={menus} collapsed={collapsed} />
-          </div>
-
-          <Menu items={subMenus} collapsed={collapsed} />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="px-3 pt-4 pb-3 text-2xl ms-1 cursor-pointer">
+              <GoSearch />
+            </div>
+          )}
         </div>
 
-        <div className="border-t-1 border-gray-300">
-          <Menu items={footerMenus} collapsed={collapsed} />
+        <div className="border-b-1 border-gray-300">
+          <Menu items={menus} collapsed={collapsed} />
         </div>
+      </div>
+
+      {/* Submenus with Scroll */}
+      <div className="flex-1 overflow-y-auto scrollbar-custom">
+        <Menu items={subMenus} collapsed={collapsed} />
+      </div>
+
+      {/* Footer Menus */}
+      <div className="flex-none border-t-1 border-gray-300">
+        <Menu items={footerMenus} collapsed={collapsed} />
       </div>
     </div>
   );
