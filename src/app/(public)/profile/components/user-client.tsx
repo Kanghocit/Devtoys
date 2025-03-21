@@ -4,6 +4,8 @@ import useUser from "@/hooks/useUser";
 
 const ProfileClient = () => {
   const { user, loading, error } = useUser();
+  console.log("user", user);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
   if (!user) return <div>No user found</div>;

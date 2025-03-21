@@ -3,7 +3,7 @@ import { getAuthorizationUrl } from "../utils";
 
 export async function GET(request: NextRequest) {
   try {
-    const returnTo = request.nextUrl.searchParams.get("returnTo") || "/";
+    const returnTo = request.nextUrl.searchParams.get("returnTo") || "/home";
     return NextResponse.redirect(getAuthorizationUrl(returnTo));
   } catch {
     console.error("Login error:");

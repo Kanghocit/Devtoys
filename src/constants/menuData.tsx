@@ -51,7 +51,7 @@ export interface MenuItem {
 
 // Menu chính
 export const menus: MenuItem[] = [
-  { name: "All Tools", icon: <RiHome2Line />, href: "/" },
+  { name: "All Tools", icon: <RiHome2Line />, href: "/home" },
 ];
 
 // Submenus
