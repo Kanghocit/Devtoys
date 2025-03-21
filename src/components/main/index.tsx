@@ -11,13 +11,7 @@ import Dropdown from "../dropdown";
 
 import { CgProfile } from "react-icons/cg";
 import { LuLogOut } from "react-icons/lu";
-import { useEffect, useState } from "react";
-
-interface User {
-  picture: string;
-  name: string;
-  email: string;
-}
+import useUser from "@/hooks/useUser";
 
 const profileMenu = [
   {
@@ -34,13 +28,7 @@ const profileMenu = [
 
 const MainContent = () => {
   const { searchQuery } = useSearch();
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then((res) => res.json())
-      .then((data) => setUser(data));
-  }, []);
+  const { user, loading } = useUser();
 
   // Lọc danh sách footerMenus theo searchQuery
   const filteredFooterMenus = footerMenus.filter((item) =>
@@ -62,7 +50,7 @@ const MainContent = () => {
           <p className="text-[40px] font-bold ">Welcome to DevToys</p>
           <span className="text-gray-400 text-sm">v2.0-preview.8</span>
         </div>
-        {user && (
+        {!loading && user && (
           <div className="me-2">
             <Dropdown image={user.picture || ""} items={profileMenu} />
           </div>
@@ -72,7 +60,9 @@ const MainContent = () => {
       {/* Recents */}
       {filteredFooterMenus.length > 0 && (
         <>
-          <div className="text-sm font-bold cursor-default">Recents</div>
+          <div className="text-sm font-bold cursor-default sticky top-0 bg-white z-10">
+            Recents
+          </div>
           <div className="w-full border-b-2 border-gray-300"></div>
           <div className="flex flex-wrap gap-4">
             {filteredFooterMenus.map((item, index) => (
@@ -89,9 +79,11 @@ const MainContent = () => {
       )}
 
       {/* All Tools */}
-      <div className="text-sm font-bold border-b-2 border-gray-300 cursor-default">
+      <div className="text-sm font-bold cursor-default sticky top-0 bg-white z-10">
         All Tools
       </div>
+      <div className="w-full border-b-2 border-gray-300"></div>
+
       <div className="flex flex-wrap gap-4">
         {filteredSubMenus.length > 0 ? (
           filteredSubMenus.map((child, childIndex) => (

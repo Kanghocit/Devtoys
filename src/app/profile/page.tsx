@@ -1,7 +1,7 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import { redirect } from "next/navigation";
 
-import ProfileServer from "./components/user-server";
+import ProfileClient from "./components/user-client";
 
 const Profile = async () => {
   const session = await getSession();
@@ -11,7 +11,7 @@ const Profile = async () => {
   }
   return (
     <div className="flex flex-col h-[98%] items-center justify-center rounded-2xl m-2 shadow-md ">
-      <ProfileServer />
+      <ProfileClient />
     </div>
   );
 };
