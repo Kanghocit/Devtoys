@@ -22,7 +22,7 @@ const Dropdown: React.FC<DropdownProps> = ({ image, items }) => {
         <img src={image} className="w-15 h-15 rounded-full" />
       </div>
       {open && (
-        <ul className="absolute top-full right-0 w-[150px] bg-white shadow-lg rounded-md">
+        <ul className="absolute top-full right-0 w-[150px] bg-white shadow-lg rounded-md z-100">
           {items.map((item) => (
             <li key={item.name} className="rounded-md">
               {/* <Link href={item.href || "#"}> */}
