@@ -1,11 +1,10 @@
-import ProfileClient from "./components/user-client";
+import ProfileServer from "./components/user-server";
 
-const Profile = () => {
+export default function ProfilePage() {
   return (
-    <div className="flex flex-col h-[98%] items-center justify-center rounded-2xl m-2 ">
-      <ProfileClient />
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4 cursor-default">Profile</h1>
+      <ProfileServer />
     </div>
   );
-};
-
-export default Profile;
+}

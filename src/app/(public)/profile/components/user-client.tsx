@@ -1,17 +1,25 @@
 "use client";
 
-import useUser from "@/hooks/useUser";
+// import useUser from "@/hooks/useUser";
 
 const ProfileClient = () => {
-  const { user, loading, error } = useUser();
-  console.log("user", user);
+  const userCookie = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("user="))
+    ?.split("=")[1];
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!user) return <div>No user found</div>;
+  if (!userCookie) return null;
+
+  const user = JSON.parse(decodeURIComponent(userCookie));
+  const firstName = user.name.split(" ")[0];
+  const parts = user.name.split(" ");
+  const lastName = parts.slice(1).join(" ");
 
   return user ? (
-    <div className="flex flex-col items-center gap-2 p-2">
+    <div
+      className="flex flex-col items-center gap-2 p-2"
+      suppressHydrationWarning
+    >
       <img
         src={user.picture}
         alt={user.name}
@@ -24,16 +32,17 @@ const ProfileClient = () => {
             <input
               type="text"
               name="First Name"
-              value={user.family_name}
+              value={firstName}
               className="border-2 border-gray-300 rounded-md p-2 min-w-96"
             />
           </div>
+
           <div>
             <p>Last Name</p>
             <input
               type="text"
               name="Last Name"
-              value={user.given_name}
+              value={lastName}
               className="border-2 border-gray-300 rounded-md p-2 min-w-96"
             />
           </div>
@@ -47,6 +56,7 @@ const ProfileClient = () => {
             className="border-2 border-gray-300 rounded-md p-2 min-w-50"
           />
         </div>
+
         <div className="flex flex-col gap-2">
           <p>Email</p>
           <input
@@ -56,6 +66,7 @@ const ProfileClient = () => {
             className="border-2 border-gray-300 rounded-md p-2 min-w-50"
           />
         </div>
+
         <button className="bg-blue-500 text-white p-2 rounded-md">
           Update
         </button>

@@ -1,4 +1,3 @@
-"use client";
 
 import Dashboard from "./dashboard";
 import "@/app/globals.css";
